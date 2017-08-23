@@ -1,14 +1,14 @@
-Dusk Theme for Jekyll Blog
-===============================
-
-Theme for [Jekyll](http://jekyllrb.com/) blogs, based on the [Midnight](https://github.com/mattgraham/Midnight) theme for github pages.
-
-
+---
+layout: post
+title: "Using this jekyll blog theme"
+date: 2015-07-31 02:22:13
+categories: jekyll update
+---
 Installation
 -------------
 
-If you're starting a new blog, you want to clone-and-go. Just
-`git clone git@github.com:rcrmn/jekyll-dusk-blog.git`, make any changes
+If you're starting a new blog, you want to clone-and-go:\\
+Just `git clone git@github.com:rcrmn/jekyll-dusk-blog.git`, make any changes
 you want to the template, pages or `_config.yml` and start blogging with Jekyll. Easy.
 
 
@@ -17,7 +17,7 @@ Usage
 
 The usage described here assumes that the blog will be hosted in github pages
 and that it will be a user gh-page, instead of a project gh-page. If you are
-using it for the second case, you should be careful using the rake task provided
+using<!--more--> it for the second case, you should be careful using the rake task provided
 to publish the blog since it is intended to work for a user-level gh-page.
 
 Since this blog theme uses some plug-ins not supported on github pages, the best
@@ -35,11 +35,11 @@ manually, or using the rake tasks:
 
 - To create a new content post:
 
-        rake new:post
+      rake new:post
 
 - To create a new link post:
 
-        rake new:link
+      rake new:link
 
 These tasks will ask the title of the post to be inputted, and in the case of the
 link task, it will ask for the link itself. They will create a new post in the
@@ -63,7 +63,7 @@ Features
 - Desktop and mobile responsive layouts
 - Configurable social links via _config.yml. Remove any you don't need.
 - Customized menu-bar links via config.
-- Code highlighting with `` `...` `` and liquid `{% highlight %}` tags via pygments. See example posts. [List of language tags](http://pygments.org/docs/lexers/)
+- Code highlighting with `` `...` `` and liquid `{{ "{% highlight " }}%}` tags via pygments. See example posts. [List of language tags](http://pygments.org/docs/lexers/)
 - Front-page arbitrary excerpts with tag `<!--more-->`
 
 

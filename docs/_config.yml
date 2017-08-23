@@ -1,5 +1,48 @@
-title: Midnight theme
-description: Midnight is a theme for GitHub Pages.
-show_downloads: true
-google_analytics:
-theme: jekyll-theme-midnight
+# Configurations
+markdown: kramdown
+markdown_ext:  markdown,mkdown,mkdn,mkd,md
+highlighter: pygments
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
+gems:
+  - jekyll-assets
+  - jekyll-assets/compass
+  - font-awesome-sass
+
+excerpt_separator: <!--more-->
+
+# Permalinks
+permalink: /:year/:month/:day/:title/
+paginate: 10
+
+# Setup
+title:            VR Animation Editor
+description:      An open source tool for animators using the power of Virtual Reality
+url:              'http://example.org' # The url of your site, without subpath to the blog
+baseurl:          '/jekyll-dusk-blog' # the subpath of your site, e.g. '/blog'
+                                          # or '' for a root github blog
+                                          # Note: without leading /
+
+
+# Author details
+email:            muletmiles@ufl.edu
+name:             Miles Mulet # For the copyright notice
+
+
+# Social - you should change these entries for the social sites you want
+# to share and remove the ones you don't need
+github: muletmiles           # Your github username
+
+# Navigation
+navigation:
+- text: Home
+  url: /jekyll-dusk-blog/
+- text: Archive
+  url : /jekyll-dusk-blog/archives
+- text: About
+  url: /jekyll-dusk-blog/about
+#- text: Portfolio
+#  url: http://rcrmn.nl/portfolio
+
+
+# Disqus
+disqushandler: ''
