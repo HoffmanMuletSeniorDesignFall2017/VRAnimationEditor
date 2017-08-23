@@ -18,7 +18,7 @@ paginate: 10
 title:            Your Awesome Title
 description:      A blog using a modified Midnight theme
 url:              'http://example.org' # The url of your site, without subpath to the blog
-baseurl:          '/jekyll-dusk-blog' # the subpath of your site, e.g. '/blog'
+baseurl:          '' # the subpath of your site, e.g. '/blog'
                                           # or '' for a root github blog
                                           # Note: without leading /
 
@@ -30,7 +30,7 @@ name:             Creator Name # For the copyright notice
 
 # Social - you should change these entries for the social sites you want
 # to share and remove the ones you don't need
-github: rcrmn           # Your github username
+github: muletmiles           # Your github username
 twitter: rcrmn_         # Twitter username
 stackoverflow: 672151   # Stackoverflow user id
 linkedin: rocramon      # linkedin short url name
