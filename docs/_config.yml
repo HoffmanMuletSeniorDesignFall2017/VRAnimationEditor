@@ -18,7 +18,7 @@ paginate: 10
 title:            Your Awesome Title
 description:      A blog using a modified Midnight theme
 url:              'http://example.org' # The url of your site, without subpath to the blog
-baseurl:          './' # the subpath of your site, e.g. '/blog'
+baseurl:          '' # the subpath of your site, e.g. '/blog'
                                           # or '' for a root github blog
                                           # Note: without leading /
 
