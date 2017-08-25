@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Miles Mulet</title>
+		<description>A tool for Unity for developing better animations in VR</description>
+		<link>http://example.orgsite/</link>
+		<atom:link href="http://example.orgsite//feed.xml" rel="self" type="application/rss+xml" />
+		
+			<item>
+				<title>Using this jekyll blog theme</title>
+				<description>&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;If you’re starting a new blog, you want to clone-and-go:&lt;br /&gt;
+Just &lt;code&gt;git clone git@github.com:rcrmn/jekyll-dusk-blog.git&lt;/code&gt;, make any changes
+you want to the template, pages or &lt;code&gt;_config.yml&lt;/code&gt; and start blogging with Jekyll. Easy.&lt;/p&gt;
+
+&lt;h2 id=&quot;usage&quot;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;The usage described here assumes that the blog will be hosted in github pages
+and that it will be a user gh-page, instead of a project gh-page. If you are
+using&lt;!--more--&gt; it for the second case, you should be careful using the rake task provided
+to publish the blog since it is intended to work for a user-level gh-page.&lt;/p&gt;
+
+&lt;p&gt;Since this blog theme uses some plug-ins not supported on github pages, the best
+way to publish the blog is using the rake task provided.&lt;/p&gt;
+
+&lt;p&gt;You should work on the blog itself in the &lt;code&gt;jekyll&lt;/code&gt; branch. The master branch
+will be used as the compiled site branch.&lt;/p&gt;
+
+&lt;p&gt;The first thing you should do after cloning is go to the &lt;code&gt;_config.yml&lt;/code&gt; file and
+change it to suit your site. Configuration like the blog title, your social
+networking info, or the blog navigation menu.&lt;/p&gt;
+
+&lt;p&gt;Once that is done, you should start writing content! You can create new posts
+manually, or using the rake tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;To create a new content post:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;rake new:post
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To create a new link post:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;rake new:link
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These tasks will ask the title of the post to be inputted, and in the case of the
+link task, it will ask for the link itself. They will create a new post in the
+_posts directory containing the basic information. They are quite self-explanatory.&lt;/p&gt;
+
+&lt;h2 id=&quot;deployment&quot;&gt;Deployment&lt;/h2&gt;
+
+&lt;p&gt;Once you have the blog prepared to publish, from the jekyll branch you can call
+rake to do that work for you:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;rake publish
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;will compile the site, commit it to the master branch and push it to the master
+branch at origin. This uses the flag –force, so be careful with it.&lt;/p&gt;
+
+&lt;h2 id=&quot;features&quot;&gt;Features&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Desktop and mobile responsive layouts&lt;/li&gt;
+  &lt;li&gt;Configurable social links via _config.yml. Remove any you don’t need.&lt;/li&gt;
+  &lt;li&gt;Customized menu-bar links via config.&lt;/li&gt;
+  &lt;li&gt;Code highlighting with &lt;code&gt;`...`&lt;/code&gt; and liquid &lt;code&gt;{% highlight %}&lt;/code&gt; tags via pygments. See example posts. &lt;a href=&quot;http://pygments.org/docs/lexers/&quot;&gt;List of language tags&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Front-page arbitrary excerpts with tag &lt;code&gt;&amp;lt;!--more--&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;demo&quot;&gt;Demo&lt;/h2&gt;
+&lt;p&gt;You can find a demo here: &lt;a href=&quot;http://rcrmn.github.io/jekyll-dusk-blog/&quot;&gt;http://rcrmn.github.io/jekyll-dusk-blog/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;license&quot;&gt;License&lt;/h2&gt;
+
+&lt;p&gt;MIT&lt;/p&gt;
+</description>
+				<pubDate>Thu, 30 Jul 2015 22:22:13 -0400</pubDate>
+				<link>http://example.orgsite//2015/07/30/Using-this-jekyll-blog-theme/</link>
+				<guid isPermaLink="true">http://example.orgsite//2015/07/30/Using-this-jekyll-blog-theme/</guid>
+			</item>
+		
+			<item>
+				<title>France Removes Internet Cut-Off Threat From its Anti-Piracy Law</title>
+				<description>
+</description>
+				<pubDate>Wed, 05 Jun 2013 16:33:11 -0400</pubDate>
+				<link>http://example.orgsite//2013/06/05/france-removes-internet-cut-off/</link>
+				<guid isPermaLink="true">http://example.orgsite//2013/06/05/france-removes-internet-cut-off/</guid>
+			</item>
+		
+			<item>
+				<title>Jekyll Documentation</title>
+				<description>
+</description>
+				<pubDate>Wed, 05 Jun 2013 16:03:11 -0400</pubDate>
+				<link>http://example.orgsite//2013/06/05/jekyll-documentation/</link>
+				<guid isPermaLink="true">http://example.orgsite//2013/06/05/jekyll-documentation/</guid>
+			</item>
+		
+			<item>
+				<title>Welcome to Jekyll!</title>
+				<description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory - edit this post and re-build (or run with the &lt;code&gt;-w&lt;/code&gt; switch) to see your changes!
+To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention: YYYY-MM-DD-name-of-post.ext.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &amp;#39;Hi, Tom&amp;#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/mojombo/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 05 Jun 2013 13:06:25 -0400</pubDate>
+				<link>http://example.orgsite//2013/06/05/welcome-to-jekyll/</link>
+				<guid isPermaLink="true">http://example.orgsite//2013/06/05/welcome-to-jekyll/</guid>
+			</item>
+		
+	</channel>
+</rss>

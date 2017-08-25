@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="UTF-8">
+  <title>Using this jekyll blog theme - VR Animation Editor</title>
+  <meta name="description" content="InstallationIf you’re starting a new blog, you want to clone-and-go:Just git clone git@github.com:rcrmn/jekyll-dusk-blog.git, make any changesyou want to the...">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+
+  <link rel="stylesheet" href="/site/assets/main-c09d51713e68d1db56087dca7c30bc20.css">
+
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/site/assets/slicknav.min-d3faf942ee4a440f75912bf6adabb5e2.css">
+  <script src="/site/assets/jquery.slicknav.min-e9ee519698b5594df0deb583d5d7cfae.js"></script>
+
+
+  <script>
+  $(document).ready(function(){
+    $('#menubar ul').slicknav({'label': '', 'prependTo': '#header', 'parentTag': 'li'});
+  });
+  </script>
+
+</head>
+
+<body>
+
+
+
+
+  <div class="wrapper">
+
+    <header id="header">
+	<h1><a href="site//">VR Animation Editor</a></h1>
+      <h2>A tool for Unity for developing better animations in VR</h2>
+
+      <nav id="menubar">
+        <ul>
+          
+            <li>
+              <a class="fill" href="/VRAnimationEditor/">Home</a>
+            </li>
+          
+            <li>
+              <a class="fill" href="/VRAnimationEditor/archives">Archive</a>
+            </li>
+          
+            <li>
+              <a class="fill" href="/VRAnimationEditor/about">About</a>
+            </li>
+          
+          <li>
+            
+            
+              <a class="icon" href="https://github.com/muletmiles" target="_blank"><i class="fa fa-github"></i></a>
+            
+            
+            
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="content">
+      <article class="post">
+
+	
+		<h1><a href="site//2015/07/30/Using-this-jekyll-blog-theme/">Using this jekyll blog theme</a></h1>
+	
+
+	<div class="post-content">
+		<h2 id="installation">Installation</h2>
+
+<p>If you’re starting a new blog, you want to clone-and-go:<br />
+Just <code>git clone git@github.com:rcrmn/jekyll-dusk-blog.git</code>, make any changes
+you want to the template, pages or <code>_config.yml</code> and start blogging with Jekyll. Easy.</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>The usage described here assumes that the blog will be hosted in github pages
+and that it will be a user gh-page, instead of a project gh-page. If you are
+using<!--more--> it for the second case, you should be careful using the rake task provided
+to publish the blog since it is intended to work for a user-level gh-page.</p>
+
+<p>Since this blog theme uses some plug-ins not supported on github pages, the best
+way to publish the blog is using the rake task provided.</p>
+
+<p>You should work on the blog itself in the <code>jekyll</code> branch. The master branch
+will be used as the compiled site branch.</p>
+
+<p>The first thing you should do after cloning is go to the <code>_config.yml</code> file and
+change it to suit your site. Configuration like the blog title, your social
+networking info, or the blog navigation menu.</p>
+
+<p>Once that is done, you should start writing content! You can create new posts
+manually, or using the rake tasks:</p>
+
+<ul>
+  <li>
+    <p>To create a new content post:</p>
+
+    <pre><code>rake new:post
+</code></pre>
+  </li>
+  <li>
+    <p>To create a new link post:</p>
+
+    <pre><code>rake new:link
+</code></pre>
+  </li>
+</ul>
+
+<p>These tasks will ask the title of the post to be inputted, and in the case of the
+link task, it will ask for the link itself. They will create a new post in the
+_posts directory containing the basic information. They are quite self-explanatory.</p>
+
+<h2 id="deployment">Deployment</h2>
+
+<p>Once you have the blog prepared to publish, from the jekyll branch you can call
+rake to do that work for you:</p>
+
+<pre><code>rake publish
+</code></pre>
+
+<p>will compile the site, commit it to the master branch and push it to the master
+branch at origin. This uses the flag –force, so be careful with it.</p>
+
+<h2 id="features">Features</h2>
+<ul>
+  <li>Desktop and mobile responsive layouts</li>
+  <li>Configurable social links via _config.yml. Remove any you don’t need.</li>
+  <li>Customized menu-bar links via config.</li>
+  <li>Code highlighting with <code>`...`</code> and liquid <code>{% highlight %}</code> tags via pygments. See example posts. <a href="http://pygments.org/docs/lexers/">List of language tags</a></li>
+  <li>Front-page arbitrary excerpts with tag <code>&lt;!--more--&gt;</code></li>
+</ul>
+
+<h2 id="demo">Demo</h2>
+<p>You can find a demo here: <a href="http://rcrmn.github.io/jekyll-dusk-blog/">http://rcrmn.github.io/jekyll-dusk-blog/</a></p>
+
+<h2 id="license">License</h2>
+
+<p>MIT</p>
+
+	</div>
+
+	<p class="meta">Posted on <span class="postdate">Jul 30, 2015</span></p>
+
+</article>
+
+    </section>
+
+    <footer id="footer">
+      <p class="copyright">
+        Copyright &copy; 2017 Miles Mulet. Powered by <a href="http://jekyllrb.com">Jekyll</a>.
+        <a href="https://github.com/rcrmn/jekyll-dusk-blog">Theme</a> by <a href="http://rcrmn.github.io">rcrmn</a>,
+        based on <a href="https://github.com/mattgraham/Midnight">Midnight</a>.
+      </p>
+      <p class="footer-links">
+		  <a href="site//feed.xml">Blog RSS Feed</a>
+      </p>
+    </footer>
+  </div>
+  <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+
+</body>
+</html>
