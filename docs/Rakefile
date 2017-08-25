@@ -19,6 +19,9 @@ desc "Generate and publish blog to master branch"
 task :publish => [:generate] do
   Dir.mktmpdir do |tmp|
     system "mv _site/* #{tmp}"
+    system "git add ."
+    message2 = "Hahahahahah at #{Time.now.utc}"
+    system "git commit -am #{message2.shellescape}"
     system "git checkout -B master"
     system "rm -rf *"
     system "mv #{tmp}/* ."
