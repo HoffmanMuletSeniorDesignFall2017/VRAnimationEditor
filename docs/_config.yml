@@ -39,11 +39,11 @@ github: muletmiles           # Your github username
 # Navigation
 navigation:
 - text: Home
-  url: /
+  url: /VRAnimationEditor/
 - text: Archive
-  url : /archives
+  url : /VRAnimationEditor/archives
 - text: About
-  url: /about
+  url: /VRAnimationEditor/about
 #- text: Portfolio
 #  url: http://rcrmn.nl/portfolio
 
