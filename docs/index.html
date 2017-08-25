@@ -9,16 +9,16 @@ layout: default
 		{% if post.external-url %}
 			<h1>
 				<a href="{{ post.external-url }}">{{ post.title }}</a>
-				<a class="anchor" href="{{ site.baseurl }}{{ post.url }}"><sub><i class="fa fa-link"></i></sub></a>
+				<a class="anchor" href="{{ site.baseurl | remove_first:'/' }}{{ post.url }}"><sub><i class="fa fa-link"></i></sub></a>
 			</h1>
 		{% else %}
-			<h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+			<h1><a href="{{ site.baseurl | remove_first:'/' }}{{ post.url }}">{{ post.title }}</a></h1>
 		{% endif %}
 
 		<div class="post-content">
 			{% if post.content contains site.excerpt_separator %}
 				{{ post.excerpt }}
-				<a href="{{ site.baseurl }}{{ post.url }}">read more...</a>
+				<a href="{{ site.baseurl | remove_first:'/' }}{{ post.url }}">read more...</a>
 			{% else %}
 				{% capture stripped %}{{ post.content | strip_html }}{% endcapture %}
 				{% capture short %}{{ stripped | truncatewords: 200 }}{% endcapture %}
@@ -26,7 +26,7 @@ layout: default
 					{{ post.content }}
 				{% else %}
 					{{ short }}
-					<a href="{{ site.baseurl }}{{ post.url }}">read more...</a>
+					<a href="{{ site.baseurl | remove_first:'/' }}{{ post.url }}">read more...</a>
 				{% endif %}
 			{% endif %}
 		</div>
@@ -42,9 +42,9 @@ layout: default
 
 		{% if paginator.previous_page %}
 			{% if paginator.page == 2 %}
-				<a class="prev left" href="{{ site.baseurl }}/">&larr; Newer</a>
+				<a class="prev left" href="{{ site.baseurl | remove_first:'/' }}/">&larr; Newer</a>
 			{% else %}
-				<a class="prev left" href="{{ site.baseurl }}/page{{paginator.previous_page}}/">&larr; Newer</a>
+				<a class="prev left" href="{{ site.baseurl | remove_first:'/' }}/page{{paginator.previous_page}}/">&larr; Newer</a>
 			{% endif %}
 		{% else %}
 			<span class="nope left">&larr; Newer</span>
@@ -53,7 +53,7 @@ layout: default
 		<span class="pages">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
 
 		{% if paginator.next_page %}
-			<a class="next right" href="{{ site.baseurl }}/page{{paginator.next_page}}/">Older &rarr;</a>
+			<a class="next right" href="{{ site.baseurl | remove_first:'/' }}/page{{paginator.next_page}}/">Older &rarr;</a>
 		{% else %}
 			<span class="nope right">Older &rarr;</span>
 		{% endif %}
