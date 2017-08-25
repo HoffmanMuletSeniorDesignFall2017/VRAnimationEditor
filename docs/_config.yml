@@ -15,8 +15,8 @@ permalink: /:year/:month/:day/:title/
 paginate: 10
 
 # Setup
-title:            Your Awesome Title
-description:      A blog using a modified Midnight theme
+title:            VR Animation Editor
+description:      A tool for Unity for developing better animations in VR
 url:              'http://example.org' # The url of your site, without subpath to the blog
 baseurl:          'site/' # the subpath of your site, e.g. '/blog'
                                           # or '' for a root github blog
@@ -24,28 +24,28 @@ baseurl:          'site/' # the subpath of your site, e.g. '/blog'
 
 
 # Author details
-email:            your-email@domain.com
-name:             Creator Name # For the copyright notice
+email:            muletmiles@ufl.edu
+name:             Miles Mulet # For the copyright notice
 
 
 # Social - you should change these entries for the social sites you want
 # to share and remove the ones you don't need
 github: muletmiles           # Your github username
-twitter: rcrmn_         # Twitter username
-stackoverflow: 672151   # Stackoverflow user id
-linkedin: rocramon      # linkedin short url name
+#twitter: rcrmn_         # Twitter username
+#stackoverflow: 672151   # Stackoverflow user id
+#linkedin: rocramon      # linkedin short url name
 
 
 # Navigation
 navigation:
 - text: Home
-  url: /jekyll-dusk-blog/
+  url: /
 - text: Archive
-  url : /jekyll-dusk-blog/archives
+  url : /archives
 - text: About
-  url: /jekyll-dusk-blog/about
-- text: Portfolio
-  url: http://rcrmn.nl/portfolio
+  url: /about
+#- text: Portfolio
+#  url: http://rcrmn.nl/portfolio
 
 
 # Disqus
