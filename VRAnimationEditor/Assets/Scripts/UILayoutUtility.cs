@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class UILayoutUtility : MonoBehaviour {
 
     public Rect GetContentRect(RectTransform rectTrsfm){
-        if(transform.childCount == 0){
-            return new Rect(0, 0, 0, 0);
-        }
+		if (transform.childCount == 0) {
+			return new Rect (0, 0, 0, 0);
+		} else {
+			return new Rect ();
+		}
     }
 
     private void MergeRects(ref Rect r1, ref Rect r2){
