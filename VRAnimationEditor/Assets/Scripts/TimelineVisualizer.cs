@@ -24,5 +24,11 @@ public class TimelineVisualizer : MonoBehaviour {
 			timeLine.transform.localPosition = new Vector3 (((animator.GetCurrentAnimatorStateInfo (0).normalizedTime) - Mathf.Floor (animator.GetCurrentAnimatorStateInfo (0).normalizedTime)) * bound, 
 				timeLine.transform.localPosition.y, timeLine.transform.localPosition.z);
 		}
+
+		//TODO: MOVE this code to a non-visualizer class!
+		if (animator.GetCurrentAnimatorStateInfo (0).normalizedTime > 1f) {
+			animator.Play (animator.GetCurrentAnimatorStateInfo (0).ToString, 0, 0f);
+
+		}
 	}
 }

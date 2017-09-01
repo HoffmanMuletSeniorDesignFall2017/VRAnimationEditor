@@ -25,9 +25,11 @@ public static class AnimationEditorFunctions {	//This static class is basically 
 	}
 
     public static void ForceLoop(AnimationClip animClip){
+		animClip.legacy = false;
         AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(animClip);
         settings.loopTime = true;
         // How to set loop pose?
+
         AnimationUtility.SetAnimationClipSettings(animClip, settings);
         animClip.wrapMode = WrapMode.Loop;
     }
@@ -42,7 +44,7 @@ public static class AnimationEditorFunctions {	//This static class is basically 
 			//Object.Destroy(newGo.GetComponent<Animator>());
 		}
 
-		if (newGo.GetComponent<Animation> () != null) {
+		/*if (newGo.GetComponent<Animation> () != null) {
 			newGo.GetComponent<Animation> ().clip = animClip;
 		} else {
 			newGo.AddComponent<Animation> ();
@@ -50,6 +52,7 @@ public static class AnimationEditorFunctions {	//This static class is basically 
 		}
 			
 		newGo.GetComponent<Animation> ().AddClip (animClip, "default");
+		*/
 
 		if (newGo.GetComponent<Animator> () != null) {
 			//We don't like Animator for our purposes; ergo, we get rid of it
