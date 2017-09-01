@@ -13,8 +13,6 @@ public class KeyframeWorkArea : MonoBehaviour {
 	public float bounds = 0;		//The x-axis bounds - i.e., there will be no more keyframes past this number
 	public TimelineVisualizer timelineVisualizer;	//The visualizer for the timeline
 
-	public bool noCurves = true;	//Special case where there is nothing to work with.
-
 	// Use this for initialization
 	void Start () {
 		
@@ -22,7 +20,7 @@ public class KeyframeWorkArea : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		timelineVisualizer.noCurves = noCurves;
+		
 	}
 
 	public void RefreshBounds(float newX){

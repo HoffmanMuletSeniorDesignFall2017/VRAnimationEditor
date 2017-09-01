@@ -39,11 +39,10 @@ public class AnimationVisualizer : MonoBehaviour {
 		}
 
 		animCurves_Visualizers.Clear ();
-		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().noCurves = true;
+		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().RefreshBounds (0f);
 		values.text = "";
 
 		for (int i = 0; i < AnimationUtility.GetCurveBindings (currentClip).Length; i++) {
-			keyframeWorkArea.GetComponent<KeyframeWorkArea> ().noCurves = false;
 
 			animCurves.Add (AnimationUtility.GetEditorCurve (currentClip, AnimationUtility.GetCurveBindings (currentClip) [i]));
 
