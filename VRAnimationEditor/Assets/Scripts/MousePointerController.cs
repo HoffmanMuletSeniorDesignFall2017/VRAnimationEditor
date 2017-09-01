@@ -5,6 +5,9 @@ using UnityEngine;
 // Class for mouse pointer interactions.
 // Raycasting logic is done the same as it would be for a VR pointer.
 public class MousePointerController : MonoBehaviour {
+	// Can only ever have one mouse, so make it's pointer ID always be 0.
+	private const int PointerID = 0;
+
     // Object that the mouse is over (must have collider to be detected).
     private GameObject focus;
 	
@@ -31,13 +34,17 @@ public class MousePointerController : MonoBehaviour {
                 ChangeFocus(null);
             }
         }
-        // If the mouse is clicked, click on the focus (if applicable).
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (HasPointerReciever(focus))
-            {
-                focus.GetComponent<IPointerReciever>().OnClick();
+		// If focus has a pointer receiver, check mouse buttons and send them to focus as needed.
+		if (HasPointerReciever(focus))
+		{
+			IPointerReciever pointerReciever = focus.GetComponent<IPointerReciever> ();
+	        if (Input.GetMouseButtonDown(0))
+	        {          
+				pointerReciever.OnButtonDown(PointerID, 0);
             }
+			if (Input.GetMouseButtonUp (0)) {
+				pointerReciever.OnButtonUp (PointerID, 0);
+			}
         }
 	}
 
@@ -51,12 +58,12 @@ public class MousePointerController : MonoBehaviour {
         // Tell old focus the pointer is exiting (if applicable).
         if (HasPointerReciever(focus))
         {
-            focus.GetComponent<IPointerReciever>().OnPointerExit();
+			focus.GetComponent<IPointerReciever>().OnPointerExit(PointerID);
         }
         // Tell new focus the pointer is entering (if applicable).
         if (HasPointerReciever(newFocus))
         {
-            newFocus.GetComponent<IPointerReciever>().OnPointerEnter();
+            newFocus.GetComponent<IPointerReciever>().OnPointerEnter(PointerID);
         }
         // Set the new focus.
         focus = newFocus;

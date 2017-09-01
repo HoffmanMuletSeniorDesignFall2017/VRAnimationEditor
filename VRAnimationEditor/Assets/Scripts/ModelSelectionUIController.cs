@@ -5,15 +5,16 @@ using UnityEngine;
 public class ModelSelectionUIController : MonoBehaviour {
     public GameObject modelTilePrefab;
     public AssetLogger assetLogger;
+    public Transform contentPanel;
 
 	// Use this for initialization
 	void Start () {
-        AddModelTiles();
+        InitModelTiles();
 	}
 
-    private void AddModelTiles(){
+    private void InitModelTiles(){
         for(int i = 0; i < assetLogger.models.Count; i++){
-            GameObject modelTile = Instantiate<GameObject>(modelTilePrefab, transform);
+            GameObject modelTile = Instantiate<GameObject>(modelTilePrefab, contentPanel);
             modelTile.GetComponent<ModelTileController>().modelUICtrl = this;
             modelTile.GetComponent<ModelTileController>().SetModel(assetLogger.models[i]);
             modelTile.name = "model tile " + i;

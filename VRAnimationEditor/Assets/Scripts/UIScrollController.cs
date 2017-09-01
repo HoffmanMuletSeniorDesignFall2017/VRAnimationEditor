@@ -65,10 +65,10 @@ public class UIScrollController : MonoBehaviour {
     }
 
     public void ScrollUp(){
-        SetScrollPosition(scrollPosition - scrollSpeed * Time.deltaTime);
+        SetScrollPosition(scrollPosition - scrollSpeed * Time.deltaTime / contentScrollRange);
     }
 
     public void ScrollDown(){
-        SetScrollPosition(scrollPosition + scrollSpeed * Time.deltaTime);
+        SetScrollPosition(scrollPosition + scrollSpeed * Time.deltaTime / contentScrollRange);
     }
 }
