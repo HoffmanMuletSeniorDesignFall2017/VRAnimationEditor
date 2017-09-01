@@ -25,6 +25,7 @@ public class ModelSelectionUIController : MonoBehaviour {
 
     public void SetSelectedModel(GameObject selection){
         Debug.Log("Model " + selection.name + " selected");
+        sessionManager.sessionModel = selection;
         sessionManager.OnModelSelected();
         Destroy(gameObject);
     }

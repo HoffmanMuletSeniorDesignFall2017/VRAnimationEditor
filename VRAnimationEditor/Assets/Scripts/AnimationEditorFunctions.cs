@@ -24,8 +24,16 @@ public static class AnimationEditorFunctions {	//This static class is basically 
 		return newAnimClip;
 	}
 
-	public static GameObject InstantiateWithAnimation(GameObject go, AnimationClip animClip){	//Used after the user has selected a GameObject and an AnimationClip to edit; instantiates the GameObject into the scene and sets it up appropriately.
+    public static void ForceLoop(AnimationClip animClip){
+        AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(animClip);
+        settings.loopTime = true;
+        // How to set loop pose?
+        AnimationUtility.SetAnimationClipSettings(animClip, settings);
+        animClip.wrapMode = WrapMode.Loop;
+    }
 
+	public static GameObject InstantiateWithAnimation(GameObject go, AnimationClip animClip){	//Used after the user has selected a GameObject and an AnimationClip to edit; instantiates the GameObject into the scene and sets it up appropriately.
+        ForceLoop(animClip);
 		GameObject newGo = GameObject.Instantiate (go);
 
 		if (newGo.GetComponent<Animator> () != null) {

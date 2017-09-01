@@ -25,6 +25,7 @@ public class AnimationSelectionUIController : MonoBehaviour {
 
     public void SetSelectedAnimation(AnimationClip animClip){
         Debug.Log("Animation " + animClip.name + " selected.");
+        sessionManager.sessionAnim = animClip;
         sessionManager.OnAnimationSelected();
         Destroy(gameObject);
     }
