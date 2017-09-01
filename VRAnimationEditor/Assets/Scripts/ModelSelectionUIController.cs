@@ -6,6 +6,8 @@ public class ModelSelectionUIController : MonoBehaviour {
     public GameObject modelTilePrefab;
     public AssetLogger assetLogger;
     public Transform contentPanel;
+    // Set by session manager when instantiating the UI.
+    public SessionManager sessionManager;
 
 	// Use this for initialization
 	void Start () {
@@ -23,5 +25,7 @@ public class ModelSelectionUIController : MonoBehaviour {
 
     public void SetSelectedModel(GameObject selection){
         Debug.Log("Model " + selection.name + " selected");
+        sessionManager.OnModelSelected();
+        Destroy(gameObject);
     }
 }

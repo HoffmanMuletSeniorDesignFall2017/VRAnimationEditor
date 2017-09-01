@@ -6,6 +6,7 @@ public class AnimationSelectionUIController : MonoBehaviour {
     public GameObject animationTilePrefab;
     public AssetLogger assetLogger;
     public Transform contentPanel;
+    public SessionManager sessionManager;
 
 	// Use this for initialization
 	void Start () {
@@ -24,5 +25,7 @@ public class AnimationSelectionUIController : MonoBehaviour {
 
     public void SetSelectedAnimation(AnimationClip animClip){
         Debug.Log("Animation " + animClip.name + " selected.");
+        sessionManager.OnAnimationSelected();
+        Destroy(gameObject);
     }
 }
