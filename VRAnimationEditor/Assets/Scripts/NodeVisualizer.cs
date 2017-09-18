@@ -18,7 +18,6 @@ public class NodeVisualizer : MonoBehaviour {
 			return;
 		}
 		meshRends = GetMeshRenderers (gameObject);
-		Debug.Log ("Found " + meshRends.Count + " renderers!");
 		initialMaterials = GetMaterials (meshRends);
 		if (makeTransparent) {
 			ReplaceMaterials (meshRends, transparentTemplate);
