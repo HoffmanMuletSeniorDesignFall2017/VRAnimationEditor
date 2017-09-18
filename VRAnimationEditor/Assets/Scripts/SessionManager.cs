@@ -10,6 +10,8 @@ public class SessionManager : MonoBehaviour {
     public AnimationClip sessionAnim;
     public AnimationVisualizer animVis;
 
+	public NodeVisualizer templateNodeVisualizer;
+
     void Start(){
         StartNewSession();
     }
@@ -32,5 +34,10 @@ public class SessionManager : MonoBehaviour {
     public void OnAnimationSelected(){
         GameObject objInstance =  AnimationEditorFunctions.InstantiateWithAnimation(sessionModel, sessionAnim);
         animVis.SetCurrentClipAndGameObject(sessionAnim, objInstance);
+
+		NodeVisualizer nodeVis = objInstance.AddComponent<NodeVisualizer> ();
+		nodeVis.nodeMarkerPrefab = templateNodeVisualizer.nodeMarkerPrefab;
+		nodeVis.makeTransparent = templateNodeVisualizer.makeTransparent;
+		nodeVis.transparentTemplate = templateNodeVisualizer.transparentTemplate;
     }
 }

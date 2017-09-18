@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NodeVisualizer : MonoBehaviour {
+	public bool isTemplate = false;
 	public Transform root;
 	public GameObject nodeMarkerPrefab;
 	public bool makeTransparent = true;
@@ -13,13 +14,18 @@ public class NodeVisualizer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (isTemplate) {
+			return;
+		}
 		meshRends = GetMeshRenderers (gameObject);
 		Debug.Log ("Found " + meshRends.Count + " renderers!");
 		initialMaterials = GetMaterials (meshRends);
 		if (makeTransparent) {
 			ReplaceMaterials (meshRends, transparentTemplate);
 		}
-
+		if (root == null) {
+			root = GuessRoot ();
+		}
 		SpawnNodeMarkers (root);
 	}
 	
@@ -64,5 +70,26 @@ public class NodeVisualizer : MonoBehaviour {
 			}
 			renderers[i].materials = newMatSet;
 		}
+	}
+
+	private Transform GuessRoot(){
+		Transform deepest = transform;
+		int maxLevelCount = 0;
+		for (int i = 0; i < transform.childCount; i++) {
+			int levelCount = GetLevelCount (transform.GetChild (i));
+			if (levelCount >= maxLevelCount) {
+				deepest = transform.GetChild (i);
+				maxLevelCount = levelCount;
+			}
+		}
+		return deepest;
+	}
+
+	private int GetLevelCount(Transform obj){
+		int levels = 0;
+		for (int i = 0; i < obj.childCount; i++) {
+			levels = Mathf.Max (levels, GetLevelCount (obj.GetChild (i)));
+		}
+		return levels + 1;
 	}
 }

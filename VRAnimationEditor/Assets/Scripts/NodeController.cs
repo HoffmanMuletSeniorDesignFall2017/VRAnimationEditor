@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NodeController : MonoBehaviour, IPointerReciever {
 	public GameObject[] rings, arrows;
+	private bool isSelected = false;
+	private bool hasPointerFocus = false;
 
 	void Start(){
 		SetAxisVisibility (false);
@@ -31,14 +33,22 @@ public class NodeController : MonoBehaviour, IPointerReciever {
 	}
 
 	public void OnPointerEnter(int pointerID){
+		hasPointerFocus = true;
 		SetAxisVisibility (true);
 	}
 
 	public void OnPointerExit(int pointerID){
-		SetAxisVisibility (false);
+		hasPointerFocus = false;
+		if (!isSelected) {
+			SetAxisVisibility (false);
+		}
 	}
 
 	public void OnButtonDown(int pointerID, int buttonID){
+		isSelected = !isSelected;
+		if (!hasPointerFocus) {
+			SetAxisVisibility (isSelected);
+		}
 	}
 
 	public void OnButtonUp(int pointerID, int buttonID){
