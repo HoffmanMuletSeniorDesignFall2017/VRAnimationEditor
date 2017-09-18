@@ -356,4 +356,5 @@ MonoBehaviour:
   root: {fileID: 1960583356}
   nodeMarkerPrefab: {fileID: 1101595863207438, guid: 447fc3bfbde9ecc479a5b459e3514097,
     type: 2}
+  makeTransparent: 1
   transparentTemplate: {fileID: 2100000, guid: 79b63ec74a3719f4599fda3ced45e2ed, type: 2}

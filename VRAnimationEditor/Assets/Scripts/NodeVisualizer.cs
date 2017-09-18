@@ -5,6 +5,7 @@ using UnityEngine;
 public class NodeVisualizer : MonoBehaviour {
 	public Transform root;
 	public GameObject nodeMarkerPrefab;
+	public bool makeTransparent = true;
 	public Material transparentTemplate;
 
 	private List<Material> initialMaterials;
@@ -15,7 +16,9 @@ public class NodeVisualizer : MonoBehaviour {
 		meshRends = GetMeshRenderers (gameObject);
 		Debug.Log ("Found " + meshRends.Count + " renderers!");
 		initialMaterials = GetMaterials (meshRends);
-		ReplaceMaterials (meshRends, transparentTemplate);
+		if (makeTransparent) {
+			ReplaceMaterials (meshRends, transparentTemplate);
+		}
 
 		SpawnNodeMarkers (root);
 	}
