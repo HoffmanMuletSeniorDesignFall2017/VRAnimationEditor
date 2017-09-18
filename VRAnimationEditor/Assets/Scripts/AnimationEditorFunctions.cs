@@ -55,10 +55,6 @@ public static class AnimationEditorFunctions {	//This static class is basically 
 		*/
 
 		if (newGo.GetComponent<Animator> () != null) {
-			//We don't like Animator for our purposes; ergo, we get rid of it
-			//TODO: Maybe add support for Animator??
-			//Object.Destroy(newGo.GetComponent<Animator>());
-			//newGo.AddComponent<Animator> ();
 		
 			UnityEditor.Animations.AnimatorController ac = new UnityEditor.Animations.AnimatorController ();
 			ac.AddLayer ("default");

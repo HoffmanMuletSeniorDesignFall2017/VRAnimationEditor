@@ -27,8 +27,7 @@ public class TimelineVisualizer : MonoBehaviour {
 
 		//TODO: MOVE this code to a non-visualizer class!
 		if (animator.GetCurrentAnimatorStateInfo (0).normalizedTime > 1f) {
-			animator.Play (animator.GetCurrentAnimatorStateInfo (0).ToString, 0, 0f);
-
+			animator.Play (animator.GetCurrentAnimatorStateInfo(0).shortNameHash, 0, 0f);
 		}
 	}
 }
