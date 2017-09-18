@@ -5,27 +5,17 @@ using UnityEngine;
 public class NodeVisualizer : MonoBehaviour {
 	public Transform root;
 	public GameObject nodeMarkerPrefab;
-
 	public Material transparentTemplate;
 
-	private List<List<Material>> initialMaterials;
+	private List<Material> initialMaterials;
 	private List<Renderer> meshRends;
+
 	// Use this for initialization
 	void Start () {
-		meshRends = GetMeshRenderers (root.gameObject);
-
-		initialMaterials = new List<List<Material>> ();
-		for (int i = 0; i < meshRends.Count; i++) {
-			initialMaterials.Add (new List<Material> ());
-			Material[] newMats = new Material[meshRends [i].materials.Length];
-			for (int j = 0; j < meshRends [i].materials.Length; j++) {
-				initialMaterials [i].Add (meshRends [i].materials [j]);
-				newMats [j] = transparentTemplate;
-				newMats [j].mainTexture = initialMaterials [i] [j].mainTexture;
-			}
-			meshRends [i].materials = newMats;
-			//meshRends [i].material.mainTexture = initialMaterials [i] [0].mainTexture;
-		}
+		meshRends = GetMeshRenderers (gameObject);
+		Debug.Log ("Found " + meshRends.Count + " renderers!");
+		initialMaterials = GetMaterials (meshRends);
+		ReplaceMaterials (meshRends, transparentTemplate);
 
 		SpawnNodeMarkers (root);
 	}
@@ -39,7 +29,9 @@ public class NodeVisualizer : MonoBehaviour {
 		for (int i = 0; i < obj.childCount; i++) {
 			SpawnNodeMarkers (obj.GetChild (i));
 		}
-		Instantiate (nodeMarkerPrefab, obj);
+		GameObject marker = Instantiate (nodeMarkerPrefab, obj);
+		marker.transform.localPosition = Vector3.zero;
+		marker.transform.localRotation = Quaternion.identity;
 	}
 
 	private List<Renderer> GetMeshRenderers(GameObject obj){
@@ -47,13 +39,27 @@ public class NodeVisualizer : MonoBehaviour {
 		for(int i = 0; i < obj.transform.childCount; i++){
 			renderers.AddRange(GetMeshRenderers(obj.transform.GetChild(i).gameObject));
 		}
-		if (GetComponent<Renderer> () != null) {
-			renderers.Add (GetComponent<Renderer> ());
+		if (obj.GetComponent<Renderer> () != null) {
+			renderers.Add (obj.GetComponent<Renderer> ());
 		}
 		return renderers;
 	}
+		
+	private List<Material> GetMaterials(List<Renderer> renderers){
+		List<Material> materials = new List<Material> ();
+		for (int i = 0; i < renderers.Count; i++) {
+			materials.AddRange (renderers [i].materials);
+		}
+		return materials;
+	}
 
-	private void CopyMaterials(){
-		initialMaterials = new List<List<Material>> ();
+	private void ReplaceMaterials(List<Renderer> renderers, Material replaceMat){
+		for(int i = 0; i < renderers.Count; i++){
+			Material[] newMatSet = renderers[i].materials;
+			for(int j = 0; j < newMatSet.Length; j++){
+				newMatSet[j] = replaceMat;
+			}
+			renderers[i].materials = newMatSet;
+		}
 	}
 }
