@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationCurveVisualizer : MonoBehaviour {
+public class AnimationCurveVisualizer : ScriptableObject {//MonoBehaviour {
 
 	string parameterTitle;	//The name of the parameter that this curve is for
 
