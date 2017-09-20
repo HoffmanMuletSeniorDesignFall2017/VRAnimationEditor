@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class AnimationVisualizer : MonoBehaviour {
+public class AnimationVisualizer : Visualizer {
 
 	private AnimationClip currentClip;
 	private GameObject currentGameObject;
@@ -47,7 +47,7 @@ public class AnimationVisualizer : MonoBehaviour {
 			animCurves.Add (AnimationUtility.GetEditorCurve (currentClip, AnimationUtility.GetCurveBindings (currentClip) [i]));
 
 			//Add a visualizer for each curve
-			AnimationCurveVisualizer acv = new AnimationCurveVisualizer();
+			AnimationCurveVisualizer acv = ScriptableObject.CreateInstance<AnimationCurveVisualizer>();//new AnimationCurveVisualizer();
 
 			acv.curveNumber = i;
 			acv.animCurve = animCurves [i];
