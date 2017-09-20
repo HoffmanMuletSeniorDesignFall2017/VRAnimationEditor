@@ -27,14 +27,15 @@ public class UIScrollController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.UpArrow))
+        /*if (Input.GetKey(KeyCode.UpArrow))
         {
             ScrollUp();
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
             ScrollDown();
-        }
+        }*/
+		Scroll(Input.GetAxisRaw("Scroll"));
             
 	}
 
@@ -64,11 +65,15 @@ public class UIScrollController : MonoBehaviour {
         contentRectTrsfm.localPosition = new Vector3(0, contentY, 0);
     }
 
-    public void ScrollUp(){
+	public void ScrollUp(){
         SetScrollPosition(scrollPosition - scrollSpeed * Time.deltaTime / contentScrollRange);
     }
 
     public void ScrollDown(){
         SetScrollPosition(scrollPosition + scrollSpeed * Time.deltaTime / contentScrollRange);
     }
+
+	public void Scroll(float delta){
+		SetScrollPosition (scrollPosition - delta * scrollSpeed * Time.deltaTime / contentScrollRange);
+	}
 }
