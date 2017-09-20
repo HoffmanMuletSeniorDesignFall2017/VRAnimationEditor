@@ -58,6 +58,9 @@ public class UIScrollController : MonoBehaviour {
         scrollPosition = Mathf.Clamp01(scrollPos);
         float barY = scrollBar.rect.height / 2 - scrollBarBar.rect.height / 2;
         barY -= barScrollRange * scrollPosition;
+		if (float.IsNaN (barY)) {
+			barY = 0;
+		}
         scrollBarBar.localPosition = new Vector3(0, barY, 0);
         float contentY = 0;
         //contentY += contentLayout.preferredHeight / 2 - view.rect.height / 2;
