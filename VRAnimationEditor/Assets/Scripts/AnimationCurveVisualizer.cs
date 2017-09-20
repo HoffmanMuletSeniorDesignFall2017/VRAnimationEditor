@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationCurveVisualizer : ScriptableObject {//Visualizer {//MonoBehaviour {
+public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoBehaviour {
 
 	string parameterTitle;	//The name of the parameter that this curve is for
 
@@ -14,7 +14,7 @@ public class AnimationCurveVisualizer : ScriptableObject {//Visualizer {//MonoBe
 
 	private List<GameObject> currentKeyframes;	//The current keyframes that have been instantiated 
 
-	public bool selected = false;				//Whether or not ANY of the keyframes of this animation curve are currently being selected by the user
+	//public bool selected = false;				//Whether or not ANY of the keyframes of this animation curve are currently being selected by the user
 
 	public KeyframeWorkArea keyframeWorkArea;	//The Gameobject that will become the parent of all instantiated keyframe objects; it should be controlled by another script that is keeping track of the current time of the animation
 
@@ -27,12 +27,14 @@ public class AnimationCurveVisualizer : ScriptableObject {//Visualizer {//MonoBe
 	private int selectedKeyframeIndex;
 	public Visualizer visualizerDummy;
 
+	public bool needsToRefresh = false;		//If there's new data I guess?
+
 	// Use this for initialization
 	void Start () {
 		if(currentKeyframes == null)
 			currentKeyframes = new List<GameObject> ();
 		
-		visualizerDummy = new Visualizer();
+		//visualizerDummy = new Visualizer();
 
 		//Refresh ();
 	}
@@ -65,7 +67,7 @@ public class AnimationCurveVisualizer : ScriptableObject {//Visualizer {//MonoBe
 
 			//-------Set up the MovableVisualizer component--------
 			nextKeyframe.AddComponent<MovableVisualizer> ();
-			nextKeyframe.GetComponent<MovableVisualizer> ().associatedVisualizer = visualizerDummy;
+			nextKeyframe.GetComponent<MovableVisualizer> ().associatedVisualizer = this;//visualizerDummy;
 			nextKeyframe.GetComponent<MovableVisualizer> ().constrainedToLocalX = true;
 
 			//TODO: HERE is where I think the bug is! Visualizer is not getting set correctly!
@@ -95,9 +97,11 @@ public class AnimationCurveVisualizer : ScriptableObject {//Visualizer {//MonoBe
 
 	private void HandleKeyframeMovement(){
 		//If a keyframe is selected, then it should be writing its value to the animation curve
-		if (visualizerDummy.selected) {
+		if (selected) {
 
 			//The below handles MOVEMENT
+
+			//TODO: change so we can update multiple keyframes, not just one!
 			Debug.Log("Detected a selection!");
 
 			if (selectedKeyframe == null) {
@@ -122,13 +126,26 @@ public class AnimationCurveVisualizer : ScriptableObject {//Visualizer {//MonoBe
 			Keyframe newKeyframe = animCurve[selectedKeyframeIndex];
 			Debug.Log(newKeyframe.time);
 
-			//newKeyframe.time = 
+			//Here we want to find the last keyframe time.
+			float biggestTime = 0f;
+			for (int i = 0; i < animCurve.length; i++) {
+				if (animCurve [i].time > biggestTime)
+					biggestTime = animCurve [i].time;
+			}
+
+			//TODO: Add support for moving keyframes beyond their original bounds maybe??
+
+			newKeyframe.time = adjustedPosition * biggestTime;
+			animCurve.MoveKey (selectedKeyframeIndex, newKeyframe);
 
 			selectedKeyframe.transform.localPosition = new Vector3 (adjustedPosition * keyframeWorkArea.bounds, selectedKeyframe.transform.localPosition.y, selectedKeyframe.transform.localPosition.z);
+
+			needsToRefresh = true;
 
 		} else {
 			if (selectedKeyframe != null) {
 				selectedKeyframe = null;
+				needsToRefresh = false;
 			}
 		}
 	}

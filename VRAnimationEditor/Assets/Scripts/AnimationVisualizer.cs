@@ -36,6 +36,7 @@ public class AnimationVisualizer : Visualizer {
 
 		for (int i = 0; i < animCurves_Visualizers.Count; i++) {
 			animCurves_Visualizers [i].Clear ();
+			GameObject.Destroy (animCurves_Visualizers [i].gameObject);
 		}
 
 		animCurves_Visualizers.Clear ();
@@ -47,7 +48,11 @@ public class AnimationVisualizer : Visualizer {
 			animCurves.Add (AnimationUtility.GetEditorCurve (currentClip, AnimationUtility.GetCurveBindings (currentClip) [i]));
 
 			//Add a visualizer for each curve
-			AnimationCurveVisualizer acv = ScriptableObject.CreateInstance<AnimationCurveVisualizer>();//new AnimationCurveVisualizer();
+			GameObject dummyGameObject = new GameObject();
+			dummyGameObject.AddComponent<AnimationCurveVisualizer> ();
+
+			AnimationCurveVisualizer acv = dummyGameObject.GetComponent<AnimationCurveVisualizer> ();
+			//AnimationCurveVisualizer acv = ScriptableObject.CreateInstance<AnimationCurveVisualizer>();//new AnimationCurveVisualizer();
 
 			acv.curveNumber = i;
 			acv.animCurve = animCurves [i];
@@ -99,5 +104,11 @@ public class AnimationVisualizer : Visualizer {
 		}
 
 		//-----END HACK
+		for (int i = 0; i < animCurves.Count; i++) {
+			if (animCurves_Visualizers [i].needsToRefresh) {
+				currentClip.SetCurve (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i]);
+				//RefreshCurves();
+			}
+		}
 	}
 }

@@ -38,12 +38,14 @@ public class TESTMouseControl : MonoBehaviour {
 
 		if (inTheThing) {
 			//Dragging
-			thingThatWeClicked.GetComponent<MovableVisualizer>().Move(Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(distance));
+			if(thingThatWeClicked != null)
+				thingThatWeClicked.GetComponent<MovableVisualizer>().Move(Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(distance));
 		}
 
 		if (Input.GetMouseButtonUp (0) && inTheThing) {
 			inTheThing = false;
-			thingThatWeClicked.GetComponent<MovableVisualizer> ().Deselect ();
+			if(thingThatWeClicked != null)
+				thingThatWeClicked.GetComponent<MovableVisualizer> ().Deselect ();
 		}
 	}
 }
