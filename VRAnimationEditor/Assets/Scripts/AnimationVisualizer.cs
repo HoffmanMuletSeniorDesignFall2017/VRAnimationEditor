@@ -17,6 +17,9 @@ public class AnimationVisualizer : Visualizer {
 	public TextMesh title;
 	public TextMesh values;
 	//private string valuesText;
+	private int waitFrame = 0;
+
+	private int NUM_WAIT_FRAMES = 5;	//So much hackiness
 
 	public void SetCurrentClipAndGameObject(AnimationClip animClip, GameObject go){
 		currentClip = animClip;
@@ -25,6 +28,8 @@ public class AnimationVisualizer : Visualizer {
 
 		if (keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer != null) {
 			keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.animator = currentGameObject.GetComponent<Animator> ();
+		} else {
+			Debug.LogError ("Please set up the keyframeWorkArea to have a timeline Visualizer, please!");
 		}
 
 		RefreshCurves ();
@@ -87,11 +92,12 @@ public class AnimationVisualizer : Visualizer {
 
 		if (keyframeWorkArea.GetComponent<KeyframeWorkArea> () == null) {
 			keyframeWorkArea.AddComponent<KeyframeWorkArea> ();
+
 		}
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 
 		//TODO: Get rid of this HACK
 
@@ -106,9 +112,35 @@ public class AnimationVisualizer : Visualizer {
 		//-----END HACK
 		for (int i = 0; i < animCurves.Count; i++) {
 			if (animCurves_Visualizers [i].needsToRefresh) {
-				currentClip.SetCurve (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i]);
+
+
+
+				//We have to keep track of the current time because SetCurve resets it :(
+				float currentTime = keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.GetAnimatorTime();
+
+				Debug.Log (currentTime);
+
+				StartCoroutine (UpdateAnimationCurveAndResume (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i], currentTime));
+				//currentClip.SetCurve (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i]);
+
+				//keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime (currentTime);
+
+				//keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.animator.Play (keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, currentTime);
 				//RefreshCurves();
+
 			}
 		}
+	}
+
+	IEnumerator UpdateAnimationCurveAndResume(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime){
+
+		waitFrame = (++waitFrame) % NUM_WAIT_FRAMES;
+		if (waitFrame != 0)
+			yield return null;
+
+		currentClip.SetCurve (path, type, propertyName, animCurve);
+		yield return null;
+
+		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime (resumeTime);
 	}
 }

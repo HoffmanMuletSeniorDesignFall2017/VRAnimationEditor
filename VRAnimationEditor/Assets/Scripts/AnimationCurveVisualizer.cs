@@ -102,7 +102,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			//The below handles MOVEMENT
 
 			//TODO: change so we can update multiple keyframes, not just one!
-			Debug.Log("Detected a selection!");
+			//Debug.Log("Detected a selection!");
 
 			if (selectedKeyframe == null) {
 
@@ -124,7 +124,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 				adjustedPosition = 0;
 
 			Keyframe newKeyframe = animCurve[selectedKeyframeIndex];
-			Debug.Log(newKeyframe.time);
+			//Debug.Log(newKeyframe.time);
 
 			//Here we want to find the last keyframe time.
 			float biggestTime = 0f;

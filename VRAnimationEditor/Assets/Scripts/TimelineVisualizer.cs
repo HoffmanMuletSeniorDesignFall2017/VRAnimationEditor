@@ -13,6 +13,8 @@ public class TimelineVisualizer : Visualizer {
 
 	private bool reset = false;
 
+	private float animatorTime = 0f;
+
 	// Use this for initialization
 	void Start () {
 		//TODO: Add a component that allows the visualizer to be "selected" (when it is selected, it will play the animation at this point)
@@ -28,8 +30,16 @@ public class TimelineVisualizer : Visualizer {
 	}
 	
 	// Update is called once per frame
-	void LateUpdate () {
+	void Update () {
 		if (animator != null) {
+
+			//Debug.Log (animator.GetCurrentAnimatorStateInfo (0).normalizedTime);
+			if(animator.GetCurrentAnimatorStateInfo (0).normalizedTime != 0)
+				animatorTime = animator.GetCurrentAnimatorStateInfo (0).normalizedTime;
+			Debug.Log (animatorTime);
+
+
+
 			if (!selected) {	//If the timeline visualizer is not selected, then it should simply read the info from the animator.
 				
 				timeLine.transform.localPosition = new Vector3 (((animator.GetCurrentAnimatorStateInfo (0).normalizedTime) - Mathf.Floor (animator.GetCurrentAnimatorStateInfo (0).normalizedTime)) * bound, 
@@ -39,6 +49,7 @@ public class TimelineVisualizer : Visualizer {
 				if (animator.GetCurrentAnimatorStateInfo (0).normalizedTime > 1f) {
 					animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, 0f);
 				}
+
 
 			} 
 
@@ -55,5 +66,14 @@ public class TimelineVisualizer : Visualizer {
 				timeLine.transform.localPosition = new Vector3 (adjustedPosition * bound, timeLine.transform.localPosition.y, timeLine.transform.localPosition.z);
 			}
 		}
+	}
+
+	public float GetAnimatorTime(){
+		return animatorTime;
+	}
+
+	public void ChangeTime(float newTime){
+		if (animator != null) 
+			animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, newTime);
 	}
 }
