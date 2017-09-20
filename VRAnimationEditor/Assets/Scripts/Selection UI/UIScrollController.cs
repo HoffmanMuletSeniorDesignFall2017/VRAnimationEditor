@@ -65,6 +65,9 @@ public class UIScrollController : MonoBehaviour {
         float contentY = 0;
         //contentY += contentLayout.preferredHeight / 2 - view.rect.height / 2;
         contentY += contentScrollRange * scrollPosition;
+        if(float.IsNaN(contentY)){
+            contentY = 0;
+        }
         contentRectTrsfm.localPosition = new Vector3(0, contentY, 0);
     }
 

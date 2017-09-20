@@ -89,11 +89,12 @@ public class AssetLogger : MonoBehaviour
         {
             return true;
         }
-        // If it has a MeshRenderer component, it is a model.
-        if (obj.GetComponent<MeshRenderer>() != null)
+        // If it has a MeshRenderer component, it is a model (but not when this is commented out!).
+        /*if (obj.GetComponent<MeshRenderer>() != null)
         {
             return true;
-        }
+        }*/
+
         // Check children for above componenets.
         bool isModel = false;
         // Loop through children until there are no more children, or a child is determined to
