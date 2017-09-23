@@ -6,6 +6,8 @@ public class Visualizer : MonoBehaviour {
 
 	public bool selected = false;
 
+	public bool grabbing = false;
+
 	// Use this for initialization
 	void Start () {
 		

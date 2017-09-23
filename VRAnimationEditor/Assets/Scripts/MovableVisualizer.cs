@@ -11,6 +11,8 @@ public class MovableVisualizer : MonoBehaviour {
 
 	public bool selected = false;
 
+	public bool grabbing = false;
+
 	public Visualizer associatedVisualizer;
 
 	// Use this for initialization
@@ -39,6 +41,18 @@ public class MovableVisualizer : MonoBehaviour {
 		selected = false;
 		if(associatedVisualizer != null)
 			associatedVisualizer.selected = false;
+	}
+
+	public void Grab(){
+		grabbing = true;
+		if(associatedVisualizer != null)
+			associatedVisualizer.grabbing = true;
+	}
+
+	public void DeGrab(){
+		grabbing = false;
+		if(associatedVisualizer != null)
+			associatedVisualizer.grabbing = false;
 	}
 
 	public void Move(Vector3 newPosition){

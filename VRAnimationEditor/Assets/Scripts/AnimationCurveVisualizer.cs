@@ -42,7 +42,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 		HandleKeyframeMovement ();
 	}
 
@@ -103,14 +103,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	}
 
 	private void HandleKeyframeMovement(){
-		//If a keyframe is selected, then it should be writing its value to the animation curve
+
 		if (selected) {
-
-			//The below handles MOVEMENT
-
-			//TODO: change so we can update multiple keyframes, not just one!
-			//Debug.Log("Detected a selection!");
-
 			if (selectedKeyframe == null) {
 
 				for (int i = 0; i < currentKeyframes.Count; i++) {
@@ -120,15 +114,28 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 						break;
 					}
 				}
-
+				//Here we just do the selection outline
+				selectedKeyframe.GetComponent<Outline>().enabled = true;
 			}
 
 			float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
 
 			if (adjustedPosition > 1f)
 				adjustedPosition = 1f;
-			else if (adjustedPosition < 0)
-				adjustedPosition = 0;
+			else if (adjustedPosition < 0.01f)
+				adjustedPosition = 0.01f;
+
+			selectedKeyframe.transform.localPosition = new Vector3 (adjustedPosition * keyframeWorkArea.bounds, selectedKeyframe.transform.localPosition.y, selectedKeyframe.transform.localPosition.z);
+
+		}
+
+		//If a keyframe is being grabbed, then it should be writing its value to the animation curve
+		if (grabbing) {
+
+			//The below handles MOVEMENT
+
+			//TODO: change so we can update multiple keyframes, not just one!
+			//Debug.Log("Detected a selection!");
 
 			Keyframe newKeyframe = animCurve[selectedKeyframeIndex];
 			//Debug.Log(newKeyframe.time);
@@ -142,16 +149,13 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 			//TODO: Add support for moving keyframes beyond their original bounds maybe??
 
+			float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
+
 			newKeyframe.time = adjustedPosition * biggestTime;
 			animCurve.MoveKey (selectedKeyframeIndex, newKeyframe);
 
-			selectedKeyframe.transform.localPosition = new Vector3 (adjustedPosition * keyframeWorkArea.bounds, selectedKeyframe.transform.localPosition.y, selectedKeyframe.transform.localPosition.z);
-
 			//hasChanged = true;
 			needsToRefresh = true;
-
-			//Here we just do the selection outline
-			selectedKeyframe.GetComponent<Outline>().enabled = true;
 
 		} else {
 			/*if (hasChanged) {
@@ -164,6 +168,9 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 				selectedKeyframe = null;
 				needsToRefresh = false;
 			}
+		}
+
+		if (!selected) {
 			for (int i = 0; i < currentKeyframes.Count; i++) {
 				currentKeyframes[i].GetComponent<Outline>().enabled = false;
 			}

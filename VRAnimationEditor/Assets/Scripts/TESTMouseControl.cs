@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TESTMouseControl : MonoBehaviour {
 
-	private bool inTheThing = false;
+	private bool grabbing = false;
 	private float distance = 0f;
 	Transform thingThatWeClicked;
+
+	bool haveSelection = false;
 
 	// Use this for initialization
 	void Start () {
@@ -22,30 +24,63 @@ public class TESTMouseControl : MonoBehaviour {
 			Debug.DrawRay (Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0f), Camera.main.ScreenPointToRay (Input.mousePosition).direction*1500f);
 
 
-			if (Physics.Raycast (Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo, 1500f)) {
+			if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo, 1500f)) {
 
 				//Debug.Log ("Hit something!");
 
 				if (hitInfo.transform.GetComponent<MovableVisualizer> () != null) {
+					
 					//Debug.Log ("About to select!");
+					if (thingThatWeClicked != null) {
+						if (thingThatWeClicked != hitInfo.transform) {
+							thingThatWeClicked.GetComponent<MovableVisualizer> ().DeGrab ();
+							thingThatWeClicked.GetComponent<MovableVisualizer> ().Deselect ();
+							haveSelection = false;
+						}
+					}
+
 					hitInfo.transform.GetComponent<MovableVisualizer> ().Select ();
-					inTheThing = true;
+
 					thingThatWeClicked = hitInfo.transform;
 					distance = hitInfo.distance;
+					grabbing = false;
+
+					if (haveSelection == true) {
+						hitInfo.transform.GetComponent<MovableVisualizer> ().Grab ();
+						grabbing = true;	//We are grabbing
+					}
+
+					haveSelection = true;
+				} else {
+					haveSelection = false;
+					if (thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> () != null) {
+						thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> ().DeGrab ();
+						thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> ().Deselect ();
+					}
+				}
+			} else {
+				haveSelection = false;
+				if (thingThatWeClicked != null) {
+					
+					if (thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> () != null) {
+						thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> ().DeGrab ();
+						thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> ().Deselect ();
+					}
 				}
 			}
 		}
 
-		if (inTheThing) {
+		if (grabbing) {
 			//Dragging
-			if(thingThatWeClicked != null)
-				thingThatWeClicked.GetComponent<MovableVisualizer>().Move(Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(distance));
+			if (thingThatWeClicked != null) {
+				thingThatWeClicked.GetComponent<MovableVisualizer> ().Move (Camera.main.ScreenPointToRay (Input.mousePosition).GetPoint (distance));
+			}
 		}
 
-		if (Input.GetMouseButtonUp (0) && inTheThing) {
-			inTheThing = false;
+		if (Input.GetMouseButtonUp (0) && grabbing) {
+			grabbing = false;
 			if(thingThatWeClicked != null)
-				thingThatWeClicked.GetComponent<MovableVisualizer> ().Deselect ();
+				thingThatWeClicked.GetComponent<MovableVisualizer> ().DeGrab ();
 		}
 	}
 }

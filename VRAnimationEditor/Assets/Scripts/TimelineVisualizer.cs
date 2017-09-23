@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using cakeslice;
 
 public class TimelineVisualizer : Visualizer {
 	//Used to control the visualization of animation time
@@ -11,7 +12,7 @@ public class TimelineVisualizer : Visualizer {
 
 	public float bound = 0f;		//The value for the local position x bound of the timeline cursor (i.e., once it reaches the end, the animation is finished)
 
-	private bool reset = false;
+	//private bool reset = false;
 
 	private float animatorTime = 0f;
 
@@ -34,11 +35,14 @@ public class TimelineVisualizer : Visualizer {
 		timeLine.GetComponent<MovableVisualizer> ().constrainedToLocalX = true;
 		timeLine.GetComponent<MovableVisualizer> ().associatedVisualizer = this;
 
+		timeLine.AddComponent<Outline> ();
+		timeLine.GetComponent<Outline> ().enabled = false;
+
 		//overrideController = new AnimatorOverrideController ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 		if (animator != null) {
 
 			//Debug.Log (animator.GetCurrentAnimatorStateInfo (0).normalizedTime);
@@ -48,7 +52,7 @@ public class TimelineVisualizer : Visualizer {
 
 
 
-			if (!selected) {	//If the timeline visualizer is not selected, then it should simply read the info from the animator.
+			if (!grabbing) {	//If the timeline visualizer is not selected, then it should simply read the info from the animator.
 				
 				timeLine.transform.localPosition = new Vector3 (((animator.GetCurrentAnimatorStateInfo (0).normalizedTime) - Mathf.Floor (animator.GetCurrentAnimatorStateInfo (0).normalizedTime)) * bound, 
 					timeLine.transform.localPosition.y, timeLine.transform.localPosition.z);
@@ -58,12 +62,12 @@ public class TimelineVisualizer : Visualizer {
 					animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, 0f);
 				}
 
-
+				timeLine.GetComponent<Outline> ().enabled = false;
 
 			} 
 
 			else {	//If the timeline visualizer IS selected, then that means the user is scrubbing! So, we have to set the animator time to the appropriate position of the visualizer.
-
+				
 				float adjustedPosition = timeLine.transform.localPosition.x / bound;
 				if (adjustedPosition > 1f)
 					adjustedPosition = 1f;
@@ -73,6 +77,10 @@ public class TimelineVisualizer : Visualizer {
 				animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, adjustedPosition);
 
 				timeLine.transform.localPosition = new Vector3 (adjustedPosition * bound, timeLine.transform.localPosition.y, timeLine.transform.localPosition.z);
+			}
+
+			if (selected) {
+				timeLine.GetComponent<Outline> ().enabled = true;
 			}
 		}
 	}
@@ -105,7 +113,7 @@ public class TimelineVisualizer : Visualizer {
 
 			// Push back state
 			for (int i = 0; i < anim.layerCount; i++) {
-				anim.Play (layerInfo [i].nameHash, i, layerInfo [i].normalizedTime);
+				anim.Play (layerInfo [i].fullPathHash, i, layerInfo [i].normalizedTime);
 			}
 
 			currentClipName = clip.name;
