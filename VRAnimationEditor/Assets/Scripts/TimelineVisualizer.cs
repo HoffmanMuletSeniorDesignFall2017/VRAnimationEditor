@@ -15,6 +15,13 @@ public class TimelineVisualizer : Visualizer {
 
 	private float animatorTime = 0f;
 
+	private string currentClipName = "Test";
+
+	private bool doneInitialSwitch = false;
+
+	//private AnimatorOverrideController overrideController;
+	private RuntimeAnimatorController originalController;
+
 	// Use this for initialization
 	void Start () {
 		//TODO: Add a component that allows the visualizer to be "selected" (when it is selected, it will play the animation at this point)
@@ -27,6 +34,7 @@ public class TimelineVisualizer : Visualizer {
 		timeLine.GetComponent<MovableVisualizer> ().constrainedToLocalX = true;
 		timeLine.GetComponent<MovableVisualizer> ().associatedVisualizer = this;
 
+		//overrideController = new AnimatorOverrideController ();
 	}
 	
 	// Update is called once per frame
@@ -36,7 +44,7 @@ public class TimelineVisualizer : Visualizer {
 			//Debug.Log (animator.GetCurrentAnimatorStateInfo (0).normalizedTime);
 			if(animator.GetCurrentAnimatorStateInfo (0).normalizedTime != 0)
 				animatorTime = animator.GetCurrentAnimatorStateInfo (0).normalizedTime;
-			Debug.Log (animatorTime);
+			//Debug.Log (animatorTime);
 
 
 
@@ -49,6 +57,7 @@ public class TimelineVisualizer : Visualizer {
 				if (animator.GetCurrentAnimatorStateInfo (0).normalizedTime > 1f) {
 					animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, 0f);
 				}
+
 
 
 			} 
@@ -70,6 +79,62 @@ public class TimelineVisualizer : Visualizer {
 
 	public float GetAnimatorTime(){
 		return animatorTime;
+	}
+
+	public void ChangeClip(AnimationClip clip ){
+		if (!doneInitialSwitch) {
+			//Animator anim = GetComponent<Animator>(); 
+			Animator anim = animator;
+			//AnimatorOverrideController overrideController = 
+				//new AnimatorOverrideController ();
+			originalController = anim.runtimeAnimatorController;
+
+			AnimatorStateInfo[] layerInfo = new AnimatorStateInfo[anim.layerCount];
+			for (int i = 0; i < anim.layerCount; i++) {
+				layerInfo [i] = anim.GetCurrentAnimatorStateInfo (i);
+			}
+
+			AnimatorOverrideController overrideController = new AnimatorOverrideController (anim.runtimeAnimatorController);
+
+			//overrideController.runtimeAnimatorController = anim.runtimeAnimatorController;
+			overrideController [currentClipName] = clip;
+			anim.runtimeAnimatorController = overrideController;
+
+			// Force an update
+			anim.Update (0.0f);
+
+			// Push back state
+			for (int i = 0; i < anim.layerCount; i++) {
+				anim.Play (layerInfo [i].nameHash, i, layerInfo [i].normalizedTime);
+			}
+
+			currentClipName = clip.name;
+			//doneInitialSwitch = true;
+		}/* else {
+			Animator anim = animator;
+
+			AnimatorStateInfo[] layerInfo = new AnimatorStateInfo[anim.layerCount];
+			for (int i = 0; i < anim.layerCount; i++) {
+				layerInfo [i] = anim.GetCurrentAnimatorStateInfo (i);
+			}
+
+
+
+			//overrideController.runtimeAnimatorController = originalController;
+			//((AnimatorOverrideController) anim.runtimeAnimatorController) [currentClipName] = clip;
+			overrideController[currentClipName] = clip;
+			//anim.runtimeAnimatorController = overrideController;
+
+			// Force an update
+			anim.Update (0.0f);
+
+			// Push back state
+			for (int i = 0; i < anim.layerCount; i++) {
+				anim.Play (layerInfo [i].nameHash, i, layerInfo [i].normalizedTime);
+			}
+
+			currentClipName = clip.name;
+		}*/
 	}
 
 	public void ChangeTime(float newTime){

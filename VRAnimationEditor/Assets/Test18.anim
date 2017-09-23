@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Test16
+  m_Name: Test18
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -24,22 +24,28 @@ AnimationClip:
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.2490349
-        value: {x: -1, y: 1.317085, z: 0}
-        inSlope: {x: -3, y: -0.70348614, z: 0}
-        outSlope: {x: -3, y: -0.70348614, z: 0}
+        time: 0.8468313
+        value: {x: -0.74774814, y: 1.6139781, z: 0}
+        inSlope: {x: -3.9987693, y: -0.7324046, z: 0}
+        outSlope: {x: -3.9987693, y: -0.7324046, z: 0}
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.3677464
-        value: {x: -1.3477643, y: 1.2366235, z: 0}
-        inSlope: {x: -2.8591547, y: -0.64857197, z: 0}
-        outSlope: {x: -2.8591547, y: -0.64857197, z: 0}
+        time: 0.9185591
+        value: {x: -1, y: 1.5609456, z: 0}
+        inSlope: {x: -3, y: -0.7450257, z: 0}
+        outSlope: {x: -3, y: -0.7450257, z: 0}
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.3037701
+        value: {x: -2.0566626, y: 1.27918, z: 0}
+        inSlope: {x: -2.49246, y: -0.6807928, z: 0}
+        outSlope: {x: -2.49246, y: -0.6807928, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 2
-        value: {x: -2.922271, y: 1, z: 0}
-        inSlope: {x: -2.1263185, y: 0, z: 0}
-        outSlope: {x: -2.1263185, y: 0, z: 0}
+        value: {x: -3.4989166, y: 1, z: 0}
+        inSlope: {x: -1.6711941, y: 0, z: 0}
+        outSlope: {x: -1.6711941, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 4
@@ -100,22 +106,28 @@ AnimationClip:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.2490349
+        time: 0.8468313
+        value: -0.74774814
+        inSlope: -3.9987693
+        outSlope: -3.9987693
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.9185591
         value: -1
         inSlope: -3
         outSlope: -3
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.3677464
-        value: -1.3477643
-        inSlope: -2.8591547
-        outSlope: -2.8591547
+        time: 1.3037701
+        value: -2.0566626
+        inSlope: -2.49246
+        outSlope: -2.49246
         tangentMode: 0
       - serializedVersion: 2
         time: 2
-        value: -2.922271
-        inSlope: -2.1263185
-        outSlope: -2.1263185
+        value: -3.4989166
+        inSlope: -1.6711941
+        outSlope: -1.6711941
         tangentMode: 0
       - serializedVersion: 2
         time: 4
@@ -140,16 +152,22 @@ AnimationClip:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.2490349
-        value: 1.317085
-        inSlope: -0.70348614
-        outSlope: -0.70348614
+        time: 0.8468313
+        value: 1.6139781
+        inSlope: -0.7324046
+        outSlope: -0.7324046
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.3677464
-        value: 1.2366235
-        inSlope: -0.64857197
-        outSlope: -0.64857197
+        time: 0.9185591
+        value: 1.5609456
+        inSlope: -0.7450257
+        outSlope: -0.7450257
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.3037701
+        value: 1.27918
+        inSlope: -0.6807928
+        outSlope: -0.6807928
         tangentMode: 0
       - serializedVersion: 2
         time: 2
@@ -180,13 +198,19 @@ AnimationClip:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.2490349
+        time: 0.8468313
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.3677464
+        time: 0.9185591
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.3037701
         value: 0
         inSlope: 0
         outSlope: 0

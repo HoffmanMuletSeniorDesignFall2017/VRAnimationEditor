@@ -118,7 +118,7 @@ public class AnimationVisualizer : Visualizer {
 				//We have to keep track of the current time because SetCurve resets it :(
 				float currentTime = keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.GetAnimatorTime();
 
-				Debug.Log (currentTime);
+				//Debug.Log (currentTime);
 
 				StartCoroutine (UpdateAnimationCurveAndResume (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i], currentTime));
 				//currentClip.SetCurve (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i]);
@@ -134,13 +134,27 @@ public class AnimationVisualizer : Visualizer {
 
 	IEnumerator UpdateAnimationCurveAndResume(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime){
 
-		waitFrame = (++waitFrame) % NUM_WAIT_FRAMES;
+		/*waitFrame = (++waitFrame) % NUM_WAIT_FRAMES;
 		if (waitFrame != 0)
 			yield return null;
+		*/
+		AnimationClip newClip = new AnimationClip ();
+		newClip.name = "Test";
 
-		currentClip.SetCurve (path, type, propertyName, animCurve);
+		//Perform a deep copy
+		for (int i = 0; i < AnimationUtility.GetCurveBindings (currentClip).Length; i++) {
+			newClip.SetCurve (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, AnimationUtility.GetEditorCurve (currentClip, AnimationUtility.GetCurveBindings (currentClip) [i]));
+		}
+
+		newClip.SetCurve (path, type, propertyName, animCurve);
+		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeClip (newClip);
+		//currentClip.SetCurve (path, type, propertyName, animCurve);
+		//yield return new WaitForEndOfFrame ();
 		yield return null;
 
-		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime (resumeTime);
+		currentClip = newClip;
+
+		//keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime (resumeTime);
+		yield return null;
 	}
 }

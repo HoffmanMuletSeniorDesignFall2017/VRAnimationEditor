@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e03e94d10d19cc4d9ad5f3a6e185a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selected: 0
   timeLine: {fileID: 65069788}
   animator: {fileID: 0}
   bound: 1
@@ -253,20 +254,6 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_FalloffTable:
-    m_Table[0]: 0
-    m_Table[1]: 0
-    m_Table[2]: 0
-    m_Table[3]: 0
-    m_Table[4]: 0
-    m_Table[5]: 0
-    m_Table[6]: 0
-    m_Table[7]: 0
-    m_Table[8]: 0
-    m_Table[9]: 0
-    m_Table[10]: 0
-    m_Table[11]: 0
-    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -470,6 +457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1198630436}
   - component: {fileID: 1198630435}
+  - component: {fileID: 1198630437}
   m_Layer: 0
   m_Name: Test
   m_TagString: Untagged
@@ -504,6 +492,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1198630437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1198630434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c957bb8b0661644a4da1da2ac6ed81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1248164767
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8480fb8a29776fa4c9c7627c990cfee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selected: 0
   keyframeWorkArea: {fileID: 1696627238}
   keyframeObject: {fileID: 1572063257111640, guid: 4c1f762d7b4b30740830e56107618a32,
     type: 2}
@@ -719,7 +719,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1359261528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 10.9, y: 1, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

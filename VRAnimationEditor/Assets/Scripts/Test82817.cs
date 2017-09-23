@@ -17,7 +17,8 @@ public class Test82817 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.KeypadEnter)) {
-			animClip = AnimationEditorFunctions.CreateNewAnimation (string.Concat("Test", System.DateTime.Now.Minute.ToString()));
+			//animClip = AnimationEditorFunctions.CreateNewAnimation (string.Concat("Test", System.DateTime.Now.Minute.ToString()));
+			animClip = AnimationEditorFunctions.CreateNewAnimation ("Test");
 			GameObject go = AnimationEditorFunctions.InstantiateWithAnimation (testPrefab, animClip);
 			animVisual.SetCurrentClipAndGameObject (animClip, go);
 

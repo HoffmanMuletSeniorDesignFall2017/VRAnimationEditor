@@ -27,6 +27,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	private int selectedKeyframeIndex;
 	public Visualizer visualizerDummy;
 
+	public bool hasChanged = false;
 	public bool needsToRefresh = false;		//If there's new data I guess?
 
 	// Use this for initialization
@@ -140,9 +141,16 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 			selectedKeyframe.transform.localPosition = new Vector3 (adjustedPosition * keyframeWorkArea.bounds, selectedKeyframe.transform.localPosition.y, selectedKeyframe.transform.localPosition.z);
 
+			//hasChanged = true;
 			needsToRefresh = true;
 
 		} else {
+			/*if (hasChanged) {
+				needsToRefresh = true;
+				hasChanged = false;
+			} else {
+				needsToRefresh = false;
+			}*/
 			if (selectedKeyframe != null) {
 				selectedKeyframe = null;
 				needsToRefresh = false;
