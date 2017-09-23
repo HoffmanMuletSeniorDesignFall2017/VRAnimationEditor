@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovableVisualizer : MonoBehaviour {
+public class MovableVisualizer : Visualizer {
 
 	//If this component is added to a GameObject then that GameObject can be selected and moved by the user
 	//NOTE: This script must be on an object with another actual visualizer already on it
 
 	public bool constrainedToLocalX = false;
 
-	public bool selected = false;
-
-	public bool grabbing = false;
+	bool shouldDelete = false;
 
 	public Visualizer associatedVisualizer;
 
@@ -53,6 +51,12 @@ public class MovableVisualizer : MonoBehaviour {
 		grabbing = false;
 		if(associatedVisualizer != null)
 			associatedVisualizer.grabbing = false;
+	}
+
+	public void Delete(){
+		shouldDelete = true;
+		if(associatedVisualizer != null)
+			associatedVisualizer.childNeedsDeletion = true;
 	}
 
 	public void Move(Vector3 newPosition){

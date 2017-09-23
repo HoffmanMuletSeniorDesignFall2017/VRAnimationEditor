@@ -8,6 +8,8 @@ public class Visualizer : MonoBehaviour {
 
 	public bool grabbing = false;
 
+	public bool childNeedsDeletion = false;
+
 	// Use this for initialization
 	void Start () {
 		

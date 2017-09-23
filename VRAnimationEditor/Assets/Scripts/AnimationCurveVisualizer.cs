@@ -115,7 +115,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 					}
 				}
 				//Here we just do the selection outline
-				selectedKeyframe.GetComponent<Outline>().enabled = true;
+				selectedKeyframe.GetComponent<Outline> ().enabled = true;
 			}
 
 			float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
@@ -127,6 +127,23 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 			selectedKeyframe.transform.localPosition = new Vector3 (adjustedPosition * keyframeWorkArea.bounds, selectedKeyframe.transform.localPosition.y, selectedKeyframe.transform.localPosition.z);
 
+			if (childNeedsDeletion) {
+				//Delete the selected keyframe
+				animCurve.RemoveKey (selectedKeyframeIndex);
+
+				currentKeyframes.Remove (selectedKeyframe);
+				GameObject.Destroy (selectedKeyframe);
+
+				selected = false;
+				grabbing = false;
+				childNeedsDeletion = false;
+
+				needsToRefresh = true;
+
+				return;
+			}
+		} else {
+			//needsToRefresh = false;
 		}
 
 		//If a keyframe is being grabbed, then it should be writing its value to the animation curve
@@ -166,8 +183,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			}*/
 			if (selectedKeyframe != null) {
 				selectedKeyframe = null;
-				needsToRefresh = false;
 			}
+			needsToRefresh = false;
 		}
 
 		if (!selected) {

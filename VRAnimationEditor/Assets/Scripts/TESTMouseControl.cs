@@ -82,5 +82,11 @@ public class TESTMouseControl : MonoBehaviour {
 			if(thingThatWeClicked != null)
 				thingThatWeClicked.GetComponent<MovableVisualizer> ().DeGrab ();
 		}
+
+		if (Input.GetKeyDown (KeyCode.Keypad7) && haveSelection) {
+			if (thingThatWeClicked != null) {
+				thingThatWeClicked.GetComponent<MovableVisualizer> ().Delete ();
+			}
+		}
 	}
 }
