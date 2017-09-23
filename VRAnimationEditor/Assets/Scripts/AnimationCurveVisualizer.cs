@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using cakeslice;
 
 public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoBehaviour {
 
@@ -71,9 +72,14 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			nextKeyframe.GetComponent<MovableVisualizer> ().associatedVisualizer = this;//visualizerDummy;
 			nextKeyframe.GetComponent<MovableVisualizer> ().constrainedToLocalX = true;
 
-			//TODO: HERE is where I think the bug is! Visualizer is not getting set correctly!
-
 			//-------End set up the MovableVisualizer component--------
+
+			//-------Set up the Outline component--------
+
+			nextKeyframe.AddComponent<Outline> ();
+			nextKeyframe.GetComponent<Outline> ().enabled = false;
+
+			//-------End set up the Outline component--------
 
 			nextKeyframe.transform.localPosition = new Vector3(animCurve.keys[i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT,  -curveNumber * keyframeWorkArea.verticalZoom * Y_OFFSET_CONSTANT, 0);	//Set it at the appropriate position based on its time and the current KeyframeWorkArea configurations
 			currentKeyframes.Add(nextKeyframe);	//Add this to the list so we can keep track of it
@@ -144,6 +150,9 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			//hasChanged = true;
 			needsToRefresh = true;
 
+			//Here we just do the selection outline
+			selectedKeyframe.GetComponent<Outline>().enabled = true;
+
 		} else {
 			/*if (hasChanged) {
 				needsToRefresh = true;
@@ -154,6 +163,9 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			if (selectedKeyframe != null) {
 				selectedKeyframe = null;
 				needsToRefresh = false;
+			}
+			for (int i = 0; i < currentKeyframes.Count; i++) {
+				currentKeyframes[i].GetComponent<Outline>().enabled = false;
 			}
 		}
 	}
