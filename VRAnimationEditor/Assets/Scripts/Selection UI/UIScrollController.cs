@@ -27,14 +27,6 @@ public class UIScrollController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        /*if (Input.GetKey(KeyCode.UpArrow))
-        {
-            ScrollUp();
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            ScrollDown();
-        }*/
 		Scroll(Input.GetAxisRaw("Scroll"));
             
 	}
