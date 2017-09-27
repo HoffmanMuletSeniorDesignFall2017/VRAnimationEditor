@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using cakeslice;
 
 public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoBehaviour {
@@ -31,6 +32,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	public bool hasChanged = false;
 	public bool needsToRefresh = false;		//If there's new data I guess?
 
+	public GameObject valueVisualizer;
+
 	// Use this for initialization
 	void Start () {
 		if(currentKeyframes == null)
@@ -39,6 +42,17 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		//visualizerDummy = new Visualizer();
 
 		//Refresh ();
+
+		valueVisualizer = new GameObject();
+		valueVisualizer.transform.position = keyframeWorkArea.valueVisualizerCoordinates;
+
+		if (valueVisualizer.GetComponent<ValueVisualizer> () == null) {
+			valueVisualizer.AddComponent<ValueVisualizer> ();
+		}
+			
+		valueVisualizer.GetComponent<ValueVisualizer> ().associatedVisualizer = this;
+
+		valueVisualizer.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -76,8 +90,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 			//-------Set up the Outline component--------
 
-			nextKeyframe.AddComponent<Outline> ();
-			nextKeyframe.GetComponent<Outline> ().enabled = false;
+			nextKeyframe.AddComponent<cakeslice.Outline> ();
+			nextKeyframe.GetComponent<cakeslice.Outline> ().enabled = false;
 
 			//-------End set up the Outline component--------
 
@@ -105,6 +119,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	private void HandleKeyframeMovement(){
 
 		if (selected) {
+			valueVisualizer.SetActive (true);
+			/*
 			if (selectedKeyframe == null) {
 				
 				for (int i = 0; i < currentKeyframes.Count; i++) {
@@ -115,8 +131,23 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 					}
 				}
 				//Here we just do the selection outline
-				selectedKeyframe.GetComponent<Outline> ().enabled = true;
+				selectedKeyframe.GetComponent<cakeslice.Outline> ().enabled = true;
 			}
+*/
+			for (int i = 0; i < currentKeyframes.Count; i++) {
+				currentKeyframes[i].GetComponent<cakeslice.Outline>().enabled = false;
+			}
+
+			for (int i = 0; i < currentKeyframes.Count; i++) {
+				if (currentKeyframes [i].GetComponent<MovableVisualizer> ().selected) {
+					selectedKeyframe = currentKeyframes [i];
+					selectedKeyframeIndex = i;
+					break;
+				}
+			}
+			//Here we just do the selection outline
+			selectedKeyframe.GetComponent<cakeslice.Outline> ().enabled = true;
+
 
 			float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
 
@@ -126,6 +157,10 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 				adjustedPosition = 0.01f;
 
 			selectedKeyframe.transform.localPosition = new Vector3 (adjustedPosition * keyframeWorkArea.bounds, selectedKeyframe.transform.localPosition.y, selectedKeyframe.transform.localPosition.z);
+
+			valueVisualizer.GetComponent<ValueVisualizer>().UpdateText (animCurve [selectedKeyframeIndex].value);
+
+			valueVisualizer.SetActive (true);
 
 			if (childNeedsDeletion) {
 				//Delete the selected keyframe
@@ -144,6 +179,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			}
 		} else {
 			//needsToRefresh = false;
+			valueVisualizer.SetActive (false);
 		}
 
 		//If a keyframe is being grabbed, then it should be writing its value to the animation curve
@@ -189,7 +225,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 		if (!selected) {
 			for (int i = 0; i < currentKeyframes.Count; i++) {
-				currentKeyframes[i].GetComponent<Outline>().enabled = false;
+				currentKeyframes[i].GetComponent<cakeslice.Outline>().enabled = false;
 			}
 		}
 	}
@@ -211,5 +247,14 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		needsToRefresh = true;
 
 		Refresh ();
+	}
+
+	public void EditSelectedKeyframeValue(float newValue){
+		Keyframe newKeyframe = animCurve [selectedKeyframeIndex];
+
+		newKeyframe.value = newValue;
+		animCurve.MoveKey (selectedKeyframeIndex, newKeyframe);
+
+		needsToRefresh = true;
 	}
 }

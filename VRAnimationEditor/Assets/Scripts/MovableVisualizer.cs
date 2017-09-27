@@ -11,7 +11,7 @@ public class MovableVisualizer : Visualizer {
 
 	bool shouldDelete = false;
 
-	public Visualizer associatedVisualizer;
+	//public Visualizer associatedVisualizer;
 
 	// Use this for initialization
 	void Start () {

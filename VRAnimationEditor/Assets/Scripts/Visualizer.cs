@@ -10,6 +10,8 @@ public class Visualizer : MonoBehaviour {
 
 	public bool childNeedsDeletion = false;
 
+	public Visualizer associatedVisualizer;
+
 	// Use this for initialization
 	void Start () {
 		

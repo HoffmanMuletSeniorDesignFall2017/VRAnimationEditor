@@ -53,7 +53,10 @@ public class TESTMouseControl : MonoBehaviour {
 					}
 
 					haveSelection = true;
-				} else {
+				} else if (hitInfo.transform.GetComponent<ValueVisualizer> () != null) {
+					hitInfo.transform.GetComponent<ValueVisualizer> ().IncrementValue ();
+				}
+				else {
 					haveSelection = false;
 					if (thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> () != null) {
 						thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> ().DeGrab ();
@@ -94,5 +97,18 @@ public class TESTMouseControl : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Keypad8)) {
 			animVis.GetLastAnimCurveVisualizer ().AddKeyframe ();
 		}
+
+		if (Input.GetMouseButtonDown (1)) {
+			RaycastHit hitInfo;
+		
+			if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo, 1500f)) {
+
+				if (hitInfo.transform.GetComponent<ValueVisualizer> () != null) {
+					hitInfo.transform.GetComponent<ValueVisualizer> ().DecrementValue ();
+				}
+				
+			} 
+		}
+
 	}
 }
