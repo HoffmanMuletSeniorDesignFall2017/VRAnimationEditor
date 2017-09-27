@@ -14,6 +14,7 @@ public class KeyframeWorkArea : MonoBehaviour {
 	public TimelineVisualizer timelineVisualizer;	//The visualizer for the timeline
 
 	public Vector3 valueVisualizerCoordinates;
+	public Vector3 valueVisualizerScale = new Vector3(1,1,1);
 
 	// Use this for initialization
 	void Start () {

@@ -45,6 +45,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 		valueVisualizer = new GameObject();
 		valueVisualizer.transform.position = keyframeWorkArea.valueVisualizerCoordinates;
+		valueVisualizer.transform.localScale = keyframeWorkArea.valueVisualizerScale;
 
 		if (valueVisualizer.GetComponent<ValueVisualizer> () == null) {
 			valueVisualizer.AddComponent<ValueVisualizer> ();

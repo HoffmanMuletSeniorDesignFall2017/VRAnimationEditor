@@ -58,9 +58,11 @@ public class TESTMouseControl : MonoBehaviour {
 				}
 				else {
 					haveSelection = false;
-					if (thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> () != null) {
-						thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> ().DeGrab ();
-						thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> ().Deselect ();
+					if (thingThatWeClicked != null) {
+						if (thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> () != null) {
+							thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> ().DeGrab ();
+							thingThatWeClicked.gameObject.GetComponent<MovableVisualizer> ().Deselect ();
+						}
 					}
 				}
 			} else {
@@ -95,7 +97,8 @@ public class TESTMouseControl : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown (KeyCode.Keypad8)) {
-			animVis.GetLastAnimCurveVisualizer ().AddKeyframe ();
+			if(animVis.GetLastAnimCurveVisualizer() != null)
+				animVis.GetLastAnimCurveVisualizer ().AddKeyframe ();
 		}
 
 		if (Input.GetMouseButtonDown (1)) {
