@@ -8,6 +8,8 @@ public class TESTMouseControl : MonoBehaviour {
 	private float distance = 0f;
 	Transform thingThatWeClicked;
 
+	public AnimationVisualizer animVis;
+
 	bool haveSelection = false;
 
 	// Use this for initialization
@@ -87,6 +89,10 @@ public class TESTMouseControl : MonoBehaviour {
 			if (thingThatWeClicked != null) {
 				thingThatWeClicked.GetComponent<MovableVisualizer> ().Delete ();
 			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.Keypad8)) {
+			animVis.GetLastAnimCurveVisualizer ().AddKeyframe ();
 		}
 	}
 }

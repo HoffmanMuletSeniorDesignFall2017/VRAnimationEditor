@@ -25,7 +25,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	public float Y_OFFSET_CONSTANT = 2f;
 
 	private GameObject selectedKeyframe;	//The keyframe that the user has selected right now
-	private int selectedKeyframeIndex;
+	private int selectedKeyframeIndex = 0;
 	public Visualizer visualizerDummy;
 
 	public bool hasChanged = false;
@@ -106,7 +106,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 		if (selected) {
 			if (selectedKeyframe == null) {
-
+				
 				for (int i = 0; i < currentKeyframes.Count; i++) {
 					if (currentKeyframes [i].GetComponent<MovableVisualizer> ().selected) {
 						selectedKeyframe = currentKeyframes [i];
@@ -192,5 +192,24 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 				currentKeyframes[i].GetComponent<Outline>().enabled = false;
 			}
 		}
+	}
+
+	public void AddKeyframe(){
+		Keyframe newKeyframe = new Keyframe ();
+
+		float biggestTime = 0f;
+		for (int i = 0; i < animCurve.length; i++) {
+			if (animCurve [i].time > biggestTime)
+				biggestTime = animCurve [i].time;
+		}
+
+		newKeyframe.time = (keyframeWorkArea.timelineVisualizer.timeLine.transform.localPosition.x / keyframeWorkArea.timelineVisualizer.bound) * biggestTime; 				//Set this new keyframe's time to wherever the current
+		newKeyframe.value = animCurve [selectedKeyframeIndex].value;	//Set this new keyframe's value to whatever the last selected keyframe's value was (essentially a copy-paste)
+
+		animCurve.AddKey (newKeyframe);
+
+		needsToRefresh = true;
+
+		Refresh ();
 	}
 }

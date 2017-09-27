@@ -10,6 +10,7 @@ public class AnimationVisualizer : Visualizer {
 
 	private List<AnimationCurve> animCurves;
 	private List<AnimationCurveVisualizer> animCurves_Visualizers;
+	private int lastSelectedAnimCurve_Visualizer = 0;
 
 	public GameObject keyframeWorkArea;	//The keyframe work area for this visualizer.	(NOTE: just the visual component needs to be on the gameobject; we'll add the script in Start() of this class
 	public GameObject keyframeObject;	//The keyframe gameobject that will be the symbol for keyframes
@@ -130,6 +131,14 @@ public class AnimationVisualizer : Visualizer {
 
 			}
 		}
+
+		//Have the last updated curve thing here
+		for (int i = 0; i < animCurves.Count; i++) {
+			if (animCurves_Visualizers [i].selected == true) {
+				lastSelectedAnimCurve_Visualizer = i;
+				break;
+			}
+		}
 	}
 
 	IEnumerator UpdateAnimationCurveAndResume(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime){
@@ -156,5 +165,16 @@ public class AnimationVisualizer : Visualizer {
 
 		//keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime (resumeTime);
 		yield return null;
+	}
+
+
+
+
+	public AnimationCurveVisualizer GetAnimCurveVisualizer(int index){
+		return animCurves_Visualizers [index];
+	}
+
+	public AnimationCurveVisualizer GetLastAnimCurveVisualizer(){
+		return animCurves_Visualizers [lastSelectedAnimCurve_Visualizer];
 	}
 }
