@@ -1,20 +1,27 @@
-﻿using System.Collections.Generic;
-using UnityEditor.Experimental.EditorVR.Extensions;
-using UnityEditor.Experimental.EditorVR.Handles;
-using UnityEditor.Experimental.EditorVR.Utilities;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEditor.Experimental.EditorVR;
 using UnityEditor.Experimental.EditorVR.Workspaces;
+using System;
 
 class AssetSelectionWorkspace : Workspace {
-	[SerializeField]
-	GameObject contentPrefab;
+    [SerializeField]
+    public GameObject uiPrefab;
 
-	public override void Setup ()
-	{
-		base.Setup ();
+    public override void Setup()
+    {
+        // Set inital workspace bounds.
+        m_CustomStartingBounds = new Vector3(0.6f, MinBounds.y, 0.4f);
 
-		GameObject contentObj = ObjectUtils.Instantiate (contentPrefab, m_WorkspaceUI.sceneContainer, false);
-		contentObj.GetComponent<AssetGridUI> ().Setup ();
-	}
+        base.Setup();
+
+        // Instantiate ui and set its transform.
+        GameObject ui = this.InstantiateUI(uiPrefab);
+        ui.transform.SetParent(m_WorkspaceUI.topFaceContainer, false);
+        ui.transform.localPosition = new Vector3(0, 0, 0);
+        ui.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+
+
+    }
 }

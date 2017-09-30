@@ -1,15 +1,14 @@
 fileFormatVersion: 2
-guid: b39b69c235d8e66439cff78648f50c72
-timeCreated: 1506540490
+guid: a9de449110c0fca4b88b18003c1dd9a2
+timeCreated: 1506798520
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - m_BasePrefab: {fileID: 1026506268630574, guid: 2215c7b021a446046b9ce27d2626cdb7,
+  - m_BasePrefab: {fileID: 1000011022840156, guid: 3a2153f70c365c540a3703c4cf22bc45,
       type: 2}
   - m_ActionMap: {fileID: 11400000, guid: 0a408a921faf5724492272bab472326f, type: 2}
-  - contentPrefab: {fileID: 1456963728432206, guid: fbd74b155e7632c4998134dea6317a91,
-      type: 2}
+  - uiPrefab: {fileID: 1400166018449256, guid: 4a7df270a9501ac4fa168841f6f1d8b6, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

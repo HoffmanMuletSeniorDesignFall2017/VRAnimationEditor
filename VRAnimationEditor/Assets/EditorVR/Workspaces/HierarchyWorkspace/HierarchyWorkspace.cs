@@ -69,14 +69,17 @@ namespace UnityEditor.Experimental.EditorVR.Workspaces
 
 			base.Setup();
 
+            //  Spawn main UI in workspace scene container.
 			var contentPrefab = ObjectUtils.Instantiate(m_ContentPrefab, m_WorkspaceUI.sceneContainer, false);
 			m_HierarchyUI = contentPrefab.GetComponent<HierarchyUI>();
 			m_HierarchyUI.listView.lockedQueryString = k_LockedQuery;
 			hierarchyData = m_HierarchyData;
 
+            // Spawn filter UI on front panel.
 			if (m_FilterPrefab)
 			{
 				m_FilterUI = ObjectUtils.Instantiate(m_FilterPrefab, m_WorkspaceUI.frontPanel, false).GetComponent<FilterUI>();
+                // Connect child interfaces.
 				foreach (var mb in m_FilterUI.GetComponentsInChildren<MonoBehaviour>())
 				{
 					this.ConnectInterfaces(mb);
@@ -104,6 +107,7 @@ namespace UnityEditor.Experimental.EditorVR.Workspaces
 				createEmptyUI.GetComponentInChildren<Button>(true).onClick.AddListener(CreateEmptyGameObject);
 			}
 
+            // Hook up event handlers.
 			var listView = m_HierarchyUI.listView;
 			listView.selectRow = SelectRow;
 			listView.matchesFilter = this.MatchesFilter;

@@ -22,21 +22,28 @@ namespace UnityEditor.Experimental.EditorVR.Workspaces
 
 			base.Setup();
 
+			// Fixed size.
 			preventResize = true;
 			dynamicFaceAdjustment = false;
 
+			// Instantiate window and set transform.
 			m_CaptureWindow = this.InstantiateUI(m_CaptureWindowPrefab).transform;
 			m_CaptureWindow.SetParent(m_WorkspaceUI.topFaceContainer, false);
+			// Set offset from base workspace face.
 			m_CaptureWindow.localPosition = new Vector3(0f, -0.007f, -0.5f);
+			// Rotate to face correct direction.
 			m_CaptureWindow.localRotation = Quaternion.Euler(90f, 0f, 0f);
+			// Make same size as parent.
 			m_CaptureWindow.localScale = new Vector3(1f, 1f, 1f);
 
+			// Set workspace depth.
 			var bounds = contentBounds;
 			var size = bounds.size;
 			size.z = 0.1f;
 			bounds.size = size;
 			contentBounds = bounds;
 
+			// Setup event handlers for mouse action emulation.
 			var handle = m_CaptureWindow.GetComponent<BaseHandle>();
 			handle.hovering += OnHovering;
 			handle.dragStarted += OnDragStarted;
