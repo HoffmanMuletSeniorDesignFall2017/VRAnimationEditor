@@ -65,14 +65,18 @@ public class AnimationVisualizer : Visualizer {
 			acv.keyframeObject = keyframeObject;
 			acv.keyframeWorkArea= keyframeWorkArea.GetComponent<KeyframeWorkArea>();
 
-			//GameObject temp = (AnimationUtility.GetAnimatedObject (currentGameObject, AnimationUtility.GetCurveBindings (currentClip) [i]) as GameObject);
-			//Object temp = AnimationUtility.GetAnimatedObject (currentGameObject, AnimationUtility.GetCurveBindings (currentClip) [i]);
+			if (currentClip.isHumanMotion) {
+				string objectAnimated = AnimationUtility.GetCurveBindings (currentClip) [i].propertyName;
+				if (objectAnimated.Substring (objectAnimated.Length - 2, 1) == "."){
+					//Then it is a basic bone property
+					objectAnimated = objectAnimated.Substring (0, objectAnimated.Length - 3);		//Gets rid of "T.x" or whatever
+					Debug.Log(i + objectAnimated);
+					HumanBodyBones theBone = GetBoneFromString(objectAnimated);
+					Transform nodeTransform = currentGameObject.GetComponent<Animator> ().GetBoneTransform (theBone);
 
-			//GameObject temp = currentGameObject.GetComponent<Animator> ().GetBoneTransform(HumanBodyBones.Chest).gameObject;
-
-			//Debug.Log (temp);
-
-			//acv.associatedNodeVisualizer = temp.transform.GetChild(temp.transform.childCount - 1).gameObject;		//Assumes last child is always the node marker
+					acv.associatedNodeVisualizer = nodeTransform.GetChild (nodeTransform.childCount - 1).gameObject;		//Assumes Node marker will always be the last child
+				}
+			}
 
 			acv.Refresh ();
 
@@ -185,5 +189,128 @@ public class AnimationVisualizer : Visualizer {
 
 	public AnimationCurveVisualizer GetLastAnimCurveVisualizer(){
 		return animCurves_Visualizers [lastSelectedAnimCurve_Visualizer];
+	}
+
+
+	public HumanBodyBones GetBoneFromString(string s){
+		switch (s) {
+		case "Root":		//TODO: Maybe change
+			return HumanBodyBones.Hips;
+		case "Chest":
+			return HumanBodyBones.Chest;
+		case "Head":
+			return HumanBodyBones.Head;
+		case "Hips":
+			return HumanBodyBones.Hips;
+		case "Jaw":
+			return HumanBodyBones.Jaw;
+		case "LastBone":
+			return HumanBodyBones.LastBone;
+		case "LeftEye":
+			return HumanBodyBones.LeftEye;
+		case "LeftFoot":
+			return HumanBodyBones.LeftFoot;
+		case "LeftHand":
+			return HumanBodyBones.LeftHand;
+		case "LeftIndexDistal":
+			return HumanBodyBones.LeftIndexDistal;
+		case "LeftIndexIntermediate":
+			return HumanBodyBones.LeftIndexIntermediate;
+		case "LeftIndexProximal":
+			return HumanBodyBones.LeftIndexProximal;
+		case "LeftLittleDistal":
+			return HumanBodyBones.LeftLittleDistal;
+		case "LeftLittleIntermediate":
+			return HumanBodyBones.LeftLittleIntermediate;
+		case "LeftLittleProximal":
+			return HumanBodyBones.LeftLittleProximal;
+		case "LeftLowerArm":
+			return HumanBodyBones.LeftLowerArm;
+		case "LeftLowerLeg":
+			return HumanBodyBones.LeftLowerLeg;
+		case "LeftMiddleDistal":
+			return HumanBodyBones.LeftMiddleDistal;
+		case "LeftMiddleIntermediate":
+			return HumanBodyBones.LeftMiddleIntermediate;
+		case "LeftMiddleProximal":
+			return HumanBodyBones.LeftMiddleProximal;
+		case "LeftRingDistal":
+			return HumanBodyBones.LeftRingDistal;
+		case "LeftRingIntermediate":
+			return HumanBodyBones.LeftRingIntermediate;
+		case "LeftRingProximal":
+			return HumanBodyBones.LeftRingProximal;
+		case "LeftShoulder":
+			return HumanBodyBones.LeftShoulder;
+		case "LeftThumbDistal":
+			return HumanBodyBones.LeftThumbDistal;
+		case "LeftThumbIntermediate":
+			return HumanBodyBones.LeftThumbIntermediate;
+		case "LeftThumbProximal":
+			return HumanBodyBones.LeftThumbProximal;
+		case "LeftToes":
+			return HumanBodyBones.LeftToes;
+		case "LeftUpperArm":
+			return HumanBodyBones.LeftUpperArm;
+		case "LeftUpperLeg":
+			return HumanBodyBones.LeftUpperLeg;
+		case "Neck":
+			return HumanBodyBones.Neck;
+		case "RightEye":
+			return HumanBodyBones.RightEye;
+		case "RightFoot":
+			return HumanBodyBones.RightFoot;
+		case "RightHand":
+			return HumanBodyBones.RightHand;
+		case "RightIndexDistal":
+			return HumanBodyBones.RightIndexDistal;
+		case "RightIndexIntermediate":
+			return HumanBodyBones.RightIndexIntermediate;
+		case "RightIndexProximal":
+			return HumanBodyBones.RightIndexProximal;
+		case "RightLittleDistal":
+			return HumanBodyBones.RightLittleDistal;
+		case "RightLittleIntermediate":
+			return HumanBodyBones.RightLittleIntermediate;
+		case "RightLittleProximal":
+			return HumanBodyBones.RightLittleProximal;
+		case "RightLowerArm":
+			return HumanBodyBones.RightLowerArm;
+		case "RightLowerLeg":
+			return HumanBodyBones.RightLowerLeg;
+		case "RightMiddleDistal":
+			return HumanBodyBones.RightMiddleDistal;
+		case "RightMiddleIntermediate":
+			return HumanBodyBones.RightMiddleIntermediate;
+		case "RightMiddleProximal":
+			return HumanBodyBones.RightMiddleProximal;
+		case "RightRingDistal":
+			return HumanBodyBones.RightRingDistal;
+		case "RightRingIntermediate":
+			return HumanBodyBones.RightRingIntermediate;
+		case "RightRingProximal":
+			return HumanBodyBones.RightRingProximal;
+		case "RightShoulder":
+			return HumanBodyBones.RightShoulder;
+		case "RightThumbDistal":
+			return HumanBodyBones.RightThumbDistal;
+		case "RightThumbIntermediate":
+			return HumanBodyBones.RightThumbIntermediate;
+		case "RightThumbProximal":
+			return HumanBodyBones.RightThumbProximal;
+		case "RightToes":
+			return HumanBodyBones.RightToes;
+		case "RightUpperArm":
+			return HumanBodyBones.RightUpperArm;
+		case "RightUpperLeg":
+			return HumanBodyBones.RightUpperLeg;
+		case "Spine":
+			return HumanBodyBones.Spine;
+		case "UpperChest":
+			return HumanBodyBones.UpperChest;
+		default:
+			break;
+		}
+		return HumanBodyBones.Hips;
 	}
 }
