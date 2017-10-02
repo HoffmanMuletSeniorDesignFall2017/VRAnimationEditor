@@ -64,4 +64,34 @@ public class MovableVisualizer : Visualizer {
 			transform.position = new Vector3 (newPosition.x, transform.position.y, transform.position.z);
 		}
 	}
+
+	public void OnButtonDown(int pointerID, int buttonID)
+	{
+		if (buttonID == 0)
+		{
+			if (selected) {
+				Grab ();
+				return;
+			}
+			if (pointerHoveringOverThis) {
+				Select ();
+				return;
+			}
+			Deselect ();
+			DeGrab ();
+		}
+	}
+
+	public void OnButtonUp(int pointerID, int buttonID)
+	{
+		if (buttonID == 0)
+		{
+			if (grabbing) {
+				DeGrab ();
+			}
+		}
+
+	}
+
+
 }

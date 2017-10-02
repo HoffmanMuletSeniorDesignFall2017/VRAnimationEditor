@@ -68,9 +68,9 @@ public class AnimationVisualizer : Visualizer {
 			//GameObject temp = (AnimationUtility.GetAnimatedObject (currentGameObject, AnimationUtility.GetCurveBindings (currentClip) [i]) as GameObject);
 			//Object temp = AnimationUtility.GetAnimatedObject (currentGameObject, AnimationUtility.GetCurveBindings (currentClip) [i]);
 
-			//temp = currentGameObject.GetComponent<Animator> ();
+			//GameObject temp = currentGameObject.GetComponent<Animator> ().GetBoneTransform(HumanBodyBones.Chest).gameObject;
 
-			Debug.Log (temp);
+			//Debug.Log (temp);
 
 			//acv.associatedNodeVisualizer = temp.transform.GetChild(temp.transform.childCount - 1).gameObject;		//Assumes last child is always the node marker
 
