@@ -9,6 +9,7 @@ public class SessionManager : MonoBehaviour {
     public GameObject sessionModel;
     public AnimationClip sessionAnim;
     public AnimationVisualizer animVis;
+	public Transform animModelAnchor;
 
 	public NodeVisualizer templateNodeVisualizer;
 
@@ -38,7 +39,8 @@ public class SessionManager : MonoBehaviour {
 		GameObject newThing = new GameObject();
 		newThing.transform.localPosition.Set (objInstance.transform.localPosition.x, objInstance.transform.localPosition.y, objInstance.transform.localPosition.z);
 
-		objInstance.transform.parent = newThing.transform;
+		//objInstance.transform.parent = newThing.transform;
+		objInstance.transform.parent = animModelAnchor;
 
 		objInstance.transform.localPosition.Set (0f, 0f, 0f);
 

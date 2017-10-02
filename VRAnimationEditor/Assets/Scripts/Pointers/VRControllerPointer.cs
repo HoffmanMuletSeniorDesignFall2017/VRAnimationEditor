@@ -6,13 +6,16 @@ public class VRControllerPointer : MonoBehaviour {
 	private static int vrPointerCount = 0;
 
 	public bool isLeft = true;
+	public GameObject lazerLine;
 
 	private int pointerId = 0;
 	private GameObject focus;
 
+
 	void Start(){
 		pointerId = vrPointerCount;
 		vrPointerCount++;
+
 	}
 
 	void Update () {
@@ -21,6 +24,10 @@ public class VRControllerPointer : MonoBehaviour {
 		RaycastHit hitInfo;
 		if (Physics.Raycast(ray, out hitInfo))
 		{
+			// Set lazer length to stop at hit.
+			float hitDistance = (hitInfo.point - transform.position).magnitude;
+			lazerLine.transform.localScale = new Vector3 (1, 1, hitDistance);
+
 			// If we are pointing at something different than last frame's focus...
 			if (hitInfo.collider.gameObject != focus)
 			{
@@ -31,6 +38,9 @@ public class VRControllerPointer : MonoBehaviour {
 		// If we are not pointing at anything...
 		else
 		{
+			// Set lazer length go to infinity.
+			lazerLine.transform.localScale = new Vector3(1, 1, 1000);
+
 			// Make sure the focus is null.
 			if (focus != null)
 			{
@@ -90,4 +100,5 @@ public class VRControllerPointer : MonoBehaviour {
 		}
 		return obj.GetComponent<IPointerReciever>() != null;
 	}
+
 }
