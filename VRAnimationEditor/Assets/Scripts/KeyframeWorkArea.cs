@@ -13,6 +13,9 @@ public class KeyframeWorkArea : MonoBehaviour {
 	public float bounds = 0;		//The x-axis bounds - i.e., there will be no more keyframes past this number
 	public TimelineVisualizer timelineVisualizer;	//The visualizer for the timeline
 
+	public Vector3 valueVisualizerCoordinates;
+	public Vector3 valueVisualizerScale = new Vector3(1,1,1);
+
 	// Use this for initialization
 	void Start () {
 		

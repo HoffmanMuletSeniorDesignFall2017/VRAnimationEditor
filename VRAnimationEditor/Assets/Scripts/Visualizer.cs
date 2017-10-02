@@ -6,6 +6,12 @@ public class Visualizer : MonoBehaviour {
 
 	public bool selected = false;
 
+	public bool grabbing = false;
+
+	public bool childNeedsDeletion = false;
+
+	public Visualizer associatedVisualizer;
+
 	// Use this for initialization
 	void Start () {
 		

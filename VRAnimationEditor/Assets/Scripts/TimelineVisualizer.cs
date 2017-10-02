@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using cakeslice;
 
 public class TimelineVisualizer : Visualizer {
 	//Used to control the visualization of animation time
@@ -11,7 +12,16 @@ public class TimelineVisualizer : Visualizer {
 
 	public float bound = 0f;		//The value for the local position x bound of the timeline cursor (i.e., once it reaches the end, the animation is finished)
 
-	private bool reset = false;
+	//private bool reset = false;
+
+	private float animatorTime = 0f;
+
+	private string currentClipName = "Test";
+
+	private bool doneInitialSwitch = false;
+
+	//private AnimatorOverrideController overrideController;
+	private RuntimeAnimatorController originalController;
 
 	// Use this for initialization
 	void Start () {
@@ -25,12 +35,24 @@ public class TimelineVisualizer : Visualizer {
 		timeLine.GetComponent<MovableVisualizer> ().constrainedToLocalX = true;
 		timeLine.GetComponent<MovableVisualizer> ().associatedVisualizer = this;
 
+		timeLine.AddComponent<Outline> ();
+		timeLine.GetComponent<Outline> ().enabled = false;
+
+		//overrideController = new AnimatorOverrideController ();
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
 		if (animator != null) {
-			if (!selected) {	//If the timeline visualizer is not selected, then it should simply read the info from the animator.
+
+			//Debug.Log (animator.GetCurrentAnimatorStateInfo (0).normalizedTime);
+			if(animator.GetCurrentAnimatorStateInfo (0).normalizedTime != 0)
+				animatorTime = animator.GetCurrentAnimatorStateInfo (0).normalizedTime;
+			//Debug.Log (animatorTime);
+
+
+
+			if (!grabbing) {	//If the timeline visualizer is not selected, then it should simply read the info from the animator.
 				
 				timeLine.transform.localPosition = new Vector3 (((animator.GetCurrentAnimatorStateInfo (0).normalizedTime) - Mathf.Floor (animator.GetCurrentAnimatorStateInfo (0).normalizedTime)) * bound, 
 					timeLine.transform.localPosition.y, timeLine.transform.localPosition.z);
@@ -40,10 +62,12 @@ public class TimelineVisualizer : Visualizer {
 					animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, 0f);
 				}
 
+				timeLine.GetComponent<Outline> ().enabled = false;
+
 			} 
 
 			else {	//If the timeline visualizer IS selected, then that means the user is scrubbing! So, we have to set the animator time to the appropriate position of the visualizer.
-
+				
 				float adjustedPosition = timeLine.transform.localPosition.x / bound;
 				if (adjustedPosition > 1f)
 					adjustedPosition = 1f;
@@ -54,6 +78,75 @@ public class TimelineVisualizer : Visualizer {
 
 				timeLine.transform.localPosition = new Vector3 (adjustedPosition * bound, timeLine.transform.localPosition.y, timeLine.transform.localPosition.z);
 			}
+
+			if (selected) {
+				timeLine.GetComponent<Outline> ().enabled = true;
+			}
 		}
+	}
+
+	public float GetAnimatorTime(){
+		return animatorTime;
+	}
+
+	public void ChangeClip(AnimationClip clip ){
+		if (!doneInitialSwitch) {
+			//Animator anim = GetComponent<Animator>(); 
+			Animator anim = animator;
+			//AnimatorOverrideController overrideController = 
+				//new AnimatorOverrideController ();
+			originalController = anim.runtimeAnimatorController;
+
+			AnimatorStateInfo[] layerInfo = new AnimatorStateInfo[anim.layerCount];
+			for (int i = 0; i < anim.layerCount; i++) {
+				layerInfo [i] = anim.GetCurrentAnimatorStateInfo (i);
+			}
+
+			AnimatorOverrideController overrideController = new AnimatorOverrideController (anim.runtimeAnimatorController);
+
+			//overrideController.runtimeAnimatorController = anim.runtimeAnimatorController;
+			overrideController [currentClipName] = clip;
+			anim.runtimeAnimatorController = overrideController;
+
+			// Force an update
+			anim.Update (0.0f);
+
+			// Push back state
+			for (int i = 0; i < anim.layerCount; i++) {
+				anim.Play (layerInfo [i].fullPathHash, i, layerInfo [i].normalizedTime);
+			}
+
+			currentClipName = clip.name;
+			//doneInitialSwitch = true;
+		}/* else {
+			Animator anim = animator;
+
+			AnimatorStateInfo[] layerInfo = new AnimatorStateInfo[anim.layerCount];
+			for (int i = 0; i < anim.layerCount; i++) {
+				layerInfo [i] = anim.GetCurrentAnimatorStateInfo (i);
+			}
+
+
+
+			//overrideController.runtimeAnimatorController = originalController;
+			//((AnimatorOverrideController) anim.runtimeAnimatorController) [currentClipName] = clip;
+			overrideController[currentClipName] = clip;
+			//anim.runtimeAnimatorController = overrideController;
+
+			// Force an update
+			anim.Update (0.0f);
+
+			// Push back state
+			for (int i = 0; i < anim.layerCount; i++) {
+				anim.Play (layerInfo [i].nameHash, i, layerInfo [i].normalizedTime);
+			}
+
+			currentClipName = clip.name;
+		}*/
+	}
+
+	public void ChangeTime(float newTime){
+		if (animator != null) 
+			animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, newTime);
 	}
 }
