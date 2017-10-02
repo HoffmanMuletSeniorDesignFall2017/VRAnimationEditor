@@ -366,6 +366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logAssets: 0
   animationClips:
+  - {fileID: 7400000, guid: c6c5c9f2bc768024c9290be80d34022b, type: 3}
   - {fileID: 7400000, guid: a279b8f5e6491274180cbb028e019764, type: 3}
   - {fileID: 7400000, guid: aa539386f5e081a4fa65e8b2f28d3f37, type: 3}
   - {fileID: 7400000, guid: ffabc93e0e4e1c04b84ed9c45e3f60c5, type: 3}
@@ -619,7 +620,12 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 5d81d0e6f22b34943a12a965c6f6ca40, type: 3}
   models:
   - {fileID: 100000, guid: 87ff271ed583fdb4aab6ef4bbaf5447f, type: 3}
+  - {fileID: 100000, guid: 7fd6e3f647f2c66408a67d2f17a6600b, type: 3}
+  - {fileID: 100000, guid: c6c5c9f2bc768024c9290be80d34022b, type: 3}
+  - {fileID: 100002, guid: c868f3efc941fe744a3326a57262397b, type: 3}
+  - {fileID: 100006, guid: 9d6532465a0bab949a4dda17679dac69, type: 3}
   - {fileID: 1710049805578196, guid: 93def257e62d0f14cac68c3a39e40e8e, type: 2}
+  - {fileID: 1101595863207438, guid: 447fc3bfbde9ecc479a5b459e3514097, type: 2}
   - {fileID: 100004, guid: fa4ac6288baf16745a04b504e2e3fa7e, type: 2}
   - {fileID: 1572063257111640, guid: 4c1f762d7b4b30740830e56107618a32, type: 2}
   - {fileID: 100002, guid: 2ab0893f5bba9b243b65e309e78089d0, type: 3}
@@ -796,6 +802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1374786526}
   - component: {fileID: 1374786525}
+  - component: {fileID: 1374786527}
   m_Layer: 0
   m_Name: Session Manager
   m_TagString: Untagged
@@ -822,6 +829,7 @@ MonoBehaviour:
   sessionModel: {fileID: 0}
   sessionAnim: {fileID: 0}
   animVis: {fileID: 1929767744}
+  templateNodeVisualizer: {fileID: 1374786527}
 --- !u!4 &1374786526
 Transform:
   m_ObjectHideFlags: 0
@@ -835,6 +843,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1374786527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374786524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230da3c33c6c3e94b9588b3365148423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTemplate: 1
+  root: {fileID: 0}
+  nodeMarkerPrefab: {fileID: 1101595863207438, guid: 447fc3bfbde9ecc479a5b459e3514097,
+    type: 2}
+  makeTransparent: 1
+  transparentTemplate: {fileID: 2100000, guid: 79b63ec74a3719f4599fda3ced45e2ed, type: 2}
 --- !u!1 &1445798345
 GameObject:
   m_ObjectHideFlags: 0
