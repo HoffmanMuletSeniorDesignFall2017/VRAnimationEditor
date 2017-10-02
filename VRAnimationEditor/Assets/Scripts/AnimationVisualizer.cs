@@ -65,6 +65,15 @@ public class AnimationVisualizer : Visualizer {
 			acv.keyframeObject = keyframeObject;
 			acv.keyframeWorkArea= keyframeWorkArea.GetComponent<KeyframeWorkArea>();
 
+			//GameObject temp = (AnimationUtility.GetAnimatedObject (currentGameObject, AnimationUtility.GetCurveBindings (currentClip) [i]) as GameObject);
+			//Object temp = AnimationUtility.GetAnimatedObject (currentGameObject, AnimationUtility.GetCurveBindings (currentClip) [i]);
+
+			//temp = currentGameObject.GetComponent<Animator> ();
+
+			Debug.Log (temp);
+
+			//acv.associatedNodeVisualizer = temp.transform.GetChild(temp.transform.childCount - 1).gameObject;		//Assumes last child is always the node marker
+
 			acv.Refresh ();
 
 

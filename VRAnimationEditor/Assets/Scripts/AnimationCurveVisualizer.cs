@@ -34,6 +34,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 	public GameObject valueVisualizer;
 
+	public GameObject associatedNodeVisualizer;
+
 	// Use this for initialization
 	void Start () {
 		if(currentKeyframes == null)
