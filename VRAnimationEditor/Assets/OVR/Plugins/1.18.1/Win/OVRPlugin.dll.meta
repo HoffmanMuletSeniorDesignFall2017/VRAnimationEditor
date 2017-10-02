@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 76423ac19985086469d520dfa0ea6b69
-timeCreated: 1505934133
-licenseType: Free
+timeCreated: 1505508875
+licenseType: Pro
 PluginImporter:
   serializedVersion: 2
   iconMap: {}
@@ -11,40 +11,17 @@ PluginImporter:
   platformData:
     data:
       first:
-        '': Editor
-      second:
-        enabled: 0
-        settings:
-          CPU: X86
-          OS: Windows
-    data:
-      first:
-        Android: Android
-      second:
-        enabled: 0
-        settings:
-          CPU: ARMv7
-    data:
-      first:
         Any: 
       second:
-        enabled: 0
+        enabled: 1
         settings: {}
     data:
       first:
         Editor: Editor
       second:
-        enabled: 1
+        enabled: 0
         settings:
-          CPU: X86
           DefaultValueInitialized: true
-          OS: Windows
-    data:
-      first:
-        Standalone: Win
-      second:
-        enabled: 1
-        settings: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
