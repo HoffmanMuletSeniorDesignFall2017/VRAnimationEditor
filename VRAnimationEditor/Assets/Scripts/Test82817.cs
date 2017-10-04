@@ -9,6 +9,8 @@ public class Test82817 : MonoBehaviour {
 	public AnimationVisualizer animVisual;
 	public AnimationClip animClip;
 
+	public MocapController moCon;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -76,6 +78,10 @@ public class Test82817 : MonoBehaviour {
 
 			animClip.ClearCurves ();
 			animVisual.RefreshCurves ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.M)) {
+			animVisual.ToggleMotionCapture ();
 		}
 	}
 }

@@ -18,9 +18,10 @@ public class AnimationVisualizer : Visualizer {
 	public TextMesh title;
 	public TextMesh values;
 	//private string valuesText;
-	private int waitFrame = 0;
 
-	private int NUM_WAIT_FRAMES = 5;	//So much hackiness
+
+	public MocapController moCon;
+	private bool wantToCapture = false;
 
 	public void SetCurrentClipAndGameObject(AnimationClip animClip, GameObject go){
 		currentClip = animClip;
@@ -70,7 +71,6 @@ public class AnimationVisualizer : Visualizer {
 				if (objectAnimated.Substring (objectAnimated.Length - 2, 1) == "."){
 					//Then it is a basic bone property
 					objectAnimated = objectAnimated.Substring (0, objectAnimated.Length - 3);		//Gets rid of "T.x" or whatever
-					Debug.Log(i + objectAnimated);
 					HumanBodyBones theBone = GetBoneFromString(objectAnimated);
 					Transform nodeTransform = currentGameObject.GetComponent<Animator> ().GetBoneTransform (theBone);
 
@@ -107,6 +107,11 @@ public class AnimationVisualizer : Visualizer {
 		if (keyframeWorkArea.GetComponent<KeyframeWorkArea> () == null) {
 			keyframeWorkArea.AddComponent<KeyframeWorkArea> ();
 
+		}
+
+		if (moCon == null) {
+			gameObject.AddComponent<MocapController> ();
+			moCon = gameObject.GetComponent<MocapController> ();
 		}
 	}
 	
@@ -180,7 +185,32 @@ public class AnimationVisualizer : Visualizer {
 		yield return null;
 	}
 
+	public void ToggleMotionCapture(){
+		wantToCapture = !wantToCapture;
+		if (wantToCapture)
+			StartMotionCapture ();
+		else
+			StopMotionCapture ();
+	}
 
+	public void StartMotionCapture(){
+		for (int i = 0; i < animCurves_Visualizers.Count; i++) {
+			//TODO: Make VR compatible
+
+			if (animCurves_Visualizers [i].selected) {
+				Debug.Log ("Got that we should do something... checking for associated node thing");
+				if(animCurves_Visualizers[i].associatedNodeVisualizer != null){
+					Debug.Log ("About to call moCon.start capture");
+					moCon.StartCapturing(animCurves_Visualizers[i].associatedNodeVisualizer, Input.mousePosition);
+					break;
+				}
+			}
+		}
+	}
+
+	public void StopMotionCapture(){
+		moCon.StopCapturing ();
+	}
 
 
 	public AnimationCurveVisualizer GetAnimCurveVisualizer(int index){
