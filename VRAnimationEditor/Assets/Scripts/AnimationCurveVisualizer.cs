@@ -165,6 +165,12 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 			valueVisualizer.SetActive (true);
 
+
+			//Do some node stuff
+			if (associatedNodeVisualizer != null) {
+				associatedNodeVisualizer.GetComponent<NodeController> ().SetAxisVisibility (true);
+			}
+
 			if (childNeedsDeletion) {
 				//Delete the selected keyframe
 				animCurve.RemoveKey (selectedKeyframeIndex);

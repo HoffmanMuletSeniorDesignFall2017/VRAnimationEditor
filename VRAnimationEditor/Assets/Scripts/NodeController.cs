@@ -15,7 +15,7 @@ public class NodeController : MonoBehaviour, IPointerReciever {
 		
 	}
 
-	private void SetAxisVisibility(bool isVisible){
+	public void SetAxisVisibility(bool isVisible){
 		for (int i = 0; i < 3; i++) {
 			SetVisibility (rings [i], isVisible);
 			SetVisibility (arrows [i], isVisible);

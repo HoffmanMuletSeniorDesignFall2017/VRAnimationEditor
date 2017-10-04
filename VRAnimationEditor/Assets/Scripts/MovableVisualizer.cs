@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovableVisualizer : Visualizer {
+public class MovableVisualizer : Visualizer, IPointerReciever {
 
 	//If this component is added to a GameObject then that GameObject can be selected and moved by the user
 	//NOTE: This script must be on an object with another actual visualizer already on it
@@ -22,6 +22,9 @@ public class MovableVisualizer : Visualizer {
 			GetComponent<Collider> ().isTrigger = true;
 			GetComponent<Collider> ().enabled = true;
 		}
+
+		interactingPointers = new LinkedList<int>();
+		pressingPointers = new LinkedList<int>();
 	}
 	
 	// Update is called once per frame
@@ -65,10 +68,23 @@ public class MovableVisualizer : Visualizer {
 		}
 	}
 
+	/*
+	public void OnPointerExit(int pointerID)
+	{
+		interactingPointers.Remove(pointerID);
+		pressingPointers.Remove(pointerID);
+		pointerHoveringOverThis = false;
+	}
+
+	public void OnPointerEnter(int pointerID){
+		pointerHoveringOverThis = true;
+	}
+
 	public void OnButtonDown(int pointerID, int buttonID)
 	{
 		if (buttonID == 0)
 		{
+			pressingPointers.AddFirst(pointerID);
 			if (selected) {
 				Grab ();
 				return;
@@ -86,12 +102,15 @@ public class MovableVisualizer : Visualizer {
 	{
 		if (buttonID == 0)
 		{
+			pressingPointers.Remove(pointerID);
+
 			if (grabbing) {
 				DeGrab ();
 			}
 		}
 
 	}
+	*/
 
 
 }

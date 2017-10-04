@@ -13,12 +13,13 @@ public class Visualizer : MonoBehaviour, IPointerReciever {
 	public Visualizer associatedVisualizer;
 
 	protected bool pointerHoveringOverThis = false;
-	private LinkedList<int> interactingPointers;
-	private LinkedList<int> pressingPointers;
+	protected LinkedList<int> interactingPointers;
+	protected LinkedList<int> pressingPointers;
 
 	// Use this for initialization
 	void Start () {
-		
+		interactingPointers = new LinkedList<int>();
+		pressingPointers = new LinkedList<int>();
 	}
 	
 	// Update is called once per frame
@@ -28,11 +29,11 @@ public class Visualizer : MonoBehaviour, IPointerReciever {
 
 	public void OnPointerExit(int pointerID)
 	{
-		pointerHoveringOverThis = false;
+		
 	}
 
 	public void OnPointerEnter(int pointerID){
-		pointerHoveringOverThis = true;
+
 	}
 
 	public void OnButtonDown(int pointerID, int buttonID)
