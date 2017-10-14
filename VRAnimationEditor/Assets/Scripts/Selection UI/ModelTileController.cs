@@ -28,7 +28,7 @@ public class ModelTileController : MonoBehaviour, IPointerReciever
 	public enum HighlightState	{None, Highlighted, Selected};
 	private HighlightState currentHighlightState = HighlightState.None;
 
-	void Start()
+	void Awake()
 	{
 		SetHighlight(HighlightState.None);
 		interactingPointers = new LinkedList<int>();

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ModelSelectionUIController : MonoBehaviour {
     public GameObject modelTilePrefab;
-    public AssetLogger assetLogger;
     public Transform contentPanel;
     // Set by session manager when instantiating the UI.
     public SessionManager sessionManager;
@@ -15,10 +14,11 @@ public class ModelSelectionUIController : MonoBehaviour {
 	}
 
     private void InitModelTiles(){
-        for(int i = 0; i < assetLogger.models.Count; i++){
+		List<GameObject> models = AssetLogger.GetModels ();
+		for(int i = 0; i < models.Count; i++){
             GameObject modelTile = Instantiate<GameObject>(modelTilePrefab, contentPanel);
             modelTile.GetComponent<ModelTileController>().modelUICtrl = this;
-            modelTile.GetComponent<ModelTileController>().SetModel(assetLogger.models[i]);
+            modelTile.GetComponent<ModelTileController>().SetModel(models[i]);
             modelTile.name = "model tile " + i;
         }
     }

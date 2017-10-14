@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AnimationSelectionUIController : MonoBehaviour {
     public GameObject animationTilePrefab;
-    public AssetLogger assetLogger;
     public Transform contentPanel;
     public SessionManager sessionManager;
 
@@ -14,11 +13,12 @@ public class AnimationSelectionUIController : MonoBehaviour {
 	}
 	
     private void InitAnimationTiles(){
-        for (int i = 0; i < assetLogger.animationClips.Count; i++)
+		List<AnimationClip> animClips = AssetLogger.GetAnimations ();
+		for (int i = 0; i < animClips.Count; i++)
         {
             GameObject animTile = Instantiate<GameObject>(animationTilePrefab, contentPanel);
             animTile.GetComponent<AnimationTileController>().animSelUICtrl = this;
-            animTile.GetComponent<AnimationTileController>().SetAnimation(assetLogger.animationClips[i]);
+			animTile.GetComponent<AnimationTileController>().SetAnimation(animClips[i]);
             animTile.name = "animation tile " + i;
         }
     }
