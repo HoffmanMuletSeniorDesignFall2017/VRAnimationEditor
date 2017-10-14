@@ -23,7 +23,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	public int curveNumber;	//Assigned from the keyframeWorkArea; the number of this animation curve
 
 	public float X_OFFSET_CONSTANT = 2f;	//Used to make drawing nice
-	public float Y_OFFSET_CONSTANT = 2f;
+	public float Y_OFFSET_CONSTANT = 1.9550f;
 
 	private GameObject selectedKeyframe;	//The keyframe that the user has selected right now
 	private int selectedKeyframeIndex = 0;
@@ -148,43 +148,48 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 					break;
 				}
 			}
-			//Here we just do the selection outline
-			selectedKeyframe.GetComponent<cakeslice.Outline> ().enabled = true;
+
+			if (selectedKeyframe != null) {
+				//Here we just do the selection outline
+				selectedKeyframe.GetComponent<cakeslice.Outline> ().enabled = true;
 
 
-			float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
+				float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
 
-			if (adjustedPosition > 1f)
-				adjustedPosition = 1f;
-			else if (adjustedPosition < 0.01f)
-				adjustedPosition = 0.01f;
+				if (adjustedPosition > 1f)
+					adjustedPosition = 1f;
+				else if (adjustedPosition < 0.01f)
+					adjustedPosition = 0.01f;
 
-			selectedKeyframe.transform.localPosition = new Vector3 (adjustedPosition * keyframeWorkArea.bounds, selectedKeyframe.transform.localPosition.y, selectedKeyframe.transform.localPosition.z);
+				selectedKeyframe.transform.localPosition = new Vector3 (adjustedPosition * keyframeWorkArea.bounds, selectedKeyframe.transform.localPosition.y, selectedKeyframe.transform.localPosition.z);
 
-			valueVisualizer.GetComponent<ValueVisualizer>().UpdateText (animCurve [selectedKeyframeIndex].value);
+				valueVisualizer.GetComponent<ValueVisualizer> ().UpdateText (animCurve [selectedKeyframeIndex].value);
 
-			valueVisualizer.SetActive (true);
+				valueVisualizer.SetActive (true);
 
 
-			//Do some node stuff
-			if (associatedNodeVisualizer != null) {
-				associatedNodeVisualizer.GetComponent<NodeController> ().SetAxisVisibility (true);
-			}
 
-			if (childNeedsDeletion) {
-				//Delete the selected keyframe
-				animCurve.RemoveKey (selectedKeyframeIndex);
+				//Do some node stuff
+				if (associatedNodeVisualizer != null) {
+					associatedNodeVisualizer.GetComponent<NodeController> ().SetAxisVisibility (true);
+				}
 
-				currentKeyframes.Remove (selectedKeyframe);
-				GameObject.Destroy (selectedKeyframe);
+				if (childNeedsDeletion) {
+					//Delete the selected keyframe
+					animCurve.RemoveKey (selectedKeyframeIndex);
 
-				selected = false;
-				grabbing = false;
-				childNeedsDeletion = false;
+					currentKeyframes.Remove (selectedKeyframe);
+					GameObject.Destroy (selectedKeyframe);
 
-				needsToRefresh = true;
+					selected = false;
+					grabbing = false;
+					childNeedsDeletion = false;
 
-				return;
+					needsToRefresh = true;
+
+					return;
+				}
+
 			}
 		} else {
 			//needsToRefresh = false;
@@ -229,7 +234,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			if (selectedKeyframe != null) {
 				selectedKeyframe = null;
 			}
-			needsToRefresh = false;
+			//needsToRefresh = false;
 		}
 
 		if (!selected) {
@@ -252,6 +257,35 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		newKeyframe.value = animCurve [selectedKeyframeIndex].value;	//Set this new keyframe's value to whatever the last selected keyframe's value was (essentially a copy-paste)
 
 		animCurve.AddKey (newKeyframe);
+
+		needsToRefresh = true;
+
+		Refresh ();
+	}
+
+	public void AddExistingKeyframe(Keyframe k){
+
+		float biggestTime = 0f;
+		for (int i = 0; i < animCurve.length; i++) {
+			if (animCurve [i].time > biggestTime)
+				biggestTime = animCurve [i].time;
+		}
+
+		k.time = (keyframeWorkArea.timelineVisualizer.timeLine.transform.localPosition.x / keyframeWorkArea.timelineVisualizer.bound) * biggestTime;
+
+		bool alreadyHaveKeyframe = false;
+		int index;
+		for (index = 0; index < animCurve.keys.Length; index++) {
+			if (animCurve.keys [index].time == k.time) {
+				alreadyHaveKeyframe = true;
+				break;
+			}
+		}
+
+		if (!alreadyHaveKeyframe)
+			animCurve.AddKey (k);
+		else
+			animCurve.MoveKey (index, k);
 
 		needsToRefresh = true;
 

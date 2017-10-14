@@ -23,7 +23,6 @@ public class Test82817 : MonoBehaviour {
 			animClip = AnimationEditorFunctions.CreateNewAnimation ("Test");
 			GameObject go = AnimationEditorFunctions.InstantiateWithAnimation (testPrefab, animClip);
 			animVisual.SetCurrentClipAndGameObject (animClip, go);
-
 		}
 
 		if (Input.GetKeyDown (KeyCode.KeypadPlus)) {
@@ -43,9 +42,14 @@ public class Test82817 : MonoBehaviour {
 			testCurve.AddKey (key1);
 			testCurve.AddKey (key2);
 
+			//animClip.SetCurve("", typeof(Transform), "localPosition.y", testCurve);
 			animClip.SetCurve("", typeof(Transform), "localPosition.y", testCurve);
+			animClip.SetCurve("", typeof(Transform), "localScale.y", testCurve);
 
 			animVisual.RefreshCurves ();
+
+			AssetDatabase.SaveAssets ();
+
 		}
 		if (Input.GetKeyDown (KeyCode.KeypadMinus)) {
 
@@ -65,6 +69,7 @@ public class Test82817 : MonoBehaviour {
 			testCurve.AddKey (key2);
 
 			animClip.SetCurve("", typeof(Transform), "localPosition.x", testCurve);
+			animClip.SetCurve("", typeof(Transform), "localScale.x", testCurve);
 
 			animVisual.RefreshCurves ();
 		}

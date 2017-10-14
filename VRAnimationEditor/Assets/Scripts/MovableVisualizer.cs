@@ -19,7 +19,7 @@ public class MovableVisualizer : Visualizer, IPointerReciever {
 			gameObject.AddComponent<BoxCollider> ();
 			GetComponent<BoxCollider> ().isTrigger = true;
 		} else if (gameObject.GetComponent<Collider> ().enabled == false) {
-			GetComponent<Collider> ().isTrigger = true;
+			//GetComponent<Collider> ().isTrigger = true;
 			GetComponent<Collider> ().enabled = true;
 		}
 

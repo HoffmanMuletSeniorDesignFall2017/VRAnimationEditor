@@ -116,7 +116,7 @@ public class AnimationVisualizer : Visualizer {
 	}
 	
 	// Update is called once per frame
-	void LateUpdate () {
+	void Update () {
 
 		//TODO: Get rid of this HACK
 
@@ -146,7 +146,7 @@ public class AnimationVisualizer : Visualizer {
 
 				//keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.animator.Play (keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, currentTime);
 				//RefreshCurves();
-
+				animCurves_Visualizers[i].needsToRefresh = false;
 			}
 		}
 
@@ -197,11 +197,13 @@ public class AnimationVisualizer : Visualizer {
 		for (int i = 0; i < animCurves_Visualizers.Count; i++) {
 			//TODO: Make VR compatible
 
+			//TODO: Support more than one selected curve parameter
+
 			if (animCurves_Visualizers [i].selected) {
-				Debug.Log ("Got that we should do something... checking for associated node thing");
+				//Debug.Log ("Got that we should do something... checking for associated node thing");
 				if(animCurves_Visualizers[i].associatedNodeVisualizer != null){
-					Debug.Log ("About to call moCon.start capture");
-					moCon.StartCapturing(animCurves_Visualizers[i].associatedNodeVisualizer, Input.mousePosition);
+					//Debug.Log ("About to call moCon.start capture");
+					moCon.StartCapturing(animCurves_Visualizers[i].associatedNodeVisualizer, Input.mousePosition, animCurves_Visualizers[i], keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer);
 					break;
 				}
 			}
