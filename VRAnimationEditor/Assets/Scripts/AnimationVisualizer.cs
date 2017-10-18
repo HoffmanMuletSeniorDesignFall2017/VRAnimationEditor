@@ -131,7 +131,7 @@ public class AnimationVisualizer : Visualizer {
 		//TODO: Get rid of all of this; update is not needed
 		//TODO: Get rid of this HACK
 
-		for (int i = 0; i < animCurves.Cou	nt; i++) {
+		for (int i = 0; i < animCurves.Count; i++) {
 			if(i == 0)
 				values.text = AnimationUtility.GetCurveBindings (currentClip) [i].propertyName + "\n";
 			else
@@ -171,7 +171,19 @@ public class AnimationVisualizer : Visualizer {
 	}
 
 	public void RefreshAnimationCurve(int i){
+		//We have to keep track of the current time because SetCurve resets it :(
+		float currentTime = keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.GetAnimatorTime();
 
+		//Debug.Log (currentTime);
+
+		StartCoroutine (UpdateAnimationCurveAndResume (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i], currentTime));
+		//currentClip.SetCurve (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i]);
+
+		//keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime (currentTime);
+
+		//keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.animator.Play (keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, currentTime);
+		//RefreshCurves();
+		animCurves_Visualizers[i].needsToRefresh = false;
 	}
 
 	IEnumerator UpdateAnimationCurveAndResume(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime){
