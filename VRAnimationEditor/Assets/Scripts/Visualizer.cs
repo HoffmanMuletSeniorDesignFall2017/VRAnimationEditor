@@ -20,6 +20,8 @@ public class Visualizer : MonoBehaviour, IPointerReciever {
 	void Start () {
 		interactingPointers = new LinkedList<int>();
 		pressingPointers = new LinkedList<int>();
+
+		this.enabled = false;		//We don't need update so we disable this
 	}
 	
 	// Update is called once per frame

@@ -65,6 +65,7 @@ public class AnimationVisualizer : Visualizer {
 			acv.animCurve = animCurves [i];
 			acv.keyframeObject = keyframeObject;
 			acv.keyframeWorkArea= keyframeWorkArea.GetComponent<KeyframeWorkArea>();
+			acv.parentAnimVisualizer = this;
 
 			if (currentClip.isHumanMotion) {
 				string objectAnimated = AnimationUtility.GetCurveBindings (currentClip) [i].propertyName;
@@ -82,6 +83,14 @@ public class AnimationVisualizer : Visualizer {
 
 
 			animCurves_Visualizers.Add (acv);
+		}
+
+		for (int i = 0; i < animCurves.Count; i++) {
+			if(i == 0)
+				values.text = AnimationUtility.GetCurveBindings (currentClip) [i].propertyName + "\n";
+			else
+				values.text += AnimationUtility.GetCurveBindings (currentClip) [i].propertyName + "\n";
+			//Then would do stuff to actually draw keyframes, etc.
 		}
 
 	}
@@ -113,14 +122,16 @@ public class AnimationVisualizer : Visualizer {
 			gameObject.AddComponent<MocapController> ();
 			moCon = gameObject.GetComponent<MocapController> ();
 		}
+
+		this.enabled = false;		//We don't need update so we disable this
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		//TODO: Get rid of all of this; update is not needed
 		//TODO: Get rid of this HACK
 
-		for (int i = 0; i < animCurves.Count; i++) {
+		for (int i = 0; i < animCurves.Cou	nt; i++) {
 			if(i == 0)
 				values.text = AnimationUtility.GetCurveBindings (currentClip) [i].propertyName + "\n";
 			else
@@ -157,6 +168,10 @@ public class AnimationVisualizer : Visualizer {
 				break;
 			}
 		}
+	}
+
+	public void RefreshAnimationCurve(int i){
+
 	}
 
 	IEnumerator UpdateAnimationCurveAndResume(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime){

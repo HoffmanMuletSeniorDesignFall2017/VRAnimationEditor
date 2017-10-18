@@ -9,6 +9,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	string parameterTitle;	//The name of the parameter that this curve is for
 
 	public AnimationCurve animCurve;	//IMPORTANT! The actual curve associated with this animation curve
+	public AnimationVisualizer parentAnimVisualizer;
 
 	List<AnimationCurveVisualizer> childrenCurveVisualizers;	//Any children curves related to this (EXPERIMENTAL)
 
@@ -186,6 +187,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 					childNeedsDeletion = false;
 
 					needsToRefresh = true;
+					parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
+
 
 					return;
 				}
@@ -223,6 +226,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 			//hasChanged = true;
 			needsToRefresh = true;
+			parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
 
 		} else {
 			/*if (hasChanged) {
@@ -259,6 +263,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		animCurve.AddKey (newKeyframe);
 
 		needsToRefresh = true;
+		parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
 
 		Refresh ();
 	}
@@ -288,6 +293,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			animCurve.MoveKey (index, k);
 
 		needsToRefresh = true;
+		parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
 
 		Refresh ();
 	}
@@ -299,5 +305,6 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		animCurve.MoveKey (selectedKeyframeIndex, newKeyframe);
 
 		needsToRefresh = true;
+		parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
 	}
 }
