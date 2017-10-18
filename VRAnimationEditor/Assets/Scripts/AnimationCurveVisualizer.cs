@@ -138,9 +138,6 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 				selectedKeyframe.GetComponent<cakeslice.Outline> ().enabled = true;
 			}
 */
-			for (int i = 0; i < currentKeyframes.Count; i++) {
-				currentKeyframes[i].GetComponent<cakeslice.Outline>().enabled = false;
-			}
 
 			for (int i = 0; i < currentKeyframes.Count; i++) {
 				if (currentKeyframes [i].GetComponent<MovableVisualizer> ().selected) {
@@ -151,9 +148,6 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			}
 
 			if (selectedKeyframe != null) {
-				//Here we just do the selection outline
-				selectedKeyframe.GetComponent<cakeslice.Outline> ().enabled = true;
-
 
 				float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
 
@@ -240,12 +234,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			}
 			//needsToRefresh = false;
 		}
-
-		if (!selected) {
-			for (int i = 0; i < currentKeyframes.Count; i++) {
-				currentKeyframes[i].GetComponent<cakeslice.Outline>().enabled = false;
-			}
-		}
+			
 	}
 
 	public void AddKeyframe(){

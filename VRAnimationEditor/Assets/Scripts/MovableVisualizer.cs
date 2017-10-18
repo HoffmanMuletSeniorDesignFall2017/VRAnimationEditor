@@ -35,12 +35,16 @@ public class MovableVisualizer : Visualizer, IPointerReciever {
 	}
 
 	public void Select(){
+		if(GetComponent<cakeslice.Outline>() != null)
+			GetComponent<cakeslice.Outline>().enabled = true;
 		selected = true;
 		if(associatedVisualizer != null)
 			associatedVisualizer.selected = true;
 	}
 
 	public void Deselect(){
+		if(GetComponent<cakeslice.Outline>() != null)
+			GetComponent<cakeslice.Outline>().enabled = false;
 		selected = false;
 		if(associatedVisualizer != null)
 			associatedVisualizer.selected = false;
