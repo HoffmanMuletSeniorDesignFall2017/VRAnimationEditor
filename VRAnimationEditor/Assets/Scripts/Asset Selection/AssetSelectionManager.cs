@@ -84,12 +84,22 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
 		}
 		GameObject animModel = AnimationEditorFunctions.InstantiateWithAnimation(model, newAnimation, modelSpawnAnchor);
 
-		animVis.SetCurrentClipAndGameObject (newAnimation, animModel);
+
 		NodeVisualizationManager nodeVis = animModel.AddComponent<NodeVisualizationManager> ();
 		nodeVis.nodeMarkerPrefab = templateNodeVisualizationManager.nodeMarkerPrefab;
 		nodeVis.makeTransparent = templateNodeVisualizationManager.makeTransparent;
 		nodeVis.transparentTemplate = templateNodeVisualizationManager.transparentTemplate;
+
+		StartCoroutine(WaitAndDoTheThing (animModel, newAnimation));
+
     }
+
+	IEnumerator WaitAndDoTheThing(GameObject objInstance, AnimationClip sessionAnim){
+		yield return new WaitForFixedUpdate ();
+		yield return null;
+
+		animVis.SetCurrentClipAndGameObject (sessionAnim, objInstance);
+	}
 
     private void PrintDebugAnimationInfo(){
         EditorCurveBinding[] curveBindings = AnimationUtility.GetObjectReferenceCurveBindings(animClip);
