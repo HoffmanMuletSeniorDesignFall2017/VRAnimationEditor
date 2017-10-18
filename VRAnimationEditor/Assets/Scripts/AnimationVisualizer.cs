@@ -109,7 +109,7 @@ public class AnimationVisualizer : Visualizer {
 
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		animCurves = new List<AnimationCurve> ();
 		animCurves_Visualizers = new List<AnimationCurveVisualizer> ();
 

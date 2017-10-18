@@ -6,12 +6,12 @@ using UnityEditor;
 public class SessionManager : MonoBehaviour {
     public GameObject modelSelectionUIPrefab;
     public GameObject animClipSelectionUIPrefab;
-    public AssetLogger assetLogger;
     public GameObject sessionModel;
     public AnimationClip sessionAnim;
     public AnimationVisualizer animVis;
+	public Transform animModelAnchor;
 
-	public NodeVisualizer templateNodeVisualizer;
+	public NodeVisualizationManager templateNodeVisualizer;
 
     void Start(){
         StartNewSession();
@@ -23,13 +23,11 @@ public class SessionManager : MonoBehaviour {
 
         GameObject modelSelUI = Instantiate<GameObject>(modelSelectionUIPrefab);
         modelSelUI.GetComponent<ModelSelectionUIController>().sessionManager = this;
-        modelSelUI.GetComponent<ModelSelectionUIController>().assetLogger = assetLogger;
     }
 
     public void OnModelSelected(){
         GameObject animSelUI = Instantiate<GameObject>(animClipSelectionUIPrefab);
         animSelUI.GetComponent<AnimationSelectionUIController>().sessionManager = this;
-        animSelUI.GetComponent<AnimationSelectionUIController>().assetLogger = assetLogger;
     }
 
     public void OnAnimationSelected(){
@@ -82,7 +80,8 @@ public class SessionManager : MonoBehaviour {
 		 * 
 		newThing.transform.localPosition.Set (objInstance.transform.localPosition.x, objInstance.transform.localPosition.y, objInstance.transform.localPosition.z);
 
-		objInstance.transform.parent = newThing.transform;
+		//objInstance.transform.parent = newThing.transform;
+		objInstance.transform.parent = animModelAnchor;
 
 		objInstance.transform.localPosition.Set (0f, 0f, 0f);
 
@@ -92,7 +91,7 @@ public class SessionManager : MonoBehaviour {
 		//-------End TODO
 
 
-		NodeVisualizer nodeVis = objInstance.AddComponent<NodeVisualizer> ();
+		NodeVisualizationManager nodeVis = objInstance.AddComponent<NodeVisualizationManager> ();
 		nodeVis.nodeMarkerPrefab = templateNodeVisualizer.nodeMarkerPrefab;
 		nodeVis.makeTransparent = templateNodeVisualizer.makeTransparent;
 		nodeVis.transparentTemplate = templateNodeVisualizer.transparentTemplate;

@@ -3,50 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-// Script for logging information about project assets in editor mode.
-[ExecuteInEditMode]
-public class AssetLogger : MonoBehaviour
+public static class AssetLogger
 {
-    // Used to trigger reloading of info.
-    public bool logAssets;
-    // List of all animation clips in the project.
-    public List<AnimationClip> animationClips;
-    // List of all 3D models in the project.
-    // I don't think this should include prefabs, though the current logging method does.
-    public List<GameObject> models;
+	private const int MinModelLevels = 3;
 
-    void Start()
+	public static List<AnimationClip> GetAnimations()
     {
-        // Instantiate lists.
-        animationClips = new List<AnimationClip>();
-        models = new List<GameObject>();
-        // Log assets 
-        LogAssets();
-        logAssets = false;
-    }
-
-    void Update()
-    {
-        // Log assets if needed.
-        if (logAssets)
-        {
-            LogAssets();
-            logAssets = false;
-        }
-    }
-
-    // Create lists of assets in project.
-    private void LogAssets()
-    {
-        LogAnimations();
-        LogModels();
-    }
-
-    // Log all animations in the project.
-    private void LogAnimations()
-    {
-        // Clear previous list of animations.
-        animationClips.Clear();
+		List<AnimationClip> animClips = new List<AnimationClip> ();
         // Search asset database by type for animation clips, get their GUIDs.
         string[] animGuids = AssetDatabase.FindAssets("t:AnimationClip");
         for (int i = 0; i < animGuids.Length; i++)
@@ -56,15 +19,14 @@ public class AssetLogger : MonoBehaviour
             // Load animation clip.
             AnimationClip anim = AssetDatabase.LoadAssetAtPath<AnimationClip>(animPath);
             // Store animation clip in list.
-            animationClips.Add(anim);
+			animClips.Add(anim);
         }
+		return animClips;
     }
 
-    // Log all models in the project.
-    private void LogModels()
+	public static List<GameObject> GetModels()
     {
-        // Clear previous list of models.
-        models.Clear();
+		List<GameObject> models = new List<GameObject> ();
         // Get GameObject GUIDs from asset database.
         string[] gameObjGuids = AssetDatabase.FindAssets("t:GameObject");
         for (int i = 0; i < gameObjGuids.Length; i++)
@@ -79,29 +41,33 @@ public class AssetLogger : MonoBehaviour
                 models.Add(obj);
             }
         }
+		return models;
     }
 
     // Check if a GameObject is a 3D model.
-    private bool IsModel(GameObject obj)
+	private static bool IsModel(GameObject obj)
     {
-        // If it has a SkinnedMeshRenderer component, it is a model.
-        if (obj.GetComponent<SkinnedMeshRenderer>() != null)
-        {
-            return true;
-        }
-        // If it has a MeshRenderer component, it is a model.
-        if (obj.GetComponent<MeshRenderer>() != null)
-        {
-            return true;
-        }
-        // Check children for above componenets.
-        bool isModel = false;
-        // Loop through children until there are no more children, or a child is determined to
-        // be a model.
-        for (int i = 0; i < obj.transform.childCount && !isModel; i++)
-        {
-            isModel |= IsModel(obj.transform.GetChild(i).gameObject);
-        }
-        return isModel;
+		return HasSkinnedMesh (obj) && (GetChildLevelCount (obj) >= MinModelLevels);
     }
+
+	private static bool HasSkinnedMesh(GameObject obj){
+		if (obj.GetComponent<SkinnedMeshRenderer> () != null) {
+			return true;
+		}
+		bool hasSkinnedMesh = false;
+		for (int i = 0; i < obj.transform.childCount && !hasSkinnedMesh; i++) {
+			hasSkinnedMesh |= HasSkinnedMesh (obj.transform.GetChild (i).gameObject);
+		}
+		return hasSkinnedMesh;
+	}
+
+	private static int GetChildLevelCount(GameObject obj){
+		int maxChildLevels = 0;
+		for (int i = 0; i < obj.transform.childCount; i++) {
+			GameObject childObj = obj.transform.GetChild (i).gameObject;
+			int childLevels = GetChildLevelCount (childObj);
+			maxChildLevels = Mathf.Max (maxChildLevels, childLevels);
+		}
+		return maxChildLevels + 1;
+	}
 }

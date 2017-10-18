@@ -62,9 +62,9 @@ public static class AnimationEditorFunctions {	//This static class is basically 
         animClip.wrapMode = WrapMode.Loop;
     }
 
-	public static GameObject InstantiateWithAnimation(GameObject go, AnimationClip animClip){	//Used after the user has selected a GameObject and an AnimationClip to edit; instantiates the GameObject into the scene and sets it up appropriately.
+	public static GameObject InstantiateWithAnimation(GameObject go, AnimationClip animClip, Transform parent = null){	//Used after the user has selected a GameObject and an AnimationClip to edit; instantiates the GameObject into the scene and sets it up appropriately.
         ForceLoop(animClip);
-		GameObject newGo = GameObject.Instantiate (go);
+		GameObject newGo = GameObject.Instantiate (go, parent);
 
 		if (newGo.GetComponent<Animator> () != null) {
 			//We don't like Animator for our purposes; ergo, we get rid of it
