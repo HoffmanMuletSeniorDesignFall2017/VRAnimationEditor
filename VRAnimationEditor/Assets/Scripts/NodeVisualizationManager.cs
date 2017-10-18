@@ -67,7 +67,8 @@ public class NodeVisualizationManager : MonoBehaviour {
 		for(int i = 0; i < renderers.Count; i++){
 			Material[] newMatSet = renderers[i].materials;
 			for(int j = 0; j < newMatSet.Length; j++){
-				newMatSet[j] = replaceMat;
+				//newMatSet[j] = replaceMat;
+				newMatSet[j] = new Material(replaceMat);
 			}
 			renderers[i].materials = newMatSet;
 		}
