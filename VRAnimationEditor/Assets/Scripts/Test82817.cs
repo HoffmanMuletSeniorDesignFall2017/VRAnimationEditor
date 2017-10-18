@@ -44,7 +44,7 @@ public class Test82817 : MonoBehaviour {
 
 			//animClip.SetCurve("", typeof(Transform), "localPosition.y", testCurve);
 			animClip.SetCurve("", typeof(Transform), "localPosition.y", testCurve);
-			animClip.SetCurve("", typeof(Transform), "localScale.y", testCurve);
+			//animClip.SetCurve("", typeof(Transform), "localScale.y", testCurve);
 
 			animVisual.RefreshCurves ();
 
@@ -69,7 +69,7 @@ public class Test82817 : MonoBehaviour {
 			testCurve.AddKey (key2);
 
 			animClip.SetCurve("", typeof(Transform), "localPosition.x", testCurve);
-			animClip.SetCurve("", typeof(Transform), "localScale.x", testCurve);
+			//animClip.SetCurve("", typeof(Transform), "localScale.x", testCurve);
 
 			animVisual.RefreshCurves ();
 		}

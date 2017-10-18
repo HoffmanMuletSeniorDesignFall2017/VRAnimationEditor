@@ -46,12 +46,14 @@ public class MovableVisualizer : Visualizer, IPointerReciever {
 
 	public void Grab(){
 		grabbing = true;
+		GetComponent<Collider> ().enabled = false;
 		if(associatedVisualizer != null)
 			associatedVisualizer.grabbing = true;
 	}
 
 	public void DeGrab(){
 		grabbing = false;
+		GetComponent<Collider> ().enabled = true;
 		if(associatedVisualizer != null)
 			associatedVisualizer.grabbing = false;
 	}
@@ -66,6 +68,7 @@ public class MovableVisualizer : Visualizer, IPointerReciever {
 		if (constrainedToLocalX) {
 			transform.position = new Vector3 (newPosition.x, transform.position.y, transform.position.z);
 		}
+
 	}
 
 	/*
