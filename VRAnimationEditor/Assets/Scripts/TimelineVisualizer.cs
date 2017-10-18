@@ -39,6 +39,8 @@ public class TimelineVisualizer : Visualizer {
 		timeLine.GetComponent<Outline> ().enabled = false;
 
 		//overrideController = new AnimatorOverrideController ();
+		interactingPointers = new LinkedList<int>();
+		pressingPointers = new LinkedList<int>();
 	}
 	
 	// Update is called once per frame

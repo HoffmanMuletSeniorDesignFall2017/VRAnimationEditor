@@ -14,6 +14,34 @@ public static class AnimationEditorFunctions {	//This static class is basically 
 
 		AssetDatabase.CreateAsset(newAnimClip, string.Concat("Assets/", newName, ".anim"));
 
+
+		//newAnimClip.legacy = false;
+		//newAnimClip.wrapMode = WrapMode.Loop;
+		//newAnimClip.wrapMode = WrapMode.PingPong;
+		AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(newAnimClip);
+		settings.loopTime = true;
+		AnimationUtility.SetAnimationClipSettings(newAnimClip, settings);
+
+		return newAnimClip;
+	}
+
+	public static AnimationClip CopyToNewAnimation(AnimationClip old, string newName){	//Creates a new Animation clip and adds it as an asset. Returns the clip.
+		AnimationClip newAnimClip = new AnimationClip ();
+		//TODO: Make a user-configurable name and destination?
+
+		/*//Perform a deep copy
+		for (int i = 0; i < AnimationUtility.GetCurveBindings (old).Length; i++) {
+			newAnimClip.SetCurve (AnimationUtility.GetCurveBindings (old) [i].path, AnimationUtility.GetCurveBindings (old) [i].type, AnimationUtility.GetCurveBindings (old) [i].propertyName, AnimationUtility.GetEditorCurve (old, AnimationUtility.GetCurveBindings (old) [i]));
+		}*/
+
+		AssetDatabase.CreateAsset(newAnimClip, string.Concat("Assets/", newName, ".anim"));
+
+
+		//Perform a deep copy
+		for (int i = 0; i < AnimationUtility.GetCurveBindings (old).Length; i++) {
+			newAnimClip.SetCurve (AnimationUtility.GetCurveBindings (old) [i].path, AnimationUtility.GetCurveBindings (old) [i].type, AnimationUtility.GetCurveBindings (old) [i].propertyName, AnimationUtility.GetEditorCurve (old, AnimationUtility.GetCurveBindings (old) [i]));
+		}
+
 		//newAnimClip.legacy = false;
 		//newAnimClip.wrapMode = WrapMode.Loop;
 		//newAnimClip.wrapMode = WrapMode.PingPong;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovableVisualizer : Visualizer {
+public class MovableVisualizer : Visualizer, IPointerReciever {
 
 	//If this component is added to a GameObject then that GameObject can be selected and moved by the user
 	//NOTE: This script must be on an object with another actual visualizer already on it
@@ -19,9 +19,14 @@ public class MovableVisualizer : Visualizer {
 			gameObject.AddComponent<BoxCollider> ();
 			GetComponent<BoxCollider> ().isTrigger = true;
 		} else if (gameObject.GetComponent<Collider> ().enabled == false) {
-			GetComponent<Collider> ().isTrigger = true;
+			//GetComponent<Collider> ().isTrigger = true;
 			GetComponent<Collider> ().enabled = true;
 		}
+
+		interactingPointers = new LinkedList<int>();
+		pressingPointers = new LinkedList<int>();
+
+		this.enabled = false;		//We don't need update so we disable this
 	}
 	
 	// Update is called once per frame
@@ -43,12 +48,14 @@ public class MovableVisualizer : Visualizer {
 
 	public void Grab(){
 		grabbing = true;
+		GetComponent<Collider> ().enabled = false;
 		if(associatedVisualizer != null)
 			associatedVisualizer.grabbing = true;
 	}
 
 	public void DeGrab(){
 		grabbing = false;
+		GetComponent<Collider> ().enabled = true;
 		if(associatedVisualizer != null)
 			associatedVisualizer.grabbing = false;
 	}
@@ -63,5 +70,52 @@ public class MovableVisualizer : Visualizer {
 		if (constrainedToLocalX) {
 			transform.position = new Vector3 (newPosition.x, transform.position.y, transform.position.z);
 		}
+
 	}
+
+	/*
+	public void OnPointerExit(int pointerID)
+	{
+		interactingPointers.Remove(pointerID);
+		pressingPointers.Remove(pointerID);
+		pointerHoveringOverThis = false;
+	}
+
+	public void OnPointerEnter(int pointerID){
+		pointerHoveringOverThis = true;
+	}
+
+	public void OnButtonDown(int pointerID, int buttonID)
+	{
+		if (buttonID == 0)
+		{
+			pressingPointers.AddFirst(pointerID);
+			if (selected) {
+				Grab ();
+				return;
+			}
+			if (pointerHoveringOverThis) {
+				Select ();
+				return;
+			}
+			Deselect ();
+			DeGrab ();
+		}
+	}
+
+	public void OnButtonUp(int pointerID, int buttonID)
+	{
+		if (buttonID == 0)
+		{
+			pressingPointers.Remove(pointerID);
+
+			if (grabbing) {
+				DeGrab ();
+			}
+		}
+
+	}
+	*/
+
+
 }
