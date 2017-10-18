@@ -78,13 +78,28 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
 
 
     private void SetupAnimation(){
-		GameObject animModel = AnimationEditorFunctions.InstantiateWithAnimation(model, animClip, modelSpawnAnchor);
-		animVis.SetCurrentClipAndGameObject (animClip, animModel);
+		AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation ("Test");
+		for (int i = 0; i < AnimationUtility.GetCurveBindings (animClip).Length; i++) {
+			newAnimation.SetCurve (AnimationUtility.GetCurveBindings (animClip) [i].path, AnimationUtility.GetCurveBindings (animClip) [i].type, AnimationUtility.GetCurveBindings (animClip) [i].propertyName, AnimationUtility.GetEditorCurve (animClip, AnimationUtility.GetCurveBindings (animClip) [i]));
+		}
+		GameObject animModel = AnimationEditorFunctions.InstantiateWithAnimation(model, newAnimation, modelSpawnAnchor);
+
+
 		NodeVisualizationManager nodeVis = animModel.AddComponent<NodeVisualizationManager> ();
 		nodeVis.nodeMarkerPrefab = templateNodeVisualizationManager.nodeMarkerPrefab;
 		nodeVis.makeTransparent = templateNodeVisualizationManager.makeTransparent;
 		nodeVis.transparentTemplate = templateNodeVisualizationManager.transparentTemplate;
+
+		StartCoroutine(WaitAndDoTheThing (animModel, newAnimation));
+
     }
+
+	IEnumerator WaitAndDoTheThing(GameObject objInstance, AnimationClip sessionAnim){
+		yield return new WaitForFixedUpdate ();
+		yield return null;
+
+		animVis.SetCurrentClipAndGameObject (sessionAnim, objInstance);
+	}
 
     private void PrintDebugAnimationInfo(){
         EditorCurveBinding[] curveBindings = AnimationUtility.GetObjectReferenceCurveBindings(animClip);
