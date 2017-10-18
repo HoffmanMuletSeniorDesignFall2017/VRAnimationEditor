@@ -78,8 +78,13 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
 
 
     private void SetupAnimation(){
-		GameObject animModel = AnimationEditorFunctions.InstantiateWithAnimation(model, animClip, modelSpawnAnchor);
-		animVis.SetCurrentClipAndGameObject (animClip, animModel);
+		AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation ("Test");
+		for (int i = 0; i < AnimationUtility.GetCurveBindings (animClip).Length; i++) {
+			newAnimation.SetCurve (AnimationUtility.GetCurveBindings (animClip) [i].path, AnimationUtility.GetCurveBindings (animClip) [i].type, AnimationUtility.GetCurveBindings (animClip) [i].propertyName, AnimationUtility.GetEditorCurve (animClip, AnimationUtility.GetCurveBindings (animClip) [i]));
+		}
+		GameObject animModel = AnimationEditorFunctions.InstantiateWithAnimation(model, newAnimation, modelSpawnAnchor);
+
+		animVis.SetCurrentClipAndGameObject (newAnimation, animModel);
 		NodeVisualizationManager nodeVis = animModel.AddComponent<NodeVisualizationManager> ();
 		nodeVis.nodeMarkerPrefab = templateNodeVisualizationManager.nodeMarkerPrefab;
 		nodeVis.makeTransparent = templateNodeVisualizationManager.makeTransparent;
