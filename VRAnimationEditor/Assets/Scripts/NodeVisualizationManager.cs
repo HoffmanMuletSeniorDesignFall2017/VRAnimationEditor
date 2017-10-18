@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeVisualizer : MonoBehaviour {
+// This is for visualizing the transform nodes of a model.
+public class NodeVisualizationManager : MonoBehaviour {
 	public bool isTemplate = false;
 	public Transform root;
 	public GameObject nodeMarkerPrefab;
@@ -33,6 +34,7 @@ public class NodeVisualizer : MonoBehaviour {
 		
 	}
 
+	// Spawn markers for each transform in an object hierarchy.
 	private void SpawnNodeMarkers(Transform obj){
 		for (int i = 0; i < obj.childCount; i++) {
 			SpawnNodeMarkers (obj.GetChild (i));

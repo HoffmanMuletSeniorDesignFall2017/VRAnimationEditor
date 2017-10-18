@@ -10,7 +10,7 @@ public class SessionManager : MonoBehaviour {
     public AnimationVisualizer animVis;
 	public Transform animModelAnchor;
 
-	public NodeVisualizer templateNodeVisualizer;
+	public NodeVisualizationManager templateNodeVisualizer;
 
     void Start(){
         StartNewSession();
@@ -48,7 +48,7 @@ public class SessionManager : MonoBehaviour {
 
         animVis.SetCurrentClipAndGameObject(sessionAnim, objInstance);
 
-		NodeVisualizer nodeVis = objInstance.AddComponent<NodeVisualizer> ();
+		NodeVisualizationManager nodeVis = objInstance.AddComponent<NodeVisualizationManager> ();
 		nodeVis.nodeMarkerPrefab = templateNodeVisualizer.nodeMarkerPrefab;
 		nodeVis.makeTransparent = templateNodeVisualizer.makeTransparent;
 		nodeVis.transparentTemplate = templateNodeVisualizer.transparentTemplate;
