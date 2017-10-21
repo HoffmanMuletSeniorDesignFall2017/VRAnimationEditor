@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,6 +53,7 @@ public class VRControllerPointer : MonoBehaviour {
 		if (HasPointerReciever(focus))
 		{
 			IPointerReciever pointerReciever = focus.GetComponent<IPointerReciever> ();
+			#if OVR_INPUT
 			if (isLeft) {
 				if (OVRInput.GetDown (OVRInput.Button.PrimaryIndexTrigger)) {
 					pointerReciever.OnButtonDown (pointerId, 0);
@@ -68,6 +71,7 @@ public class VRControllerPointer : MonoBehaviour {
 					pointerReciever.OnButtonUp (pointerId, 0);
 				}
 			}
+			#endif
 		}
 	}
 

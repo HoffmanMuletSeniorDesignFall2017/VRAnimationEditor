@@ -1,6 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "OvrAvatar/AvatarSurfaceShaderPBS" {
+﻿Shader "OvrAvatar/AvatarSurfaceShaderPBS" {
 	Properties{
 		// Global parameters
 		_Alpha("Alpha", Range(0.0, 1.0)) = 1.0
@@ -30,7 +28,7 @@ Shader "OvrAvatar/AvatarSurfaceShaderPBS" {
 			v2f vert(appdata_full v) {
 				// Output
 				v2f output;
-				output.position = UnityObjectToClipPos(v.vertex);
+				output.position = mul(UNITY_MATRIX_MVP, v.vertex);
 				return output;
 			}
 
