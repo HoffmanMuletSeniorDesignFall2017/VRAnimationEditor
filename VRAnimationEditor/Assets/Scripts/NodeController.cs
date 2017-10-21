@@ -7,12 +7,19 @@ public class NodeController : MonoBehaviour, IPointerReciever {
 	private bool isSelected = false;
 	private bool hasPointerFocus = false;
 
+	private AnimationCurveVisualizer associatedVisualizer = null;
+
 	void Start(){
 		SetAxisVisibility (false);
 	}
 
 	void Update(){
-		
+		//TODO: Move this to a single instance of some controller class to save time
+		if (isSelected && Input.GetKeyDown (KeyCode.N)) {
+			if (associatedVisualizer != null) {
+				associatedVisualizer.RecordValuesOfAssociatedNode ();
+			}
+		}
 	}
 
 	public void SetAxisVisibility(bool isVisible){

@@ -6,6 +6,9 @@ using cakeslice;
 
 public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoBehaviour {
 
+	public enum ACVType {PosX, PosY, PosZ, RotX, RotY, RotZ, RotQ, Other};  	//Used for what kind of type of animation curve this is (so we know what to grab from an associated node visualizer, if any)
+	public ACVType curveType;
+
 	string parameterTitle;	//The name of the parameter that this curve is for
 
 	public AnimationCurve animCurve;	//IMPORTANT! The actual curve associated with this animation curve
@@ -36,6 +39,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	public GameObject valueVisualizer;
 
 	public GameObject associatedNodeVisualizer;
+
+	public 
 
 	// Use this for initialization
 	void Start () {
@@ -295,5 +300,30 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 		needsToRefresh = true;
 		parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
+	}
+
+	public void RecordValuesOfAssociatedNode(){
+		if (associatedNodeVisualizer == null)
+			return;
+
+		//If this was called, then we want to take a snapshot of the parameter of the node for this curve and save it as a keyframe in the current time
+		switch (curveType) {
+			case ACVType.PosX:
+				break;
+			case ACVType.PosY:
+				break;
+			case ACVType.PosZ:
+				break;
+			case ACVType.RotX:
+				break;
+			case ACVType.RotY:
+				break;
+			case ACVType.RotZ:
+				break;
+			case ACVType.RotQ:
+				break;
+			default:
+				break;
+		}
 	}
 }
