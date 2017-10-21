@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever {
+public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever, IGrabReciever {
 	public GameObject[] rings, arrows;
 	private bool isSelected = false;
 	private bool hasPointerFocus = false;
+    private Transform boneNode, boneNodeParent;
+    private GameObject grabOwner;
 
 	void Start(){
 		SetAxisVisibility (false);
+        boneNode = transform.parent;
+        boneNodeParent = boneNode.parent;
 	}
 
 	void Update(){
@@ -56,5 +60,19 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
     public void OnRecieveAxis(int sourceID, int axisID, float axisValue){
         
+    }
+
+    public void OnGrab(GameObject grabber){
+        boneNode.parent = grabber.transform;
+        grabOwner = grabber;
+    }
+
+    public void OnRelease(GameObject grabber){
+        if (grabber == grabOwner)
+        {
+
+            boneNode.parent = boneNodeParent;
+            grabOwner = null;
+        }
     }
 }
