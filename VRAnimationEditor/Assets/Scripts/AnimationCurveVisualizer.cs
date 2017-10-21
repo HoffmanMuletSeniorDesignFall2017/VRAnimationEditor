@@ -172,7 +172,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 				//Do some node stuff
 				if (associatedNodeVisualizer != null) {
-					associatedNodeVisualizer.GetComponent<NodeController> ().SetAxisVisibility (true);
+					associatedNodeVisualizer.GetComponent<ModelNodeController> ().SetAxisVisibility (true);
 				}
 
 				if (childNeedsDeletion) {

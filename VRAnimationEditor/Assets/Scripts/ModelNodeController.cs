@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeController : MonoBehaviour, IPointerReciever {
+public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever {
 	public GameObject[] rings, arrows;
 	private bool isSelected = false;
 	private bool hasPointerFocus = false;
@@ -44,14 +44,17 @@ public class NodeController : MonoBehaviour, IPointerReciever {
 		}
 	}
 
-	public void OnButtonDown(int pointerID, int buttonID){
-		isSelected = !isSelected;
-		if (!hasPointerFocus) {
-			SetAxisVisibility (isSelected);
-		}
+    public void OnRecieveButton(int sourceID, int buttonID, bool buttonState){
+        if (buttonState == true)
+        {
+            isSelected = !isSelected;
+            if (!hasPointerFocus) {
+                SetAxisVisibility (isSelected);
+            }
+        }         		
 	}
 
-	public void OnButtonUp(int pointerID, int buttonID){
-		
-	}
+    public void OnRecieveAxis(int sourceID, int axisID, float axisValue){
+        
+    }
 }
