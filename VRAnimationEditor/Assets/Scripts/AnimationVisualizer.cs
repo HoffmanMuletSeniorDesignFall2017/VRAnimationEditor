@@ -37,6 +37,10 @@ public class AnimationVisualizer : Visualizer {
 		RefreshCurves ();
 	}
 
+	public AnimationClip GetCurrentClip(){
+		return currentClip;
+	}
+
 	public void RefreshCurves(){
 		//Animation Curve Setup
 		animCurves.Clear ();
@@ -69,13 +73,22 @@ public class AnimationVisualizer : Visualizer {
 
 			if (currentClip.isHumanMotion) {
 				string objectAnimated = AnimationUtility.GetCurveBindings (currentClip) [i].propertyName;
+
+				Debug.Log (AnimationUtility.GetCurveBindings (currentClip) [i].type);
+
 				if (objectAnimated.Substring (objectAnimated.Length - 2, 1) == "."){
 					//Then it is a basic bone property
 					objectAnimated = objectAnimated.Substring (0, objectAnimated.Length - 3);		//Gets rid of "T.x" or whatever
 					HumanBodyBones theBone = GetBoneFromString(objectAnimated);
 					Transform nodeTransform = currentGameObject.GetComponent<Animator> ().GetBoneTransform (theBone);
 
-					acv.associatedNodeVisualizer = nodeTransform.GetChild (nodeTransform.childCount - 1).gameObject;		//Assumes Node marker will always be the last child
+					if(nodeTransform.GetChild (nodeTransform.childCount - 1) != null){
+
+						acv.associatedNodeVisualizer = nodeTransform.GetChild (nodeTransform.childCount - 1).gameObject;		//Assumes Node marker will always be the last child
+						acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetAssociatedVisualizer(acv);			//Link the acv and the node marker both ways (so they can both talk to each other)
+
+						acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetMainVisualizer(this);				//Makes it so the node visualizer can talk to this guy too
+					}
 				}
 			}
 
@@ -231,9 +244,9 @@ public class AnimationVisualizer : Visualizer {
 			//TODO: Support more than one selected curve parameter
 
 			if (animCurves_Visualizers [i].selected) {
-				Debug.Log ("Got that we should do something... checking for associated node thing");
+				//Debug.Log ("Got that we should do something... checking for associated node thing");
 				if(animCurves_Visualizers[i].associatedNodeVisualizer != null){
-					Debug.Log ("About to call moCon.start capture");
+					//Debug.Log ("About to call moCon.start capture");
 					moCon.StartCapturing(animCurves_Visualizers[i].associatedNodeVisualizer, Input.mousePosition, animCurves_Visualizers[i], keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer);
 					//keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.GetComponent<TimelineVisualizer> ().animator.applyRootMotion = false;
 					break;

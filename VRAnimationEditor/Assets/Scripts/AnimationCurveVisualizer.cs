@@ -6,7 +6,7 @@ using cakeslice;
 
 public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoBehaviour {
 
-	public enum ACVType {PosX, PosY, PosZ, RotX, RotY, RotZ, RotQ, Other};  	//Used for what kind of type of animation curve this is (so we know what to grab from an associated node visualizer, if any)
+	public enum ACVType {PosX, PosY, PosZ, RotX, RotY, RotZ, RotW, Other};  	//Used for what kind of type of animation curve this is (so we know what to grab from an associated node visualizer, if any)
 	public ACVType curveType;
 
 	string parameterTitle;	//The name of the parameter that this curve is for
@@ -39,8 +39,6 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	public GameObject valueVisualizer;
 
 	public GameObject associatedNodeVisualizer;
-
-	public 
 
 	// Use this for initialization
 	void Start () {
@@ -307,23 +305,37 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			return;
 
 		//If this was called, then we want to take a snapshot of the parameter of the node for this curve and save it as a keyframe in the current time
+		Keyframe newKf = new Keyframe();
+
 		switch (curveType) {
 			case ACVType.PosX:
+
+				newKf.value = associatedNodeVisualizer.transform.localPosition.x;
 				break;
 			case ACVType.PosY:
+				newKf.value = associatedNodeVisualizer.transform.localPosition.y;
 				break;
 			case ACVType.PosZ:
+				newKf.value = associatedNodeVisualizer.transform.localPosition.z;
 				break;
 			case ACVType.RotX:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.x;
 				break;
 			case ACVType.RotY:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.y;
 				break;
 			case ACVType.RotZ:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.z;
 				break;
-			case ACVType.RotQ:
+			case ACVType.RotW:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.w;
 				break;
 			default:
+				return;	//TODO: Maybe don't do this
 				break;
 		}
+
+		AddExistingKeyframe (newKf);
+
 	}
 }
