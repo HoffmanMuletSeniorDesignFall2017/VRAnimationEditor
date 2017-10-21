@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AnimationTileController : MonoBehaviour, IPointerReciever {
+public class AnimationTileController : MonoBehaviour, IPointerReciever, IButtonAxisReciever {
     public Text animNameText;
     public Image highlightImage;
     public Color highlightColor, selectColor;
@@ -75,6 +75,21 @@ public class AnimationTileController : MonoBehaviour, IPointerReciever {
             SetHighlight(HighlightState.Highlighted);
         }
     }
+
+	public void OnRecieveButton(int sourceID, int buttonID, bool buttonState){
+		if (buttonState == true)
+		{
+			OnButtonDown(sourceID, buttonID);
+		}
+		else
+		{
+			OnButtonUp(sourceID, buttonID);
+		}
+	}
+
+	public void OnRecieveAxis(int sourceID, int axisID, float axisValue){
+		
+	}
 
     public void OnButtonDown(int pointerID, int buttonID)
     {

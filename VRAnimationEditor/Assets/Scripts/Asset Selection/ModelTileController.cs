@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Script for controlling tiles in the model selection UI.
-public class ModelTileController : MonoBehaviour, IPointerReciever
+public class ModelTileController : MonoBehaviour, IPointerReciever, IButtonAxisReciever
 {
 	// Tile UI text component.
 	public Text modelNameText;
@@ -92,6 +92,22 @@ public class ModelTileController : MonoBehaviour, IPointerReciever
 			SetHighlight(HighlightState.Highlighted);
 		}
 	}
+
+    public void OnRecieveButton(int sourceID, int buttonID, bool state){
+        if (state == true)
+        {
+            OnButtonDown(sourceID, buttonID);
+        }
+        else
+        {
+            OnButtonUp(sourceID, buttonID);
+        }
+    }
+
+    public void OnRecieveAxis(int sourceID, int axisID, float  axisValue){
+        
+    }
+
 
 	public void OnButtonDown(int pointerID, int buttonID)
 	{
