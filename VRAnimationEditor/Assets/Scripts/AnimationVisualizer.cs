@@ -231,10 +231,11 @@ public class AnimationVisualizer : Visualizer {
 			//TODO: Support more than one selected curve parameter
 
 			if (animCurves_Visualizers [i].selected) {
-				//Debug.Log ("Got that we should do something... checking for associated node thing");
+				Debug.Log ("Got that we should do something... checking for associated node thing");
 				if(animCurves_Visualizers[i].associatedNodeVisualizer != null){
-					//Debug.Log ("About to call moCon.start capture");
+					Debug.Log ("About to call moCon.start capture");
 					moCon.StartCapturing(animCurves_Visualizers[i].associatedNodeVisualizer, Input.mousePosition, animCurves_Visualizers[i], keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer);
+					//keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.GetComponent<TimelineVisualizer> ().animator.applyRootMotion = false;
 					break;
 				}
 			}
@@ -243,6 +244,7 @@ public class AnimationVisualizer : Visualizer {
 
 	public void StopMotionCapture(){
 		moCon.StopCapturing ();
+		//keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.GetComponent<TimelineVisualizer> ().animator.applyRootMotion = true;
 	}
 
 
