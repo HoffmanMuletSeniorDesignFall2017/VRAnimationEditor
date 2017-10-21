@@ -204,11 +204,15 @@ public class AnimationVisualizer : Visualizer {
 		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeClip (newClip);
 		//currentClip.SetCurve (path, type, propertyName, animCurve);
 		//yield return new WaitForEndOfFrame ();
-		yield return null;
+
+		//yield return null;
 
 		currentClip = newClip;
 
-		//keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime (resumeTime);
+		//yield return new WaitForEndOfFrame ();
+
+		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime ((resumeTime + Time.deltaTime/3f) % 1.0f);
+	//	yield return null;
 		yield return null;
 	}
 
