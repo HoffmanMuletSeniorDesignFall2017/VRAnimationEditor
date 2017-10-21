@@ -205,7 +205,7 @@ public class AnimationVisualizer : Visualizer {
 		//currentClip.SetCurve (path, type, propertyName, animCurve);
 		//yield return new WaitForEndOfFrame ();
 
-		//yield return null;
+		yield return null;
 
 		currentClip = newClip;
 

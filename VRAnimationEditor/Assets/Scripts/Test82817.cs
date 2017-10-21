@@ -20,7 +20,7 @@ public class Test82817 : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.KeypadEnter)) {
 			//animClip = AnimationEditorFunctions.CreateNewAnimation (string.Concat("Test", System.DateTime.Now.Minute.ToString()));
-			animClip = AnimationEditorFunctions.CreateNewAnimation ("Test");
+			animClip = AnimationEditorFunctions.CreateNewAnimation ("Test2");
 			GameObject go = AnimationEditorFunctions.InstantiateWithAnimation (testPrefab, animClip);
 			animVisual.SetCurrentClipAndGameObject (animClip, go);
 		}
