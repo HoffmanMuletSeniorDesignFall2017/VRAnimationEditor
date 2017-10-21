@@ -3,6 +3,6 @@ using UnityEngine;
 
 public interface IGrabReciever
 {
-	void OnGrab ();
-	void OnRelease();
+    void OnGrab (GameObject grabber);
+    void OnRelease(GameObject grabber);
 }

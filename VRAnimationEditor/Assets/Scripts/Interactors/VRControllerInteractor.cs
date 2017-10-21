@@ -13,6 +13,7 @@ public class VRControllerInteractor : MonoBehaviour {
     private int interactorID = 0;
     private GameObject pointFocus;
     private GameObject grabFocus;
+    private GameObject grabCandidate;
     private List<GameObject> buttonAxisFocuses;
 
 	void Start () {
@@ -58,6 +59,27 @@ public class VRControllerInteractor : MonoBehaviour {
             }
         }
     }
+
+    private void GrabUpdate(){
+        if (isLeftHand)
+        {
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
+            {
+                if (grabCandidate != null)
+                {
+                    grabFocus = grabCandidate;
+                    grabFocus.GetComponent<IGrabReciever>().OnGrab(gameObject);
+                    if (!buttonAxisFocuses.Contains(grabFocus))
+                    {
+                        buttonAxisFocuses.Add(grabFocus);
+                    }
+                }
+            }
+        }
+    }
+
+
+
 
     private void ButtonAxisUpdate(){
         if (isLeftHand)
@@ -108,6 +130,7 @@ public class VRControllerInteractor : MonoBehaviour {
             }
         }
     }
+
 
     private void SendButtonToRecievers(int buttonID, bool buttonState){
         for (int i = 0; i < buttonAxisFocuses.Count; i++)
@@ -172,5 +195,19 @@ public class VRControllerInteractor : MonoBehaviour {
         }
         // Set the new focus.
         pointFocus = newFocus;
+    }
+
+    void OnTriggerEnter(Collider collider){
+        if (collider.GetComponent<IGrabReciever>() != null)
+        {
+            grabCandidate = collider.gameObject;
+        }
+    }
+
+    void OnTriggerExit(Collider collider){
+        if (grabCandidate == collider.gameObject)
+        {
+            grabCandidate = null;
+        }
     }
 }
