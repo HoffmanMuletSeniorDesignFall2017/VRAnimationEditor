@@ -13,7 +13,7 @@ public class VRControllerInteractor : MonoBehaviour {
     private int interactorID = 0;
     private GameObject pointFocus;
     private GameObject grabFocus;
-    private GameObject grabCandidate;
+    private List<GameObject> grabCandidates;
     private List<GameObject> buttonAxisFocuses;
 
 	void Start () {
@@ -21,6 +21,7 @@ public class VRControllerInteractor : MonoBehaviour {
         vrControllerCount++;
 
         buttonAxisFocuses = new List<GameObject>();
+		grabCandidates = new List<GameObject> ();
 	}
 	
     void Update () {
@@ -86,11 +87,27 @@ public class VRControllerInteractor : MonoBehaviour {
         }
     }
 
+	private GameObject GetClosestGrabCandidate(){
+		if (grabCandidates.Count == 0)
+			return null;
+		int minIndex = -1;
+		float minDistance = float.MaxValue;
+		for (int i = 0; i < grabCandidates.Count; i++)
+		{
+			float distance = (grabCandidates[i].transform.position - transform.position).magnitude;
+			if (distance < minDistance)
+			{
+				minIndex = i;
+				minDistance = distance;
+			}
+		}
+		return grabCandidates[minIndex];
+	}
 
     private void Grab(){
-        if (grabCandidate != null)
+		if (grabCandidates.Count > 0)
         {
-            grabFocus = grabCandidate;
+			grabFocus = GetClosestGrabCandidate();
             grabFocus.GetComponent<IGrabReciever>().OnGrab(gameObject);
             if (grabFocus.GetComponent<IButtonAxisReciever>() != null && !buttonAxisFocuses.Contains(grabFocus))
             {
@@ -231,15 +248,11 @@ public class VRControllerInteractor : MonoBehaviour {
     void OnTriggerEnter(Collider collider){
         if (collider.GetComponent<IGrabReciever>() != null)
         {
-            grabCandidate = collider.gameObject;
+			grabCandidates.Add(collider.gameObject);
         }
     }
 
     void OnTriggerExit(Collider collider){
-        if (grabCandidate == collider.gameObject)
-        {
-            Debug.Log("Grabbable object entering " + name);
-            grabCandidate = null;
-        }
+		grabCandidates.Remove(collider.gameObject);
     }
 }
