@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever {
+public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever, IGrabReciever {
 	public GameObject[] rings, arrows;
 	private bool isSelected = false;
 	private bool hasPointerFocus = false;
+    private Transform boneNode, boneNodeParent;
+    private GameObject grabOwner;
 
 	private AnimationCurveVisualizer associatedVisualizer = null;
 	private AnimationVisualizer mainVisualizer = null;
 
 	void Start(){
 		SetAxisVisibility (false);
+        boneNode = transform.parent;
+        boneNodeParent = boneNode.parent;
 	}
 
 	void Update(){
@@ -95,6 +99,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
         
     }
 
+
 	public void SetAssociatedVisualizer(AnimationCurveVisualizer acv){
 		associatedVisualizer = acv;
 	}
@@ -102,4 +107,19 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 	public void SetMainVisualizer(AnimationVisualizer av){
 		mainVisualizer = av;
 	}
+
+    public void OnGrab(GameObject grabber){
+        boneNode.parent = grabber.transform;
+        grabOwner = grabber;
+    }
+
+    public void OnRelease(GameObject grabber){
+        if (grabber == grabOwner)
+        {
+
+            boneNode.parent = boneNodeParent;
+            grabOwner = null;
+        }
+    }
+
 }
