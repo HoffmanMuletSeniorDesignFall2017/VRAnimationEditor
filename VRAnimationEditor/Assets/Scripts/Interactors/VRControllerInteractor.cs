@@ -113,8 +113,7 @@ public class VRControllerInteractor : MonoBehaviour {
             {
                 buttonAxisFocuses.Add(grabFocus);
             }
-        }
-       
+        }       
     }
 
     private void Release(){
