@@ -42,6 +42,7 @@ public class NodeVisualizationManager : MonoBehaviour {
 		GameObject marker = Instantiate (nodeMarkerPrefab, obj);
 		marker.transform.localPosition = Vector3.zero;
 		marker.transform.localRotation = Quaternion.identity;
+		marker.GetComponent<ModelNodeController> ().masterObject = this.gameObject;
 	}
 
 	private List<Renderer> GetMeshRenderers(GameObject obj){

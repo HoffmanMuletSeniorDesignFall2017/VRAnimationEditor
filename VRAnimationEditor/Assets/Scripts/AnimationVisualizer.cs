@@ -206,7 +206,7 @@ public class AnimationVisualizer : Visualizer {
 			yield return null;
 		*/
 		AnimationClip newClip = new AnimationClip ();
-		newClip.name = "Test";
+		newClip.name = currentClip.name;
 
 		//Perform a deep copy
 		for (int i = 0; i < AnimationUtility.GetCurveBindings (currentClip).Length; i++) {
@@ -224,7 +224,7 @@ public class AnimationVisualizer : Visualizer {
 
 		//yield return new WaitForEndOfFrame ();
 
-		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime ((resumeTime + Time.deltaTime/3f) % 1.0f);
+		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime ((resumeTime + Time.deltaTime) % 1.0f);
 	//	yield return null;
 		yield return null;
 	}

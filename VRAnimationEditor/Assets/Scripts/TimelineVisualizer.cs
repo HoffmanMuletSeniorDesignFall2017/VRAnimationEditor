@@ -145,6 +145,7 @@ public class TimelineVisualizer : Visualizer {
 
 			currentClipName = clip.name;
 		}*/
+
 	}
 
 	public void ChangeTime(float newTime){
@@ -158,4 +159,5 @@ public class TimelineVisualizer : Visualizer {
 			animatorTime = animator.GetCurrentAnimatorStateInfo (0).normalizedTime;
 		}
 	}
+		
 }
