@@ -16,6 +16,10 @@ public class InspectorAssetSelector : IAssetSelector {
     }
 
     public override void RequestSelectedAnimationClip(IAssetRequester requester){
+        if (animClip == null)
+        {
+            animClip = new AnimationClip();
+        }
         requester.SetAnimationClip(animClip);
     }
 

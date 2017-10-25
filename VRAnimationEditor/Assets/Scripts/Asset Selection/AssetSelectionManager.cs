@@ -53,7 +53,7 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
             {
                 SetupAnimation();
             }
-        }
+        }           
     }
 
 
