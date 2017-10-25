@@ -10,7 +10,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
 	private bool isSelected = false;
 	private bool hasPointerFocus = false;
-    private Transform boneNode, boneNodeParent, dummyNode;
+    private Transform boneNode, boneNodeParent, dummyNode, dummyNode2;
     private GameObject grabOwner;
 
 	private AnimationCurveVisualizer associatedVisualizer = null;
@@ -20,6 +20,9 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 		SetAxisVisibility (false);
         boneNode = transform.parent;
         boneNodeParent = boneNode.parent;
+
+        dummyNode = new GameObject().transform;
+        dummyNode2 = new GameObject().transform;
 
 	}
 
@@ -60,7 +63,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 			}
 		}
 
-		if (isSelected) {
+        if (grabOwner != null) {
 			//Display an interface that corresponds to this particular bone
 			//string boneNodeName = boneNode.name;
 			//HumanBodyBones theBone = GetBoneFromString(boneNodeName);
@@ -81,34 +84,38 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 						//These all essentially correspond to different rotations
 
 						//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of down-up and front-back
-						boneNode.LookAt (dummyNode.position);
+                        //boneNode.LookAt (dummyNode, dummyNode.up);
+                        dummyNode2.LookAt (dummyNode, dummyNode.up);
 
-						//TODO: For twist... I'm not sure yet?
+
+                        //boneNode.localEulerAngles.Set(boneNode.localEulerAngles.x, boneNode.localEulerAngles.y + 90, boneNode.localEulerAngles.z);
+
 					} else if (((HumanBodyBones)i) == HumanBodyBones.LeftLowerArm || ((HumanBodyBones)i) == HumanBodyBones.RightLowerArm) {
 						//There are two parameters: Stretch, and Twist In-Out
-						Vector3 oldRotation = boneNode.localRotation.eulerAngles;
+						Vector3 oldRotation = dummyNode2.localRotation.eulerAngles;
 
 						//For Stretch we'll look at the position of the dummy object and rotate everything towards it, but only keep the z rotation
-						boneNode.LookAt (dummyNode.position);
+						//boneNode.LookAt (dummyNode.position);
+                        dummyNode2.LookAt (dummyNode, dummyNode.up);
 
-						boneNode.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, boneNode.localRotation.eulerAngles.z);
+						dummyNode2.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, dummyNode2.localRotation.eulerAngles.z);
 
-						//TODO: For twist... I'm not sure yet?
+						
 					} else if (((HumanBodyBones)i) == HumanBodyBones.LeftShoulder || ((HumanBodyBones)i) == HumanBodyBones.RightShoulder) {
 						//There are two parameters: Down-Up, and Front-Back
 
 						//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of down-up and front-back
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 					} else if (((HumanBodyBones)i) == HumanBodyBones.LeftHand || ((HumanBodyBones)i) == HumanBodyBones.RightHand) {
 						//There are two parameters: Down-Up, and Front-Back
 
 						//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of down-up and front-back
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 					} else if (((HumanBodyBones)i) == HumanBodyBones.Spine) {
 						//There are three things: Left-Right, Front-Back, Twist Left-Right
 
 						//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of left-right and front-back...?
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
 						//TODO: Not sure how to deal with twist
 
@@ -116,7 +123,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 						//There are three things: Left-Right, Front-Back, Twist Left-Right
 
 						//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of left-right and front-back...?
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
 						//TODO: Not sure how to deal with twist
 
@@ -124,7 +131,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 						//There are three things: Left-Right, Front-Back, Twist Left-Right
 
 						//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of left-right and front-back...?
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
 						//TODO: Not sure how to deal with twist
 
@@ -132,7 +139,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 						//There are three things: Nod Down-Up, Turn Left-Right, Tilt Left-Right
 
 						//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of left-right and front-back...?
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
 						//TODO: Not sure how to deal with tilt
 
@@ -140,7 +147,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 						//There are three things: Nod Down-Up, Turn Left-Right, Tilt Left-Right
 
 						//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of left-right and front-back...?
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
 						//TODO: Not sure how to deal with tilt
 
@@ -148,7 +155,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 						//There are two things: Down-Up, and In-Out
 
 						//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of left-right and front-back...?
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
 					} else if (((HumanBodyBones)i) == HumanBodyBones.Jaw) {
 						//There are two things: Close, and Left-Right
@@ -159,64 +166,64 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 						//There are three things: Front-Back, In-Out, and Twist In-Out
 
 						//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of front-back and in-out...?
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
 						//TODO: Not sure how to deal with twist
 					} else if (((HumanBodyBones)i) == HumanBodyBones.LeftLowerLeg || ((HumanBodyBones)i) == HumanBodyBones.RightLowerLeg) {
 						//There are two parameters: Stretch, and Twist In-Out
-						Vector3 oldRotation = boneNode.localRotation.eulerAngles;
+						Vector3 oldRotation = dummyNode2.localRotation.eulerAngles;
 
 						//For Stretch we'll look at the position of the dummy object and rotate everything towards it, but only keep the z rotation
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
-						boneNode.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, boneNode.localRotation.eulerAngles.z);
+						dummyNode2.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, dummyNode2.localRotation.eulerAngles.z);
 
 						//TODO: For twist... I'm not sure yet?
 					} else if (((HumanBodyBones)i) == HumanBodyBones.LeftFoot || ((HumanBodyBones)i) == HumanBodyBones.RightFoot) {
 						//There are two parameters: Up-Down, and Twist In-Out
-						Vector3 oldRotation = boneNode.localRotation.eulerAngles;
+						Vector3 oldRotation = dummyNode2.localRotation.eulerAngles;
 
 						//For Up-Down we'll look at the position of the dummy object and rotate everything towards it, but only keep the z rotation
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
-						boneNode.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, boneNode.localRotation.eulerAngles.z);
+						dummyNode2.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, dummyNode2.localRotation.eulerAngles.z);
 
 						//TODO: For twist... I'm not sure yet?
 					} else if (((HumanBodyBones)i) == HumanBodyBones.LeftToes || ((HumanBodyBones)i) == HumanBodyBones.RightToes) {
 						//There is one parameter: Up-Down
-						Vector3 oldRotation = boneNode.localRotation.eulerAngles;
+						Vector3 oldRotation = dummyNode2.localRotation.eulerAngles;
 
 						//For Up-Down we'll look at the position of the dummy object and rotate everything towards it, but only keep the z rotation
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
-						boneNode.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, boneNode.localRotation.eulerAngles.z);
+						dummyNode2.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, dummyNode2.localRotation.eulerAngles.z);
 					} else if (((HumanBodyBones) i) == HumanBodyBones.LeftThumbProximal || ((HumanBodyBones)i) == HumanBodyBones.RightThumbProximal || ((HumanBodyBones)i) == HumanBodyBones.LeftIndexProximal || ((HumanBodyBones)i) == HumanBodyBones.RightIndexProximal || ((HumanBodyBones)i) == HumanBodyBones.LeftMiddleProximal || ((HumanBodyBones)i) == HumanBodyBones.RightMiddleProximal || ((HumanBodyBones)i) == HumanBodyBones.LeftRingProximal || ((HumanBodyBones)i) == HumanBodyBones.RightRingProximal || ((HumanBodyBones)i) == HumanBodyBones.LeftLittleProximal || ((HumanBodyBones)i) == HumanBodyBones.RightLittleProximal) {
 						//There are two parameters: .Spread, and .1 Stretched
-						Vector3 oldRotation = boneNode.localRotation.eulerAngles;
+						Vector3 oldRotation = dummyNode2.localRotation.eulerAngles;
 
 						//For Stretched we'll look at the position of the dummy object and rotate everything towards it, but only keep the z rotation
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
-						boneNode.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, boneNode.localRotation.eulerAngles.z);
+						dummyNode2.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, dummyNode2.localRotation.eulerAngles.z);
 
 						//TODO: For spread...?
 					} else if (((HumanBodyBones) i) == HumanBodyBones.LeftThumbIntermediate || ((HumanBodyBones)i) == HumanBodyBones.RightThumbIntermediate || ((HumanBodyBones)i) == HumanBodyBones.LeftIndexIntermediate || ((HumanBodyBones)i) == HumanBodyBones.RightIndexIntermediate || ((HumanBodyBones)i) == HumanBodyBones.LeftMiddleIntermediate || ((HumanBodyBones)i) == HumanBodyBones.RightMiddleIntermediate || ((HumanBodyBones)i) == HumanBodyBones.LeftRingIntermediate || ((HumanBodyBones)i) == HumanBodyBones.RightRingIntermediate || ((HumanBodyBones)i) == HumanBodyBones.LeftLittleIntermediate || ((HumanBodyBones)i) == HumanBodyBones.RightLittleIntermediate) {
 						//There is one parameter: .2 Stretched
-						Vector3 oldRotation = boneNode.localRotation.eulerAngles;
+						Vector3 oldRotation = dummyNode2.localRotation.eulerAngles;
 
 						//For Stretched we'll look at the position of the dummy object and rotate everything towards it, but only keep the z rotation
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
-						boneNode.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, boneNode.localRotation.eulerAngles.z);
+						dummyNode2.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, dummyNode2.localRotation.eulerAngles.z);
 
 					} else if (((HumanBodyBones) i) == HumanBodyBones.LeftThumbDistal || ((HumanBodyBones)i) == HumanBodyBones.RightThumbDistal || ((HumanBodyBones)i) == HumanBodyBones.LeftIndexDistal || ((HumanBodyBones)i) == HumanBodyBones.RightIndexDistal || ((HumanBodyBones)i) == HumanBodyBones.LeftMiddleDistal || ((HumanBodyBones)i) == HumanBodyBones.RightMiddleDistal || ((HumanBodyBones)i) == HumanBodyBones.LeftRingDistal || ((HumanBodyBones)i) == HumanBodyBones.RightRingDistal || ((HumanBodyBones)i) == HumanBodyBones.LeftLittleDistal || ((HumanBodyBones)i) == HumanBodyBones.RightLittleDistal) {
 						//There is one parameter: .3 Stretched
-						Vector3 oldRotation = boneNode.localRotation.eulerAngles;
+						Vector3 oldRotation = dummyNode2.localRotation.eulerAngles;
 
 						//For Stretched we'll look at the position of the dummy object and rotate everything towards it, but only keep the z rotation
-						boneNode.LookAt (dummyNode.position);
+						dummyNode2.LookAt (dummyNode.position);
 
-						boneNode.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, boneNode.localRotation.eulerAngles.z);
+						dummyNode2.localRotation.eulerAngles.Set (oldRotation.x, oldRotation.y, dummyNode2.localRotation.eulerAngles.z);
 
 					} 
 				}
@@ -280,10 +287,19 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
     public void OnGrab(GameObject grabber){
 
-		dummyNode.position = boneNode.position;
-		dummyNode.rotation = boneNode.rotation;
+        dummyNode.position = grabber.transform.position;
+        dummyNode.rotation = grabber.transform.rotation;
 	
 		dummyNode.parent = grabber.transform;
+
+        dummyNode2.position = boneNode.position;
+        dummyNode2.rotation = boneNode.rotation;
+
+        if(boneNode == masterObject.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.LeftUpperArm) || boneNode == masterObject.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.RightUpperArm))
+        dummyNode2.Rotate(new Vector3(0, -90 + boneNode.localEulerAngles.y, 0));
+
+        boneNode.parent = dummyNode2;
+
         //boneNode.parent = grabber.transform;
         grabOwner = grabber;
 
