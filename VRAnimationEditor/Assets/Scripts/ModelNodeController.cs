@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever, IGrabReciever, ITouchReciever {
+    static PoseManager poseManager;
+
 	public GameObject[] rings, arrows;
 	private bool isSelected = false;
 	private bool hasPointerFocus = false;
@@ -15,8 +17,11 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 		SetAxisVisibility (false);
         boneNode = transform.parent;
         boneNodeParent = boneNode.parent;
-
         touchingInteractors = new List<int>();
+        if (poseManager == null)
+        {
+            poseManager = GameObject.Find("Pose Manager").GetComponent<PoseManager>();
+        }
 	}
 
 
@@ -68,6 +73,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
         grabbedSiblingIndex = boneNode.GetSiblingIndex();
         boneNode.parent = grabber.transform;
         grabOwner = grabber;
+        poseManager.OnPoseEditStart(boneNode);
     }
 
     public void OnRelease(GameObject grabber){
@@ -77,6 +83,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
             boneNode.parent = boneNodeParent;
             boneNode.SetSiblingIndex(grabbedSiblingIndex);
             grabOwner = null;
+            poseManager.OnPoseEditFinish(boneNode);
         }
     }
 
