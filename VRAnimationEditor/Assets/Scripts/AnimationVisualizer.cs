@@ -23,6 +23,31 @@ public class AnimationVisualizer : Visualizer {
 	public MocapController moCon;
 	private bool wantToCapture = false;
 
+	private static readonly string[] humanoidProperties = {
+		"Spine Front-Back", "Spine Left-Right", "Spine Twist Left-Right", "Chest Front-Back", "Chest Left-Right", "Chest Twist Left-Right",
+		"UpperChest Front-Back", "UpperChest Left-Right", "UpperChest Twist Left-Right", "Neck Nod Down-Up", "Neck Tilt Left-Right", "Neck Turn Left-Right",
+		"Head Nod Down-Up", "Head Tilt Left-Right", "Head Turn Left-Right", "Left Eye Down-Up", "Left Eye In-Out", "Right Eye Down-Up", "Right Eye In-Out",
+		"Jaw Close", "Jaw Left-Right", "Left Upper Leg Front-Back", "Left Upper Leg In-Out", "Left Upper Leg Twist In-Out", "Left Lower Leg Stretch", 
+		"Left Lower Leg Twist In-Out", "Left Foot Up-Down", "Left Foot Twist In-Out", "Left Toes Up-Down", 
+		"Right Upper Leg Front-Back", "Right Upper Leg In-Out", "Right Upper Leg Twist In-Out", "Right Lower Leg Stretch", 
+		"Right Lower Leg Twist In-Out", "Right Foot Up-Down", "Right Foot Twist In-Out", "Right Toes Up-Down", 
+		"Left Shoulder Down-Up", "Left Shoulder Front-Back", "Left Arm Down-Up", "Left Arm Front-Back", "Left Arm Twist In-Out", "Left Forearm Stretch",
+		"Left Forearm Twist In-Out", "Left Hand Down-Up", "Left Hand In-Out", 
+		"Right Shoulder Down-Up", "Right Shoulder Front-Back", "Right Arm Down-Up", "Right Arm Front-Back", "Right Arm Twist In-Out", "Right Forearm Stretch",
+		"Right Forearm Twist In-Out", "Right Hand Down-Up", "Right Hand In-Out", 
+		"LeftHand.Thumb.1 Stretched", "LeftHand.Thumb.Spread", "LeftHand.Thumb.2 Stretched", "LeftHand.Thumb.3 Stretched", 
+		"LeftHand.Index.1 Stretched", "LeftHand.Index.Spread", "LeftHand.Index.2 Stretched", "LeftHand.Index.3 Stretched", 
+		"LeftHand.Middle.1 Stretched", "LeftHand.Middle.Spread", "LeftHand.Middle.2 Stretched", "LeftHand.Middle.3 Stretched", 
+		"LeftHand.Ring.1 Stretched", "LeftHand.Ring.Spread", "LeftHand.Ring.2 Stretched", "LeftHand.Ring.3 Stretched", 
+		"LeftHand.Little.1 Stretched", "LeftHand.Little.Spread", "LeftHand.Little.2 Stretched", "LeftHand.Little.3 Stretched", 
+		"RightHand.Thumb.1 Stretched", "RightHand.Thumb.Spread", "RightHand.Thumb.2 Stretched", "RightHand.Thumb.3 Stretched", 
+		"RightHand.Index.1 Stretched", "RightHand.Index.Spread", "RightHand.Index.2 Stretched", "RightHand.Index.3 Stretched", 
+		"RightHand.Middle.1 Stretched", "RightHand.Middle.Spread", "RightHand.Middle.2 Stretched", "RightHand.Middle.3 Stretched", 
+		"RightHand.Ring.1 Stretched", "RightHand.Ring.Spread", "RightHand.Ring.2 Stretched", "RightHand.Ring.3 Stretched", 
+		"RightHand.Little.1 Stretched", "RightHand.Little.Spread", "RightHand.Little.2 Stretched", "RightHand.Little.3 Stretched", 
+
+	};
+
 	public void SetCurrentClipAndGameObject(AnimationClip animClip, GameObject go){
 		currentClip = animClip;
 		title.text = animClip.name;
@@ -74,20 +99,150 @@ public class AnimationVisualizer : Visualizer {
 			if (currentClip.isHumanMotion) {
 				string objectAnimated = AnimationUtility.GetCurveBindings (currentClip) [i].propertyName;
 
-				Debug.Log (AnimationUtility.GetCurveBindings (currentClip) [i].type);
+				//Debug.Log (AnimationUtility.GetCurveBindings (currentClip) [i].type);
 
-				if (objectAnimated.Substring (objectAnimated.Length - 2, 1) == "."){
+				if (objectAnimated.Substring (objectAnimated.Length - 2, 1) == ".") {
 					//Then it is a basic bone property
 					objectAnimated = objectAnimated.Substring (0, objectAnimated.Length - 3);		//Gets rid of "T.x" or whatever
-					HumanBodyBones theBone = GetBoneFromString(objectAnimated);
+					HumanBodyBones theBone = GetBoneFromString (objectAnimated);
 					Transform nodeTransform = currentGameObject.GetComponent<Animator> ().GetBoneTransform (theBone);
 
-					if(nodeTransform.GetChild (nodeTransform.childCount - 1) != null){
+					if (nodeTransform.GetChild (nodeTransform.childCount - 1) != null) {
 
 						acv.associatedNodeVisualizer = nodeTransform.GetChild (nodeTransform.childCount - 1).gameObject;		//Assumes Node marker will always be the last child
-						acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetAssociatedVisualizer(acv);			//Link the acv and the node marker both ways (so they can both talk to each other)
+						//acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetAssociatedVisualizer(acv);			//Link the acv and the node marker both ways (so they can both talk to each other)
+						acv.associatedNodeVisualizer.GetComponent<ModelNodeController> ().AddAssociatedCurveVisualizer (acv);
 
-						acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetMainVisualizer(this);				//Makes it so the node visualizer can talk to this guy too
+						acv.associatedNodeVisualizer.GetComponent<ModelNodeController> ().SetMainVisualizer (this);				//Makes it so the node visualizer can talk to this guy too
+					}
+				} else {
+					//It is a muscle property, so we set the corresponding node.
+
+					HumanBodyBones theBone = GetBoneFromString("Hips");		//Default...
+
+					if (objectAnimated == humanoidProperties [0] || objectAnimated == humanoidProperties [1] || objectAnimated == humanoidProperties [2]) {
+
+						theBone = GetBoneFromString ("Spine");
+					} else if (objectAnimated == humanoidProperties [3] || objectAnimated == humanoidProperties [4] || objectAnimated == humanoidProperties [5]) {
+						theBone = GetBoneFromString ("Chest");
+					} else if (objectAnimated == humanoidProperties [6] || objectAnimated == humanoidProperties [7] || objectAnimated == humanoidProperties [8]) {
+						Debug.Log ("here");
+						theBone = GetBoneFromString ("UpperChest");
+					} else if (objectAnimated == humanoidProperties [9] || objectAnimated == humanoidProperties [10] || objectAnimated == humanoidProperties [11]) {
+						theBone = GetBoneFromString ("Neck");
+					} else if (objectAnimated == humanoidProperties [12] || objectAnimated == humanoidProperties [13] || objectAnimated == humanoidProperties [14]) {
+						theBone = GetBoneFromString ("Head");
+					} else if (objectAnimated == humanoidProperties [15] || objectAnimated == humanoidProperties [16]){
+						theBone = GetBoneFromString ("LeftEye");
+					} else if (objectAnimated == humanoidProperties [17] || objectAnimated == humanoidProperties [18]){
+						theBone = GetBoneFromString ("RightEye");
+					} else if (objectAnimated == humanoidProperties [19] || objectAnimated == humanoidProperties [20]){
+						theBone = GetBoneFromString ("Jaw");
+					} else if (objectAnimated == humanoidProperties [21] || objectAnimated == humanoidProperties [22] || objectAnimated == humanoidProperties [23]) {
+						theBone = GetBoneFromString ("LeftUpperLeg");
+					}  else if (objectAnimated == humanoidProperties [24] || objectAnimated == humanoidProperties [25]){
+						theBone = GetBoneFromString ("LeftLowerLeg");
+					}  else if (objectAnimated == humanoidProperties [26] || objectAnimated == humanoidProperties [27]){
+						theBone = GetBoneFromString ("LeftFoot");
+					} else if (objectAnimated == humanoidProperties [28]){
+						theBone = GetBoneFromString ("LeftToes");
+					} else if (objectAnimated == humanoidProperties [29] || objectAnimated == humanoidProperties [30] || objectAnimated == humanoidProperties [31]) {
+						theBone = GetBoneFromString ("RightUpperLeg");
+					}  else if (objectAnimated == humanoidProperties [32] || objectAnimated == humanoidProperties [33]){
+						theBone = GetBoneFromString ("RightLowerLeg");
+					}  else if (objectAnimated == humanoidProperties [34] || objectAnimated == humanoidProperties [35]){
+						theBone = GetBoneFromString ("RightFoot");
+					} else if (objectAnimated == humanoidProperties [36]){
+						theBone = GetBoneFromString ("RightToes");
+					}  else if (objectAnimated == humanoidProperties [37] || objectAnimated == humanoidProperties [38]){
+						theBone = GetBoneFromString ("LeftShoulder");
+					}  else if (objectAnimated == humanoidProperties [39] || objectAnimated == humanoidProperties [40] || objectAnimated == humanoidProperties [41]) {
+						theBone = GetBoneFromString ("LeftUpperArm");
+					}  else if (objectAnimated == humanoidProperties [42] || objectAnimated == humanoidProperties [43]){
+						theBone = GetBoneFromString ("LeftLowerArm");
+					}   else if (objectAnimated == humanoidProperties [44] || objectAnimated == humanoidProperties [45]){
+						theBone = GetBoneFromString ("LeftHand");
+					}  else if (objectAnimated == humanoidProperties [46] || objectAnimated == humanoidProperties [47]){
+						theBone = GetBoneFromString ("RightShoulder");
+					}  else if (objectAnimated == humanoidProperties [48] || objectAnimated == humanoidProperties [49] || objectAnimated == humanoidProperties [50]) {
+						theBone = GetBoneFromString ("RightUpperArm");
+					}  else if (objectAnimated == humanoidProperties [51] || objectAnimated == humanoidProperties [52]){
+						theBone = GetBoneFromString ("RightLowerArm");
+					}   else if (objectAnimated == humanoidProperties [53] || objectAnimated == humanoidProperties [54]){
+						theBone = GetBoneFromString ("RightHand");
+					} else if (objectAnimated == humanoidProperties [55] || objectAnimated == humanoidProperties [56]){
+						theBone = GetBoneFromString ("LeftThumbProximal");
+					}  else if (objectAnimated == humanoidProperties [57]){
+						theBone = GetBoneFromString ("LeftThumbIntermediate");
+					} else if (objectAnimated == humanoidProperties [58]){
+						theBone = GetBoneFromString ("LeftThumbDistal");
+					} else if (objectAnimated == humanoidProperties [59] || objectAnimated == humanoidProperties [60]){
+						theBone = GetBoneFromString ("LeftIndexProximal");
+					}  else if (objectAnimated == humanoidProperties [61]){
+						theBone = GetBoneFromString ("LeftIndexIntermediate");
+					} else if (objectAnimated == humanoidProperties [62]){
+						theBone = GetBoneFromString ("LeftIndexDistal");
+					} else if (objectAnimated == humanoidProperties [63] || objectAnimated == humanoidProperties [64]){
+						theBone = GetBoneFromString ("LeftMiddleProximal");
+					}  else if (objectAnimated == humanoidProperties [65]){
+						theBone = GetBoneFromString ("LeftMiddleIntermediate");
+					} else if (objectAnimated == humanoidProperties [66]){
+						theBone = GetBoneFromString ("LeftMiddleDistal");
+					} else if (objectAnimated == humanoidProperties [67] || objectAnimated == humanoidProperties [68]){
+						theBone = GetBoneFromString ("LeftRingProximal");
+					}  else if (objectAnimated == humanoidProperties [69]){
+						theBone = GetBoneFromString ("LeftRingIntermediate");
+					} else if (objectAnimated == humanoidProperties [70]){
+						theBone = GetBoneFromString ("LeftRingDistal");
+					} else if (objectAnimated == humanoidProperties [71] || objectAnimated == humanoidProperties [72]){
+						theBone = GetBoneFromString ("LeftLittleProximal");
+					}  else if (objectAnimated == humanoidProperties [73]){
+						theBone = GetBoneFromString ("LeftLittleIntermediate");
+					} else if (objectAnimated == humanoidProperties [74]){
+						theBone = GetBoneFromString ("LeftLittleDistal");
+					} else if (objectAnimated == humanoidProperties [75] || objectAnimated == humanoidProperties [76]){
+						theBone = GetBoneFromString ("RightThumbProximal");
+					}  else if (objectAnimated == humanoidProperties [77]){
+						theBone = GetBoneFromString ("RightThumbIntermediate");
+					} else if (objectAnimated == humanoidProperties [78]){
+						theBone = GetBoneFromString ("RightThumbDistal");
+					} else if (objectAnimated == humanoidProperties [79] || objectAnimated == humanoidProperties [80]){
+						theBone = GetBoneFromString ("RightIndexProximal");
+					}  else if (objectAnimated == humanoidProperties [81]){
+						theBone = GetBoneFromString ("RightIndexIntermediate");
+					} else if (objectAnimated == humanoidProperties [82]){
+						theBone = GetBoneFromString ("RightIndexDistal");
+					} else if (objectAnimated == humanoidProperties [83] || objectAnimated == humanoidProperties [84]){
+						theBone = GetBoneFromString ("RightMiddleProximal");
+					}  else if (objectAnimated == humanoidProperties [85]){
+						theBone = GetBoneFromString ("RightMiddleIntermediate");
+					} else if (objectAnimated == humanoidProperties [86]){
+						theBone = GetBoneFromString ("RightMiddleDistal");
+					} else if (objectAnimated == humanoidProperties [87] || objectAnimated == humanoidProperties [88]){
+						theBone = GetBoneFromString ("RightRingProximal");
+					}  else if (objectAnimated == humanoidProperties [89]){
+						theBone = GetBoneFromString ("RightRingIntermediate");
+					} else if (objectAnimated == humanoidProperties [90]){
+						theBone = GetBoneFromString ("RightRingDistal");
+					} else if (objectAnimated == humanoidProperties [91] || objectAnimated == humanoidProperties [92]){
+						theBone = GetBoneFromString ("RightLittleProximal");
+					}  else if (objectAnimated == humanoidProperties [93]){
+						theBone = GetBoneFromString ("RightLittleIntermediate");
+					} else if (objectAnimated == humanoidProperties [94]){
+						theBone = GetBoneFromString ("RightLittleDistal");
+					} 
+
+					Transform nodeTransform = currentGameObject.GetComponent<Animator> ().GetBoneTransform (theBone);
+
+					if (nodeTransform != null) {	//Could be null if the avatar doesn't support this bone
+						if (nodeTransform.GetChild (nodeTransform.childCount - 1) != null) {	//This is just in case
+
+							acv.associatedNodeVisualizer = nodeTransform.GetChild (nodeTransform.childCount - 1).gameObject;		//Assumes Node marker will always be the last child
+							//acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetAssociatedVisualizer(acv);			//Link the acv and the node marker both ways (so they can both talk to each other)
+							acv.associatedNodeVisualizer.GetComponent<ModelNodeController> ().AddAssociatedCurveVisualizer (acv);
+
+							acv.associatedNodeVisualizer.GetComponent<ModelNodeController> ().SetMainVisualizer (this);				//Makes it so the node visualizer can talk to this guy too
+						}
 					}
 				}
 			}
@@ -218,13 +373,13 @@ public class AnimationVisualizer : Visualizer {
 		//currentClip.SetCurve (path, type, propertyName, animCurve);
 		//yield return new WaitForEndOfFrame ();
 
-		yield return null;
+		//yield return null;
 
 		currentClip = newClip;
 
 		//yield return new WaitForEndOfFrame ();
 
-		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime ((resumeTime + Time.deltaTime) % 1.0f);
+		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime ((resumeTime + Time.deltaTime/animCurve[animCurve.length - 1].time) % 1.0f);
 	//	yield return null;
 		yield return null;
 	}

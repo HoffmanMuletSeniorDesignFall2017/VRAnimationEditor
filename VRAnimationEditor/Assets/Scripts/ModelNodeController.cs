@@ -14,6 +14,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
     private GameObject grabOwner;
 
 	private AnimationCurveVisualizer associatedVisualizer = null;
+	private List<AnimationCurveVisualizer> associatedCurveVisualizers;
 	private AnimationVisualizer mainVisualizer = null;
 
 	void Start(){
@@ -23,6 +24,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
         dummyNode = new GameObject().transform;
         dummyNode2 = new GameObject().transform;
+
+		associatedCurveVisualizers = new List<AnimationCurveVisualizer> ();
 
 	}
 
@@ -89,6 +92,9 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
 
                         //boneNode.localEulerAngles.Set(boneNode.localEulerAngles.x, boneNode.localEulerAngles.y + 90, boneNode.localEulerAngles.z);
+
+
+
 
 					} else if (((HumanBodyBones)i) == HumanBodyBones.LeftLowerArm || ((HumanBodyBones)i) == HumanBodyBones.RightLowerArm) {
 						//There are two parameters: Stretch, and Twist In-Out
@@ -277,8 +283,12 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
     }
 
 
-	public void SetAssociatedVisualizer(AnimationCurveVisualizer acv){
+	/*public void SetAssociatedVisualizer(AnimationCurveVisualizer acv){
 		associatedVisualizer = acv;
+	}*/
+
+	public void AddAssociatedCurveVisualizer(AnimationCurveVisualizer acv){
+		associatedCurveVisualizers.Add (acv);
 	}
 
 	public void SetMainVisualizer(AnimationVisualizer av){
