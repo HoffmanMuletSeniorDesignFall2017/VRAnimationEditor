@@ -126,7 +126,6 @@ public class AnimationVisualizer : Visualizer {
 					} else if (objectAnimated == humanoidProperties [3] || objectAnimated == humanoidProperties [4] || objectAnimated == humanoidProperties [5]) {
 						theBone = GetBoneFromString ("Chest");
 					} else if (objectAnimated == humanoidProperties [6] || objectAnimated == humanoidProperties [7] || objectAnimated == humanoidProperties [8]) {
-						Debug.Log ("here");
 						theBone = GetBoneFromString ("UpperChest");
 					} else if (objectAnimated == humanoidProperties [9] || objectAnimated == humanoidProperties [10] || objectAnimated == humanoidProperties [11]) {
 						theBone = GetBoneFromString ("Neck");

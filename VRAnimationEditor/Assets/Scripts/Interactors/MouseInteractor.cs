@@ -8,17 +8,11 @@ public class MouseInteractor : MonoBehaviour {
 	// Can only ever have one mouse, so make it's pointer ID always be 0.
 	private const int InteractorID = 0;
 
+    // Adjust the speed at which grabbed objects are moved.
+    public float dragSpeed = 1f;
+
     // Object that the mouse is over (must have collider to be detected).
-    private GameObject pointFocus;
-    private GameObject grabFocus;
-    private List<GameObject> grabCandidates, buttonAxisFocuses;
-    private GameObject grabAnchor;
-	
-    void Start(){
-        buttonAxisFocuses = new List<GameObject>();
-        grabCandidates = new List<GameObject>();
-        grabAnchor = new GameObject("Mouse Grab Anchor");
-    }
+    private GameObject pointFocus, grabFocus;
 
     void Update(){
         PointUpdate();
@@ -39,9 +33,9 @@ public class MouseInteractor : MonoBehaviour {
                 // Change our focus to the new object.
                 ChangePointFocus(hitInfo.collider.gameObject);
             }
-            if (grabFocus == null)
-            {
-                grabAnchor.transform.position = hitInfo.point;
+            // If we are not grabbing something, move the mouse interactor the pointed position.
+            if(grabFocus == null){
+                transform.position = hitInfo.point;
             }
         }
         // If we are not pointing at anything...
@@ -56,26 +50,44 @@ public class MouseInteractor : MonoBehaviour {
 	}
 
     private void ButtonAxisUpdate(){
+        // Script that will recieve input.
+        IButtonAxisReciever reciever;
+        // Since grabbed objects don't stay under the mouse, prioritize grab focus for input first.
+        if (grabFocus != null && grabFocus.GetComponent<IButtonAxisReciever>() != null)
+        {
+            reciever = grabFocus.GetComponent<IButtonAxisReciever>();
+        }
+        // If there are no button / axis recievers on the grab focus, try the point focus.
+        else if(pointFocus != null && pointFocus.GetComponent<IButtonAxisReciever>() != null)
+        {
+            reciever = pointFocus.GetComponent<IButtonAxisReciever>();
+        }
+        // If there is nothing there either, we have no script to update so just return.
+        else{
+            return;
+        }
+        // Notify script of the following events.
         if (Input.GetMouseButtonDown(0))
         {
-            SendButtonToRecievers(0, true);
+            reciever.OnRecieveButton(InteractorID, 0, true);
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
-            SendButtonToRecievers(0, false);
+            reciever.OnRecieveButton(InteractorID, 0, false);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            SendButtonToRecievers(1, true);
+            reciever.OnRecieveButton(InteractorID, 1, true);
         }
         if (Input.GetMouseButtonDown(1))
         {
-            SendButtonToRecievers(1, false);
+            reciever.OnRecieveButton(InteractorID, 1, false);
         }
     }
 
     private void GrabUpdate(){
+        // Check grab / release.
         if (Input.GetMouseButtonDown(0))
         {
             Grab();
@@ -84,9 +96,17 @@ public class MouseInteractor : MonoBehaviour {
         {
             Release();
         }
+        // While an object is grabbed, use mouse movement to move the interactor position (which the grabbed object will have parented itself to
+        // if it wants to be moved).
+        if (grabFocus != null)
+        {
+            float grabFocusDistance = (Camera.main.transform.position - transform.position).magnitude;
+            Vector3 hrzMove = Camera.main.transform.right * Input.GetAxisRaw("Mouse X") * dragSpeed * Time.deltaTime * grabFocusDistance;
+            Vector3 vrtMove = Camera.main.transform.up * Input.GetAxisRaw("Mouse Y") * dragSpeed * Time.deltaTime * grabFocusDistance;
+            transform.position += hrzMove + vrtMove;
+        }
     }
 
-    // Change the current pointer focus.
     private void ChangePointFocus(GameObject newFocus){
         // Make sure the focus is actually changing.
         if (pointFocus == newFocus)
@@ -97,80 +117,22 @@ public class MouseInteractor : MonoBehaviour {
         if (pointFocus != null && pointFocus.GetComponent<IPointerReciever>() != null)
         {
             pointFocus.GetComponent<IPointerReciever>().OnPointerExit(InteractorID);
-
-            if (pointFocus.GetComponent<IButtonAxisReciever>() != null)
-            {
-                if (pointFocus != grabFocus)
-                {
-                    buttonAxisFocuses.Remove(pointFocus);
-                }
-            }
         }
         // Tell new focus the pointer is entering (if applicable).
         if (newFocus != null && newFocus.GetComponent<IPointerReciever>() != null)
         {
             newFocus.GetComponent<IPointerReciever>().OnPointerEnter(InteractorID);
-            // Add to buttonAxis focus list if it has reciever and is not already in list.
-            if (newFocus.GetComponent<IButtonAxisReciever>() != null)
-            {
-                if(!buttonAxisFocuses.Contains(newFocus))
-                {
-                    buttonAxisFocuses.Add(newFocus);
-                }
-            }
         }
         // Set the new focus.
         pointFocus = newFocus;
     }
 
-    private void SendButtonToRecievers(int buttonID, bool buttonState){
-        for (int i = 0; i < buttonAxisFocuses.Count; i++)
-        {
-            if (buttonAxisFocuses[i] == null)
-            {
-                buttonAxisFocuses.RemoveAt(i);
-            }
-            else
-            {
-                buttonAxisFocuses[i].GetComponent<IButtonAxisReciever>().OnRecieveButton(InteractorID, buttonID, buttonState);
-            }
-        }
-    }
-
-    private void SendAxisToRecievers(int axisID, float axisValue){
-        for (int i = 0; i < buttonAxisFocuses.Count; i++)
-        {
-            if (buttonAxisFocuses[i] == null)
-            {
-                buttonAxisFocuses.RemoveAt(i);
-            }
-            else
-            {
-                buttonAxisFocuses[i].GetComponent<IButtonAxisReciever>().OnRecieveAxis(InteractorID, axisID, axisValue);
-            }
-        }
-    }
-
-    void OnTriggerEnter(Collider collider){
-        if (collider.GetComponent<IGrabReciever>() != null)
-        {
-            grabCandidates.Add(collider.gameObject);
-        }
-    }
-
-    void OnTriggerExit(Collider collider){
-        grabCandidates.Remove(collider.gameObject);
-    }
 
     private void Grab(){
-        if (grabCandidates.Count > 0)
+        if (pointFocus != null && pointFocus.GetComponent<IGrabReciever>() != null)
         {
-            grabFocus = grabCandidates[grabCandidates.Count - 1];
+            grabFocus = pointFocus;
             grabFocus.GetComponent<IGrabReciever>().OnGrab(gameObject);
-            if (grabFocus.GetComponent<IButtonAxisReciever>() != null && !buttonAxisFocuses.Contains(grabFocus))
-            {
-                buttonAxisFocuses.Add(grabFocus);
-            }
         }       
     }
 
@@ -178,11 +140,7 @@ public class MouseInteractor : MonoBehaviour {
         if (grabFocus != null)
         {
             grabFocus.GetComponent<IGrabReciever>().OnRelease(gameObject);
-            if (grabFocus.GetComponent<IButtonAxisReciever>() != null && grabFocus != pointFocus)
-            {
-                buttonAxisFocuses.Remove(grabFocus);
-            }
             grabFocus = null;
-        }
+        }      
     }
 }

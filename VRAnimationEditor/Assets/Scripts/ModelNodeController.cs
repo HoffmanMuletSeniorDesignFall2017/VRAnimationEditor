@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever, IGrabReciever {
-	const int NUM_HUMAN_BONES = 55;
 
+public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever, IGrabReciever, ITouchReciever {
+	const int NUM_HUMAN_BONES = 55;
 	public GameObject[] rings, arrows;
 	public GameObject masterObject;
 
@@ -12,6 +12,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 	private bool hasPointerFocus = false;
     private Transform boneNode, boneNodeParent, dummyNode, dummyNode2;
     private GameObject grabOwner;
+    private List<int> touchingInteractors;
 
 	private AnimationCurveVisualizer associatedVisualizer = null;
 	private List<AnimationCurveVisualizer> associatedCurveVisualizers;
@@ -21,6 +22,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 		SetAxisVisibility (false);
         boneNode = transform.parent;
         boneNodeParent = boneNode.parent;
+		touchingInteractors = new List<int>();
 
         dummyNode = new GameObject().transform;
         dummyNode2 = new GameObject().transform;
@@ -263,7 +265,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
 	public void OnPointerExit(int pointerID){
 		hasPointerFocus = false;
-		if (!isSelected) {
+        if (!isSelected && touchingInteractors.Count == 0) {
 			SetAxisVisibility (false);
 		}
 	}
@@ -446,5 +448,23 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 		}
 		return HumanBodyBones.Hips;
 	}
+		
+    public void OnTouchEnter(int interactorId, int touchId){
+        if (!touchingInteractors.Contains(interactorId))
+        {
+            touchingInteractors.Add(interactorId);
+        }
+        SetAxisVisibility(true);
+    }
 
+    public void OnTouchExit(int interactorId, int touchId){
+        if (touchingInteractors.Contains(interactorId))
+        {
+            touchingInteractors.Remove(interactorId);
+        }
+        if (!hasPointerFocus && !isSelected && touchingInteractors.Count == 0)
+        {
+            SetAxisVisibility(false);
+        }
+    }
 }
