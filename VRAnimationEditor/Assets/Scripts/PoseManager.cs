@@ -9,10 +9,23 @@ public class PoseManager : MonoBehaviour {
     public bool usePosition = false;
 
     private float time = 1;
-    private List<NodeData> initialNodeData;
+    private NodeData initialNodeData;
 
-    void Start(){
-        initialNodeData = GetHierarchyNodeDatas(rootTransform);
+    void Update(){
+        if (rootTransform == null)
+        {
+            return;
+        }
+        if (initialNodeData == null)
+        {
+            initialNodeData = new NodeData(rootTransform);
+        }
+
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            Debug.Log("Reseting pose");
+            RestoreInitialPose();
+        }
     }
 	
     public void GenerateKeyframesForCurrentPose(){
@@ -35,45 +48,39 @@ public class PoseManager : MonoBehaviour {
         ApplyPose(initialNodeData, rootTransform);
     }
 
-    private static void ApplyPose(List<NodeData> nodeDatas, Transform root){
-        root.position = nodeDatas[0].position;
-        root.rotation = nodeDatas[0].rotation;
-        nodeDatas.RemoveAt(0);
+    private static void ApplyPose(NodeData nodeData, Transform root){
+        root.localPosition = nodeData.position;
+        root.localRotation = nodeData.rotation;
+        int nDIndex = 0;
         for (int i = 0; i < root.childCount; i++)
         {
-            ApplyPose(nodeDatas, root.GetChild(i));
+            if (root.GetChild(i).gameObject.layer != LayerMask.NameToLayer("UI"))
+            {
+                ApplyPose(nodeData.children[nDIndex], root.GetChild(i));
+                nDIndex++;
+            }
         }
+
     }
 
-    private static List<NodeData> GetHierarchyNodeDatas(Transform root){
-        List<NodeData> data = new List<NodeData>();
-        data.Add(new NodeData(root));
-        for (int i = 0; i < root.childCount; i++)
-        {
-            data.AddRange(GetHierarchyNodeDatas(root.GetChild(i)));
-        }
-        return data;
-    }
 
     public class NodeData{
         public Vector3 position;
         public Quaternion rotation;
+        public List<NodeData> children;
+        public string debugName;
 
         public NodeData(Transform t){
-            position = t.position;
-            rotation = t.rotation;
+            position = t.localPosition;
+            rotation = t.localRotation;
+            debugName = t.name;
+            children = new List<NodeData>();
+            for(int i = 0; i < t.childCount; i++){
+                if(t.GetChild(i).gameObject.layer  != LayerMask.NameToLayer("UI"))
+                {
+                    children.Add(new NodeData(t.GetChild(i)));
+                }
+            }
         }
-    }
-
-    void OnTriggerEnter(){
-        RestoreInitialPose();
-    }
-
-    public void SetModel(GameObject model){
-        rootTransform = model.transform;
-    }
-
-    public void SetAnimationClip(AnimationClip animClip){
-        this.animClip = animClip;
     }
 }

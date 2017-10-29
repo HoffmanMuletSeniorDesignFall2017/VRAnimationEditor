@@ -8,6 +8,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 	private bool hasPointerFocus = false;
     private Transform boneNode, boneNodeParent;
     private GameObject grabOwner;
+    private int grabbedSiblingIndex;
     private List<int> touchingInteractors;
 
 	void Start(){
@@ -17,6 +18,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
         touchingInteractors = new List<int>();
 	}
+
+
 
 	public void SetAxisVisibility(bool isVisible){
 		for (int i = 0; i < 3; i++) {
@@ -62,6 +65,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
     }
 
     public void OnGrab(GameObject grabber){
+        grabbedSiblingIndex = boneNode.GetSiblingIndex();
         boneNode.parent = grabber.transform;
         grabOwner = grabber;
     }
@@ -71,6 +75,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
         {
 
             boneNode.parent = boneNodeParent;
+            boneNode.SetSiblingIndex(grabbedSiblingIndex);
             grabOwner = null;
         }
     }

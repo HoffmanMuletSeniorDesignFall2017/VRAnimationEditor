@@ -10,6 +10,7 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
 	public NodeVisualizationManager templateNodeVisualizationManager;
     public bool selectModelFirst = true;
     public bool poseDebug = false;
+    public PoseManager poseManager;
 
     private GameObject model;
     private AnimationClip animClip;
@@ -80,6 +81,10 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
     private void PoseDebugSetup(){
         GameObject obj = Instantiate(model, modelSpawnAnchor.position, modelSpawnAnchor.rotation);
         SetupNodeVisualization(obj);
+        if (poseManager != null)
+        {
+            poseManager.rootTransform = obj.transform;
+        }
     }
 
 
