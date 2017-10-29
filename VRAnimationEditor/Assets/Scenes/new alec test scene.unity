@@ -229,8 +229,8 @@ MonoBehaviour:
   sourceCamera: {fileID: 280932095}
   outlineCamera: {fileID: 1853455585}
   outlineShaderMaterial: {fileID: 0}
-  renderTexture: {fileID: 1707786508}
-  extraRenderTexture: {fileID: 1952460724}
+  renderTexture: {fileID: 1752072112}
+  extraRenderTexture: {fileID: 1614677531}
 --- !u!1001 &329171467
 Prefab:
   m_ObjectHideFlags: 0
@@ -274,6 +274,10 @@ Prefab:
         type: 2}
       propertyPath: dragSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1998833291060790, guid: 3485c7abbbae64840bd7b4afa566b1ab, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3485c7abbbae64840bd7b4afa566b1ab, type: 2}
@@ -322,7 +326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &689771750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,7 +679,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &1707786508
+--- !u!84 &1614677531
 RenderTexture:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -685,7 +689,34 @@ RenderTexture:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_Width: 1148
-  m_Height: 535
+  m_Height: 417
+  m_AntiAliasing: 1
+  m_DepthFormat: 1
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+--- !u!84 &1752072112
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_Width: 1148
+  m_Height: 417
   m_AntiAliasing: 1
   m_DepthFormat: 1
   m_ColorFormat: 0
@@ -744,7 +775,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 0
   m_RenderingPath: 1
-  m_TargetTexture: {fileID: 1707786508}
+  m_TargetTexture: {fileID: 1752072112}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -837,30 +868,47 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1043415260}
   m_Script: {fileID: 11500000, guid: 8480fb8a29776fa4c9c7627c990cfee6, type: 3}
---- !u!84 &1952460724
-RenderTexture:
+--- !u!1 &2040036991
+GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2040036994}
+  - component: {fileID: 2040036993}
+  m_Layer: 0
+  m_Name: Test (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &2040036993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2040036991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52755d440a8907b4990866a26f395fb8, type: 3}
   m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_Width: 1148
-  m_Height: 535
-  m_AntiAliasing: 1
-  m_DepthFormat: 1
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
+  m_EditorClassIdentifier: 
+  testPrefab: {fileID: 100004, guid: fa4ac6288baf16745a04b504e2e3fa7e, type: 2}
+  animVisual: {fileID: 1929767744}
+  animClip: {fileID: 0}
+  moCon: {fileID: 0}
+--- !u!4 &2040036994
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2040036991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

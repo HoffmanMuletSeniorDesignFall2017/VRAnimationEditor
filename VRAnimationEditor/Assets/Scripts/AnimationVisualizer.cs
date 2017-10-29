@@ -265,8 +265,10 @@ public class AnimationVisualizer : Visualizer {
 	public void TogglePlayAnimation(){
 		if (currentGameObject.GetComponent<Animator> ().speed > 0 || currentGameObject.GetComponent<Animator> ().speed < 0) {
 			currentGameObject.GetComponent<Animator> ().speed = 0;
+			currentGameObject.GetComponent<Animator> ().enabled = false;
 		} else {
 			currentGameObject.GetComponent<Animator> ().speed = 1;
+			currentGameObject.GetComponent<Animator> ().enabled = true;
 		}
 	}
 
