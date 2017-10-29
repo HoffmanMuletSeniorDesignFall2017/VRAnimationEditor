@@ -249,9 +249,15 @@ public class VRControllerInteractor : MonoBehaviour {
         {
 			grabCandidates.Add(collider.gameObject);
         }
+        if(collider.GetComponent<ITouchReciever>() != null){
+            collider.GetComponent<ITouchReciever>().OnTouchEnter(interactorID, 0);
+        }
     }
 
     void OnTriggerExit(Collider collider){
 		grabCandidates.Remove(collider.gameObject);
+        if(collider.GetComponent<ITouchReciever>() != null){
+            collider.GetComponent<ITouchReciever>().OnTouchExit(interactorID, 0);
+        }
     }
 }

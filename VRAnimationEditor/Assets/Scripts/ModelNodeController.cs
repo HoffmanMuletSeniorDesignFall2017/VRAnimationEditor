@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever, IGrabReciever {
+public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever, IGrabReciever, ITouchReciever {
 	public GameObject[] rings, arrows;
 	private bool isSelected = false;
 	private bool hasPointerFocus = false;
     private Transform boneNode, boneNodeParent;
     private GameObject grabOwner;
+    private List<int> touchingInteractors;
 
 	void Start(){
 		SetAxisVisibility (false);
         boneNode = transform.parent;
         boneNodeParent = boneNode.parent;
-	}
 
-	void Update(){
-		
+        touchingInteractors = new List<int>();
 	}
 
 	public void SetAxisVisibility(bool isVisible){
@@ -43,7 +42,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
 	public void OnPointerExit(int pointerID){
 		hasPointerFocus = false;
-		if (!isSelected) {
+        if (!isSelected && touchingInteractors.Count == 0) {
 			SetAxisVisibility (false);
 		}
 	}
@@ -73,6 +72,25 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
             boneNode.parent = boneNodeParent;
             grabOwner = null;
+        }
+    }
+
+    public void OnTouchEnter(int interactorId, int touchId){
+        if (!touchingInteractors.Contains(interactorId))
+        {
+            touchingInteractors.Add(interactorId);
+        }
+        SetAxisVisibility(true);
+    }
+
+    public void OnTouchExit(int interactorId, int touchId){
+        if (touchingInteractors.Contains(interactorId))
+        {
+            touchingInteractors.Remove(interactorId);
+        }
+        if (!hasPointerFocus && !isSelected && touchingInteractors.Count == 0)
+        {
+            SetAxisVisibility(false);
         }
     }
 }
