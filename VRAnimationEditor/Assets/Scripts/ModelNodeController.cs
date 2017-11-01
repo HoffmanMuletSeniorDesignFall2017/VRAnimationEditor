@@ -26,10 +26,6 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
         boneNode = transform.parent;
         boneNodeParent = boneNode.parent;
         touchingInteractors = new List<int>();
-        if (poseManager == null)
-        {
-            poseManager = GameObject.Find("Pose Manager").GetComponent<PoseManager>();
-        }
 		touchingInteractors = new List<int>();
 
         dummyNode = new GameObject().transform;
