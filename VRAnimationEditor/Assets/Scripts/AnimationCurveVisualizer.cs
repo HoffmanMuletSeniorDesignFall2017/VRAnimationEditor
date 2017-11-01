@@ -9,6 +9,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	public enum ACVType {PosX, PosY, PosZ, RotX, RotY, RotZ, RotW, Other};  	//Used for what kind of type of animation curve this is (so we know what to grab from an associated node visualizer, if any)
 	public ACVType curveType;
 
+	public bool isHumanoid = false;
+
 	string parameterTitle;	//The name of the parameter that this curve is for
 
 	public AnimationCurve animCurve;	//IMPORTANT! The actual curve associated with this animation curve
@@ -283,6 +285,20 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			animCurve.AddKey (k);
 		else
 			animCurve.MoveKey (index, k);
+
+		needsToRefresh = true;
+		parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
+
+		Refresh ();
+	}
+
+	public void DeleteAllInsideKeyframes(){
+		int count = animCurve.length - 1;
+
+
+		for (int i = 1; i < count; i++) {
+			animCurve.RemoveKey (1);
+		}
 
 		needsToRefresh = true;
 		parentAnimVisualizer.RefreshAnimationCurve (curveNumber);

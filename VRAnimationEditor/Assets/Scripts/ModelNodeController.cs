@@ -69,27 +69,78 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 		}
 
         if (grabOwner != null) {
+			if (associatedCurveVisualizers.Count <= 0)
+				return;
 
-			//dummyNode2.localPosition = Vector3.zero;
-			//dummyNode2.localRotation = Quaternion.identity;//boneNode.rotation;
 
-			if (Input.GetKeyDown (KeyCode.N)) {
 
-				//TODO: Not sure how to deal with twist
+
+			if (associatedCurveVisualizers [0].isHumanoid) {
+				//dummyNode2.localPosition = Vector3.zero;
+				//dummyNode2.localRotation = Quaternion.identity;//boneNode.rotation;
+
+				if (Input.GetKeyUp (KeyCode.K)) {
+
+					if (associatedCurveVisualizers.Count > 0)
+						associatedCurveVisualizers [0].DeleteAllInsideKeyframes ();
+					if (associatedCurveVisualizers.Count > 1)
+						associatedCurveVisualizers [1].DeleteAllInsideKeyframes ();
+					if (associatedCurveVisualizers.Count > 2)
+						associatedCurveVisualizers [2].DeleteAllInsideKeyframes ();
+				}
+
+				if (Input.GetKeyUp (KeyCode.N)) {
+					
+					//TODO: Not sure how to deal with twist
+					Keyframe newKeyframe1 = new Keyframe ();
+					Keyframe newKeyframe2 = new Keyframe ();
+					Keyframe newKeyframe3 = new Keyframe ();
+					newKeyframe1.value = dummyNode2.localEulerAngles.x / -360f;
+					newKeyframe2.value = dummyNode2.localEulerAngles.y / 360f;///36f;
+					newKeyframe3.value = dummyNode2.localEulerAngles.z / 360f;
+
+					if (associatedCurveVisualizers.Count > 0)
+						associatedCurveVisualizers [0].AddExistingKeyframe (newKeyframe1);
+					if (associatedCurveVisualizers.Count > 1)
+						associatedCurveVisualizers [1].AddExistingKeyframe (newKeyframe2);
+					if (associatedCurveVisualizers.Count > 2)
+						associatedCurveVisualizers [2].AddExistingKeyframe (newKeyframe3);
+
+				}
+
+				StartCoroutine (RotateNode ());
+			} 
+
+			else {	//Non-Humanoid
+				
 				Keyframe newKeyframe1 = new Keyframe ();
 				Keyframe newKeyframe2 = new Keyframe ();
 				Keyframe newKeyframe3 = new Keyframe ();
-				newKeyframe1.value = dummyNode2.localEulerAngles.x/36f;
-				newKeyframe3.value = dummyNode2.localEulerAngles.y/36f;
-				newKeyframe3.value = dummyNode2.localEulerAngles.z/36f;
+				newKeyframe1.value = boneNode.localEulerAngles.x;
+				newKeyframe2.value = boneNode.localEulerAngles.y;
+				newKeyframe3.value = boneNode.localEulerAngles.z;
 
-				associatedCurveVisualizers [0].AddExistingKeyframe (newKeyframe1);
-				associatedCurveVisualizers [1].AddExistingKeyframe (newKeyframe2);
-				associatedCurveVisualizers [2].AddExistingKeyframe (newKeyframe3);
+				if (associatedCurveVisualizers.Count > 0)
+					associatedCurveVisualizers [0].AddExistingKeyframe (newKeyframe1);
+				if (associatedCurveVisualizers.Count > 1)
+					associatedCurveVisualizers [1].AddExistingKeyframe (newKeyframe2);
+				if (associatedCurveVisualizers.Count > 2)
+					associatedCurveVisualizers [2].AddExistingKeyframe (newKeyframe3);
+
+
+				newKeyframe1.value = boneNode.localPosition.x;
+				newKeyframe2.value = boneNode.localPosition.y;
+				newKeyframe3.value = boneNode.localPosition.z;
+
+				if (associatedCurveVisualizers.Count > 3)
+					associatedCurveVisualizers [3].AddExistingKeyframe (newKeyframe1);
+				if (associatedCurveVisualizers.Count > 4)
+					associatedCurveVisualizers [4].AddExistingKeyframe (newKeyframe2);
+				if (associatedCurveVisualizers.Count > 5)
+					associatedCurveVisualizers [5].AddExistingKeyframe (newKeyframe3);
+	
 
 			}
-
-			StartCoroutine (RotateNode ());
 		}
 
 	}
@@ -158,7 +209,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 					//So here we'll need to take a look at the position of the dummy object and just rotate everything towards it to take care of left-right and front-back...?
 					dummyNode2.LookAt (dummyNode.position);
 
-					if (Input.GetKeyDown (KeyCode.N)) {
+					/*if (Input.GetKeyDown (KeyCode.N)) {
 
 						//TODO: Not sure how to deal with twist
 						Keyframe newKeyframe1 = new Keyframe ();
@@ -172,7 +223,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 						associatedCurveVisualizers [1].AddExistingKeyframe (newKeyframe2);
 						associatedCurveVisualizers [2].AddExistingKeyframe (newKeyframe3);
 
-					}
+					}*/
 
 
 				} else if (((HumanBodyBones)i) == HumanBodyBones.Chest) {
@@ -184,16 +235,6 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
 					//TODO: Not sure how to deal with twist
 
-					Keyframe newKeyframe1 = new Keyframe ();
-					Keyframe newKeyframe2 = new Keyframe ();
-					Keyframe newKeyframe3 = new Keyframe ();
-					newKeyframe1.value = dummyNode2.localEulerAngles.x;
-					newKeyframe3.value = dummyNode2.localEulerAngles.y;
-					newKeyframe3.value = dummyNode2.localEulerAngles.z;
-
-					associatedCurveVisualizers [0].AddExistingKeyframe (newKeyframe1);
-					associatedCurveVisualizers [1].AddExistingKeyframe (newKeyframe2);
-					associatedCurveVisualizers [2].AddExistingKeyframe (newKeyframe3);
 
 				} else if (((HumanBodyBones)i) == HumanBodyBones.UpperChest) {
 					//There are three things: Left-Right, Front-Back, Twist Left-Right
@@ -358,30 +399,40 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
     public void OnGrab(GameObject grabber){
 
-        dummyNode.position = grabber.transform.position;
-        dummyNode.rotation = grabber.transform.rotation;
+		if (associatedCurveVisualizers.Count <= 0)
+			return;
+
+		if (associatedCurveVisualizers [0].isHumanoid) {
+
+			dummyNode.position = grabber.transform.position;
+			dummyNode.rotation = grabber.transform.rotation;
 	
-		dummyNode.parent = grabber.transform;
+			dummyNode.parent = grabber.transform;
 
-		dummyNode2.parent = boneNodeParent;
+			dummyNode2.parent = boneNodeParent;
 
-		dummyNode2.position = boneNode.position;
-		dummyNode2.rotation = boneNode.rotation;
+			dummyNode2.position = boneNode.position;
+			dummyNode2.rotation = boneNode.rotation;
 
-        if(boneNode == masterObject.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.LeftUpperArm) || boneNode == masterObject.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.RightUpperArm))
-        dummyNode2.Rotate(new Vector3(0, -90 + boneNode.localEulerAngles.y, 0));
+			if (boneNode == masterObject.GetComponent<Animator> ().GetBoneTransform (HumanBodyBones.LeftUpperArm) || boneNode == masterObject.GetComponent<Animator> ().GetBoneTransform (HumanBodyBones.RightUpperArm))
+				dummyNode2.Rotate (new Vector3 (0, -90 + boneNode.localEulerAngles.y, 0));
 
-		boneNode.parent = dummyNode2;
+			boneNode.parent = dummyNode2;
 
-		//boneNode.localPosition = Vector3.zero;
-		//boneNode.localRotation = Quaternion.identity;
+			//boneNode.localPosition = Vector3.zero;
+			//boneNode.localRotation = Quaternion.identity;
 
-        //boneNode.parent = grabber.transform;
-        grabOwner = grabber;
+			//boneNode.parent = grabber.transform;
+			grabOwner = grabber;
 
-		//EditorApplication.isPaused = true;
+			//EditorApplication.isPaused = true;
 
+		}
 
+		else {		//Non-Humanoid
+			boneNode.parent = grabber.transform;
+			grabOwner = grabber;
+		}	
     }
 
     public void OnRelease(GameObject grabber){

@@ -99,6 +99,8 @@ public class AnimationVisualizer : Visualizer {
 			if (currentClip.isHumanMotion) {
 				string objectAnimated = AnimationUtility.GetCurveBindings (currentClip) [i].propertyName;
 
+				acv.isHumanoid = true;
+
 				//Debug.Log (AnimationUtility.GetCurveBindings (currentClip) [i].type);
 
 				if (objectAnimated.Substring (objectAnimated.Length - 2, 1) == ".") {
@@ -244,6 +246,23 @@ public class AnimationVisualizer : Visualizer {
 						}
 					}
 				}
+			}
+
+			else{	//Not a humanoid animation
+
+				Transform nodeTransform;
+				if(AnimationUtility.GetCurveBindings (currentClip) [i].path != ""){
+					nodeTransform = currentGameObject.transform.Find(AnimationUtility.GetCurveBindings (currentClip) [i].path);
+				}
+				else {
+					nodeTransform = currentGameObject.transform;
+				}
+
+				acv.associatedNodeVisualizer = nodeTransform.GetChild (nodeTransform.childCount - 1).gameObject;		//Assumes Node marker will always be the last child
+				//acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetAssociatedVisualizer(acv);			//Link the acv and the node marker both ways (so they can both talk to each other)
+				acv.associatedNodeVisualizer.GetComponent<ModelNodeController> ().AddAssociatedCurveVisualizer (acv);
+
+				acv.associatedNodeVisualizer.GetComponent<ModelNodeController> ().SetMainVisualizer (this);				//Makes it so the node visualizer can talk to this guy too
 			}
 
 			acv.Refresh ();
