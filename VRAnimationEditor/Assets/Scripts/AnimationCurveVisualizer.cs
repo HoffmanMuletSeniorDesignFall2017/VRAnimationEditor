@@ -6,6 +6,9 @@ using cakeslice;
 
 public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoBehaviour {
 
+	public enum ACVType {PosX, PosY, PosZ, RotX, RotY, RotZ, RotW, Other};  	//Used for what kind of type of animation curve this is (so we know what to grab from an associated node visualizer, if any)
+	public ACVType curveType;
+
 	string parameterTitle;	//The name of the parameter that this curve is for
 
 	public AnimationCurve animCurve;	//IMPORTANT! The actual curve associated with this animation curve
@@ -138,9 +141,6 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 				selectedKeyframe.GetComponent<cakeslice.Outline> ().enabled = true;
 			}
 */
-			for (int i = 0; i < currentKeyframes.Count; i++) {
-				currentKeyframes[i].GetComponent<cakeslice.Outline>().enabled = false;
-			}
 
 			for (int i = 0; i < currentKeyframes.Count; i++) {
 				if (currentKeyframes [i].GetComponent<MovableVisualizer> ().selected) {
@@ -151,9 +151,6 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			}
 
 			if (selectedKeyframe != null) {
-				//Here we just do the selection outline
-				selectedKeyframe.GetComponent<cakeslice.Outline> ().enabled = true;
-
 
 				float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
 
@@ -240,12 +237,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			}
 			//needsToRefresh = false;
 		}
-
-		if (!selected) {
-			for (int i = 0; i < currentKeyframes.Count; i++) {
-				currentKeyframes[i].GetComponent<cakeslice.Outline>().enabled = false;
-			}
-		}
+			
 	}
 
 	public void AddKeyframe(){
@@ -306,5 +298,44 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 		needsToRefresh = true;
 		parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
+	}
+
+	public void RecordValuesOfAssociatedNode(){
+		if (associatedNodeVisualizer == null)
+			return;
+
+		//If this was called, then we want to take a snapshot of the parameter of the node for this curve and save it as a keyframe in the current time
+		Keyframe newKf = new Keyframe();
+
+		switch (curveType) {
+			case ACVType.PosX:
+
+				newKf.value = associatedNodeVisualizer.transform.localPosition.x;
+				break;
+			case ACVType.PosY:
+				newKf.value = associatedNodeVisualizer.transform.localPosition.y;
+				break;
+			case ACVType.PosZ:
+				newKf.value = associatedNodeVisualizer.transform.localPosition.z;
+				break;
+			case ACVType.RotX:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.x;
+				break;
+			case ACVType.RotY:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.y;
+				break;
+			case ACVType.RotZ:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.z;
+				break;
+			case ACVType.RotW:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.w;
+				break;
+			default:
+				return;	//TODO: Maybe don't do this
+				break;
+		}
+
+		AddExistingKeyframe (newKf);
+
 	}
 }

@@ -86,7 +86,7 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
             poseManager.rootTransform = obj.transform;
         }
     }
-
+		
 
     private void SetupAnimation(){
         if (poseDebug)

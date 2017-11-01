@@ -20,7 +20,7 @@ public class Test82817 : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.KeypadEnter)) {
 			//animClip = AnimationEditorFunctions.CreateNewAnimation (string.Concat("Test", System.DateTime.Now.Minute.ToString()));
-			animClip = AnimationEditorFunctions.CreateNewAnimation ("Test");
+			animClip = AnimationEditorFunctions.CreateNewAnimation ("Test2");
 			GameObject go = AnimationEditorFunctions.InstantiateWithAnimation (testPrefab, animClip);
 			animVisual.SetCurrentClipAndGameObject (animClip, go);
 		}
@@ -88,5 +88,43 @@ public class Test82817 : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.M)) {
 			animVisual.ToggleMotionCapture ();
 		}
+
+		if (Input.GetKeyDown (KeyCode.L)) {
+			AnimationCurve testCurve = new AnimationCurve();
+			Keyframe key1 = new Keyframe();
+			Keyframe key2 = new Keyframe();
+			Keyframe key3 = new Keyframe ();
+
+			key1.time = 0f;
+			key1.value = 0;
+
+			key2.time = 2f;
+			key2.value = 1;
+
+			testCurve.AddKey (key1);
+			testCurve.AddKey (key2);
+
+			//animClip.SetCurve("", typeof(Transform), "localPosition.y", testCurve);
+			animClip.SetCurve("", typeof(Animator), "LeftFootT.x", testCurve);
+			animClip.SetCurve("", typeof(Animator), "LeftFootT.y", testCurve);
+			animClip.SetCurve("", typeof(Animator), "LeftFootT.z", testCurve);
+
+			key3.time = 4f;
+			key3.value = 0;
+			testCurve.AddKey (key3);
+
+			animClip.SetCurve("", typeof(Animator), "RootT.x", testCurve);
+			animClip.SetCurve("", typeof(Animator), "RootT.y", testCurve);
+			animClip.SetCurve("", typeof(Animator), "RootT.z", testCurve);
+
+			animClip.SetCurve("", typeof(Animator), "Head Nod Down-Up", testCurve);
+
+			//animClip.SetCurve("", typeof(Transform), "localScale.y", testCurve);
+
+			animVisual.RefreshCurves ();
+
+			AssetDatabase.SaveAssets ();
+		}
+
 	}
 }

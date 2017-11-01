@@ -38,6 +38,8 @@ public class MocapController : MonoBehaviour {
 			//This is why we need LateUpdate()!
 			//Debug.Log ("Attempting to update nodeMarker position");
 
+			Debug.Log (Input.mousePosition - startingPosition);
+
 			nodeMarker.transform.parent.position = (Input.mousePosition - startingPosition)*scalingFactor*Time.deltaTime + lastPosition;
 
 			//Debug.Log (Input.mousePosition);

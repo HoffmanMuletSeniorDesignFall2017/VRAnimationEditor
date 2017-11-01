@@ -143,10 +143,19 @@ public class TimelineVisualizer : Visualizer {
 
 			currentClipName = clip.name;
 		}*/
+
 	}
 
 	public void ChangeTime(float newTime){
-		if (animator != null) 
+		if (animator != null) {
 			animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, newTime);
+
+			if (animator.GetCurrentAnimatorStateInfo (0).normalizedTime > 1f) {
+				animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, 0f);
+			}
+
+			animatorTime = animator.GetCurrentAnimatorStateInfo (0).normalizedTime;
+		}
 	}
+		
 }
