@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovableVisualizer : Visualizer, IPointerReciever {
+public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciever, IGrabReciever {
 
 	//If this component is added to a GameObject then that GameObject can be selected and moved by the user
 	//NOTE: This script must be on an object with another actual visualizer already on it
@@ -10,6 +10,9 @@ public class MovableVisualizer : Visualizer, IPointerReciever {
 	public bool constrainedToLocalX = false;
 
 	bool shouldDelete = false;
+
+	private List<int> currentInteractors;
+	private GameObject grabOwner;
 
 	//public Visualizer associatedVisualizer;
 
@@ -23,15 +26,20 @@ public class MovableVisualizer : Visualizer, IPointerReciever {
 			GetComponent<Collider> ().enabled = true;
 		}
 
-		interactingPointers = new LinkedList<int>();
-		pressingPointers = new LinkedList<int>();
+		//interactingPointers = new LinkedList<int>();
+		//pressingPointers = new LinkedList<int>();
 
-		this.enabled = false;		//We don't need update so we disable this
+		//this.enabled = false;		//We don't need update so we disable this
+
+		currentInteractors = new List<int> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (grabOwner != null)
+		{
+			Move(grabOwner.transform.position);
+		}
 	}
 
 	public void Select(){
@@ -77,49 +85,49 @@ public class MovableVisualizer : Visualizer, IPointerReciever {
 
 	}
 
-	/*
-	public void OnPointerExit(int pointerID)
+
+	// Reciever interfaces.
+
+	public void OnPointerExit(int sourceId)
 	{
-		interactingPointers.Remove(pointerID);
-		pressingPointers.Remove(pointerID);
-		pointerHoveringOverThis = false;
+		currentInteractors.Remove (sourceId);
 	}
 
-	public void OnPointerEnter(int pointerID){
-		pointerHoveringOverThis = true;
+	public void OnPointerEnter(int sourceId){
+		currentInteractors.Add(sourceId);
 	}
 
-	public void OnButtonDown(int pointerID, int buttonID)
+	public void OnRecieveButton(int sourceId, int buttonId, bool buttonState)
 	{
-		if (buttonID == 0)
+		if (!currentInteractors.Contains(sourceId))
 		{
-			pressingPointers.AddFirst(pointerID);
-			if (selected) {
-				Grab ();
-				return;
+			return;
+		}
+		if (buttonId == 0 && buttonState == true)
+		{
+			if (selected)
+			{
+				Deselect();
 			}
-			if (pointerHoveringOverThis) {
-				Select ();
-				return;
+			else
+			{
+				Select();
 			}
-			Deselect ();
-			DeGrab ();
 		}
 	}
 
-	public void OnButtonUp(int pointerID, int buttonID)
-	{
-		if (buttonID == 0)
-		{
-			pressingPointers.Remove(pointerID);
-
-			if (grabbing) {
-				DeGrab ();
-			}
-		}
-
+	public void OnRecieveAxis(int sourceID, int axisID, float axisValue){
+		
 	}
-	*/
 
+	public void OnGrab (GameObject grabber){
+		grabOwner = grabber;
+	}
 
+	public void OnRelease(GameObject grabber){
+		if (grabOwner == grabber)
+		{
+			grabOwner = null;
+		}
+	}
 }

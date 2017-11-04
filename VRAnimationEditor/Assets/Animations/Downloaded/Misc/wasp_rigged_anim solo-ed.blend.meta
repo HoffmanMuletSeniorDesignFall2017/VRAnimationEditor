@@ -1,0 +1,267 @@
+fileFormatVersion: 2
+guid: ec4a1e6725e0ed84cb7185338a4a3bf0
+timeCreated: 1509300760
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: backleg_L
+    100002: backleg_L_001
+    100004: backleg_L_002
+    100006: backleg_L_003
+    100008: backleg_L_004
+    100010: backleg_L_005
+    100012: backleg_L_006
+    100014: backleg_L_007
+    100016: backleg_L_008
+    100018: backleg_R
+    100020: backleg_R_001
+    100022: backleg_R_002
+    100024: backleg_R_003
+    100026: backleg_R_004
+    100028: backleg_R_005
+    100030: backleg_R_006
+    100032: backleg_R_007
+    100034: backleg_R_008
+    100036: Bone
+    100038: Cylinder
+    100040: Empty
+    100042: Empty_001
+    100044: Empty_002
+    100046: Empty_003
+    100048: Empty_004
+    100050: Empty_005
+    100052: Empty_006
+    100054: frontleg_L
+    100056: frontleg_L_001
+    100058: frontleg_L_002
+    100060: frontleg_L_003
+    100062: frontleg_L_004
+    100064: frontleg_L_005
+    100066: frontleg_R
+    100068: frontleg_R_001
+    100070: frontleg_R_002
+    100072: frontleg_R_003
+    100074: frontleg_R_004
+    100076: frontleg_R_005
+    100078: legarmature
+    100080: legs
+    100082: midleg_L
+    100084: midleg_L_001
+    100086: midleg_L_002
+    100088: midleg_L_003
+    100090: midleg_L_004
+    100092: midleg_L_005
+    100094: midleg_L_006
+    100096: midleg_L_007
+    100098: midleg_R
+    100100: midleg_R_001
+    100102: midleg_R_002
+    100104: midleg_R_003
+    100106: midleg_R_004
+    100108: midleg_R_005
+    100110: midleg_R_006
+    100112: midleg_R_007
+    100114: pos
+    100116: wasp
+    100118: //RootNode
+    100120: wasp_unapplied
+    100122: wings
+    100124: wings_001
+    100126: wings_002
+    400000: backleg_L
+    400002: backleg_L_001
+    400004: backleg_L_002
+    400006: backleg_L_003
+    400008: backleg_L_004
+    400010: backleg_L_005
+    400012: backleg_L_006
+    400014: backleg_L_007
+    400016: backleg_L_008
+    400018: backleg_R
+    400020: backleg_R_001
+    400022: backleg_R_002
+    400024: backleg_R_003
+    400026: backleg_R_004
+    400028: backleg_R_005
+    400030: backleg_R_006
+    400032: backleg_R_007
+    400034: backleg_R_008
+    400036: Bone
+    400038: Cylinder
+    400040: Empty
+    400042: Empty_001
+    400044: Empty_002
+    400046: Empty_003
+    400048: Empty_004
+    400050: Empty_005
+    400052: Empty_006
+    400054: frontleg_L
+    400056: frontleg_L_001
+    400058: frontleg_L_002
+    400060: frontleg_L_003
+    400062: frontleg_L_004
+    400064: frontleg_L_005
+    400066: frontleg_R
+    400068: frontleg_R_001
+    400070: frontleg_R_002
+    400072: frontleg_R_003
+    400074: frontleg_R_004
+    400076: frontleg_R_005
+    400078: legarmature
+    400080: legs
+    400082: midleg_L
+    400084: midleg_L_001
+    400086: midleg_L_002
+    400088: midleg_L_003
+    400090: midleg_L_004
+    400092: midleg_L_005
+    400094: midleg_L_006
+    400096: midleg_L_007
+    400098: midleg_R
+    400100: midleg_R_001
+    400102: midleg_R_002
+    400104: midleg_R_003
+    400106: midleg_R_004
+    400108: midleg_R_005
+    400110: midleg_R_006
+    400112: midleg_R_007
+    400114: pos
+    400116: wasp
+    400118: //RootNode
+    400120: wasp_unapplied
+    400122: wings
+    400124: wings_001
+    400126: wings_002
+    2300000: Cylinder
+    2300002: pos
+    2300004: wasp_unapplied
+    2300006: wings
+    2300008: wings_001
+    2300010: wings_002
+    3300000: Cylinder
+    3300002: pos
+    3300004: wasp_unapplied
+    3300006: wings
+    3300008: wings_001
+    3300010: wings_002
+    4300000: pos
+    4300002: wasp
+    4300004: wings_002
+    4300006: wings
+    4300008: Cylinder
+    4300010: legs
+    4300012: wasp_unapplied
+    4300014: wings_001
+    7400000: Default Take
+    9500000: //RootNode
+    13700000: legs
+    13700002: wasp
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 2636f63b49673164a85aaece9859e14f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyes
+    second: {fileID: 2100000, guid: c736787f8da78be4a93c6da0edced224, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: horn
+    second: {fileID: 2100000, guid: 4c7450c1091100c4989ef2456fdd1076, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin
+    second: {fileID: 2100000, guid: 9067995fd4a053049bbfbb9f0efdbf8f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: unnamed
+    second: {fileID: 2100000, guid: 2b7968eb7b23c844e8a9989fcb7d375d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wings
+    second: {fileID: 2100000, guid: d6e8c4461ab23a34a8b0279b0a4fbff3, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

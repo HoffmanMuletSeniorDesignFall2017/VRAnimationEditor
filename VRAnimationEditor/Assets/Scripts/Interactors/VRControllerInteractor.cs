@@ -13,6 +13,7 @@ public class VRControllerInteractor : MonoBehaviour {
     private int interactorID = 0;
     private GameObject pointFocus;
     private GameObject grabFocus;
+    private List<GameObject> grabCandidates;
     private List<GameObject> buttonAxisFocuses;
 
 	void Start () {
@@ -20,11 +21,13 @@ public class VRControllerInteractor : MonoBehaviour {
         vrControllerCount++;
 
         buttonAxisFocuses = new List<GameObject>();
+		grabCandidates = new List<GameObject> ();
 	}
 	
     void Update () {
         PointerUpdate();
         ButtonAxisUpdate();
+        GrabUpdate();
     }
 
     private void PointerUpdate()
@@ -59,55 +62,122 @@ public class VRControllerInteractor : MonoBehaviour {
         }
     }
 
+    private void GrabUpdate(){
+        if (isLeftHand)
+        {
+            if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
+            {
+                Grab();
+            }
+            if (OVRInput.GetUp(OVRInput.RawButton.LHandTrigger))
+            {
+                Release();
+            }
+        }
+        else
+        {
+            if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
+            {
+                Grab();
+            }
+            if (OVRInput.GetUp(OVRInput.RawButton.RHandTrigger))
+            {
+                Release();
+            }        
+        }
+    }
+
+	private GameObject GetClosestGrabCandidate(){
+		if (grabCandidates.Count == 0)
+			return null;
+		int minIndex = -1;
+		float minDistance = float.MaxValue;
+		for (int i = 0; i < grabCandidates.Count; i++)
+		{
+			float distance = (grabCandidates[i].transform.position - transform.position).magnitude;
+			if (distance < minDistance)
+			{
+				minIndex = i;
+				minDistance = distance;
+			}
+		}
+		return grabCandidates[minIndex];
+	}
+
+    private void Grab(){
+		if (grabCandidates.Count > 0)
+        {
+			grabFocus = GetClosestGrabCandidate();
+            grabFocus.GetComponent<IGrabReciever>().OnGrab(gameObject);
+            if (grabFocus.GetComponent<IButtonAxisReciever>() != null && !buttonAxisFocuses.Contains(grabFocus))
+            {
+                buttonAxisFocuses.Add(grabFocus);
+            }
+        }       
+    }
+
+    private void Release(){
+        if (grabFocus != null)
+        {
+            grabFocus.GetComponent<IGrabReciever>().OnRelease(gameObject);
+            if (grabFocus.GetComponent<IButtonAxisReciever>() != null && grabFocus != pointFocus)
+            {
+                buttonAxisFocuses.Remove(grabFocus);
+            }
+            grabFocus = null;
+        }
+    }
+
     private void ButtonAxisUpdate(){
         if (isLeftHand)
         {
             // Buttons.
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+            if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
                 SendButtonToRecievers(0, true);
-            if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
+            if (OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger))
                 SendButtonToRecievers(0, false);
-            if (OVRInput.GetDown(OVRInput.Button.Three))
+            if (OVRInput.GetDown(OVRInput.RawButton.A))
                 SendButtonToRecievers(1, true);
-            if (OVRInput.GetUp(OVRInput.Button.Three))
+            if (OVRInput.GetUp(OVRInput.RawButton.A))
                 SendButtonToRecievers(1, false);
-            if (OVRInput.GetDown(OVRInput.Button.Four))
+            if (OVRInput.GetDown(OVRInput.RawButton.B))
                 SendButtonToRecievers(2, true);
-            if (OVRInput.GetUp(OVRInput.Button.Four))
+            if (OVRInput.GetUp(OVRInput.RawButton.B))
                 SendButtonToRecievers(2, false);
 
             // Axes.
-            if (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).magnitude > axisDeadzone)
+            if (OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).magnitude > axisDeadzone)
             {
-                SendAxisToRecievers(0, OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x);
-                SendAxisToRecievers(1, OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y);
+                SendAxisToRecievers(0, OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x);
+                SendAxisToRecievers(1, OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y);
             }
         }
         // Right hand.
         else
         {
             // Buttons.
-            if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+            if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
                 SendButtonToRecievers(0, true);
-            if (OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
+            if (OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger))
                 SendButtonToRecievers(0, false);
-            if (OVRInput.GetDown(OVRInput.Button.One))
+            if (OVRInput.GetDown(OVRInput.RawButton.X))
                 SendButtonToRecievers(1, true);
-            if (OVRInput.GetUp(OVRInput.Button.One))
+            if (OVRInput.GetUp(OVRInput.RawButton.X))
                 SendButtonToRecievers(1, false);
-            if (OVRInput.GetDown(OVRInput.Button.Two))
+            if (OVRInput.GetDown(OVRInput.RawButton.Y))
                 SendButtonToRecievers(2, true);
-            if (OVRInput.GetUp(OVRInput.Button.Two))
+            if (OVRInput.GetUp(OVRInput.RawButton.Y))
                 SendButtonToRecievers(2, false);
 
             // Axes.
-            if (OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).magnitude > axisDeadzone)
+            if (OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).magnitude > axisDeadzone)
             {
-                SendAxisToRecievers(0, OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x);
-                SendAxisToRecievers(1, OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).y);
+                SendAxisToRecievers(0, OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).x);
+                SendAxisToRecievers(1, OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y);
             }
         }
     }
+
 
     private void SendButtonToRecievers(int buttonID, bool buttonState){
         for (int i = 0; i < buttonAxisFocuses.Count; i++)
@@ -172,5 +242,22 @@ public class VRControllerInteractor : MonoBehaviour {
         }
         // Set the new focus.
         pointFocus = newFocus;
+    }
+
+    void OnTriggerEnter(Collider collider){
+        if (collider.GetComponent<IGrabReciever>() != null)
+        {
+			grabCandidates.Add(collider.gameObject);
+        }
+        if(collider.GetComponent<ITouchReciever>() != null){
+            collider.GetComponent<ITouchReciever>().OnTouchEnter(interactorID, 0);
+        }
+    }
+
+    void OnTriggerExit(Collider collider){
+		grabCandidates.Remove(collider.gameObject);
+        if(collider.GetComponent<ITouchReciever>() != null){
+            collider.GetComponent<ITouchReciever>().OnTouchExit(interactorID, 0);
+        }
     }
 }

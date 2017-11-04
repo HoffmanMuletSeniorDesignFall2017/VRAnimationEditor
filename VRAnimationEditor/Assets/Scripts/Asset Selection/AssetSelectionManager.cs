@@ -9,6 +9,8 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
 	public AnimationVisualizer animVis;
 	public NodeVisualizationManager templateNodeVisualizationManager;
     public bool selectModelFirst = true;
+    public bool poseDebug = false;
+    public PoseManager poseManager;
 
     private GameObject model;
     private AnimationClip animClip;
@@ -52,7 +54,7 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
             {
                 SetupAnimation();
             }
-        }
+        }           
     }
 
 
@@ -76,6 +78,15 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
         }
     }
 
+    private void PoseDebugSetup(){
+        GameObject obj = Instantiate(model, modelSpawnAnchor.position, modelSpawnAnchor.rotation);
+        SetupNodeVisualization(obj);
+        if (poseManager != null)
+        {
+            poseManager.rootTransform = obj.transform;
+        }
+    }
+
 
     private void SetupAnimation(){
 		AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation ("Test");
@@ -84,15 +95,31 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
 			newAnimation.SetCurve (AnimationUtility.GetCurveBindings (animClip) [i].path, AnimationUtility.GetCurveBindings (animClip) [i].type, AnimationUtility.GetCurveBindings (animClip) [i].propertyName, AnimationUtility.GetEditorCurve (animClip, AnimationUtility.GetCurveBindings (animClip) [i]));
 		}
 
-		GameObject animModel = AnimationEditorFunctions.InstantiateWithAnimation (model, newAnimation, null);//modelSpawnAnchor);
+        if (poseDebug)
+        {
+            PoseDebugSetup();
+            return;
+        }
 
-		NodeVisualizationManager nodeVis = animModel.AddComponent<NodeVisualizationManager> ();
-		nodeVis.nodeMarkerPrefab = templateNodeVisualizationManager.nodeMarkerPrefab;
-		nodeVis.makeTransparent = templateNodeVisualizationManager.makeTransparent;
-		nodeVis.transparentTemplate = templateNodeVisualizationManager.transparentTemplate;
+        if (animClip != null)
+        {
+            for (int i = 0; i < AnimationUtility.GetCurveBindings (animClip).Length; i++) {
+                newAnimation.SetCurve (AnimationUtility.GetCurveBindings (animClip) [i].path, AnimationUtility.GetCurveBindings (animClip) [i].type, AnimationUtility.GetCurveBindings (animClip) [i].propertyName, AnimationUtility.GetEditorCurve (animClip, AnimationUtility.GetCurveBindings (animClip) [i]));
+            }
+        }
+		
+        GameObject animModel = AnimationEditorFunctions.InstantiateWithAnimation(model, newAnimation, modelSpawnAnchor);
+        SetupNodeVisualization(animModel);
 
 		StartCoroutine(WaitAndDoTheThing (animModel, newAnimation));
 
+    }
+
+    private void SetupNodeVisualization(GameObject modelObj){
+        NodeVisualizationManager nodeVis = modelObj.AddComponent<NodeVisualizationManager> ();
+        nodeVis.nodeMarkerPrefab = templateNodeVisualizationManager.nodeMarkerPrefab;
+        nodeVis.makeTransparent = templateNodeVisualizationManager.makeTransparent;
+        nodeVis.transparentTemplate = templateNodeVisualizationManager.transparentTemplate;
     }
 
 	IEnumerator WaitAndDoTheThing(GameObject objInstance, AnimationClip sessionAnim){
