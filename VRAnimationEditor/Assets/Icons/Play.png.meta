@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: 1301eaec5df391b4380eec3f83531ebf
-timeCreated: 1509825764
+timeCreated: 1509829114
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Play_0
+    21300002: Play_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -80,6 +81,20 @@ TextureImporter:
     sprites:
     - serializedVersion: 2
       name: Play_0
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 85
+        width: 170
+        height: 226
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Play_1
       rect:
         serializedVersion: 2
         x: 719

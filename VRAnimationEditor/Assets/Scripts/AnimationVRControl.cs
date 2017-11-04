@@ -9,6 +9,7 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 	public AnimationVisualizer animVisual;
 
 	public VRControllerInteractor controller;
+	public GameObject playButton_IButtonAxisReciever;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +31,7 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 		if (buttonState == true) {
 			if (buttonID == BUTTON_A) {
 				animVisual.TogglePlayAnimation ();
+				playButton_IButtonAxisReciever.GetComponent<IButtonAxisReciever>().OnRecieveButton (sourceID, buttonID, buttonState);
 			}
 		}
 	}

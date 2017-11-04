@@ -24,7 +24,8 @@ public class NodeVisualizationManager : MonoBehaviour {
 			ReplaceMaterials (meshRends, transparentTemplate);
 		}
 		if (root == null) {
-			root = GuessRoot ();
+			//root = GuessRoot ();
+			root = transform;
 		}
 		SpawnNodeMarkers (root);
 	}

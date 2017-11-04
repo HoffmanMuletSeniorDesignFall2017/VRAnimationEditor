@@ -21,6 +21,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 	private List<AnimationCurveVisualizer> associatedCurveVisualizers;
 	private AnimationVisualizer mainVisualizer = null;
 
+	private bool needsToWrite = false;
+
 	void Start(){
 		SetAxisVisibility (false);
         boneNode = transform.parent;
@@ -124,7 +126,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
 			else {	//Non-Humanoid
 
-
+				needsToWrite = true;
 				/*
 				Keyframe newKeyframe1 = new Keyframe ();
 				Keyframe newKeyframe2 = new Keyframe ();
@@ -462,10 +464,46 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
         if (grabber == grabOwner)
         {
 
+			if (needsToWrite) {
+
+				Keyframe newKeyframe1 = new Keyframe ();
+				Keyframe newKeyframe2 = new Keyframe ();
+				Keyframe newKeyframe3 = new Keyframe ();
+				newKeyframe1.value = boneNode.localEulerAngles.x;
+				newKeyframe2.value = boneNode.localEulerAngles.y;
+				newKeyframe3.value = boneNode.localEulerAngles.z;
+
+
+				if (associatedCurveVisualizers.Count > 0)
+					associatedCurveVisualizers [0].AddExistingKeyframe (newKeyframe1);
+				if (associatedCurveVisualizers.Count > 1)
+					associatedCurveVisualizers [1].AddExistingKeyframe (newKeyframe2);
+				if (associatedCurveVisualizers.Count > 2)
+					associatedCurveVisualizers [2].AddExistingKeyframe (newKeyframe3);
+
+
+
+				newKeyframe1.value = boneNode.localPosition.x;
+				newKeyframe2.value = boneNode.localPosition.y;
+				newKeyframe3.value = boneNode.localPosition.z;
+
+				if (associatedCurveVisualizers.Count > 4)
+					associatedCurveVisualizers [4].AddExistingKeyframe (newKeyframe1);
+				if (associatedCurveVisualizers.Count > 5)
+					associatedCurveVisualizers [5].AddExistingKeyframe (newKeyframe2);
+				if (associatedCurveVisualizers.Count > 6)
+					associatedCurveVisualizers [6].AddExistingKeyframe (newKeyframe3);
+
+
+			}
+
             boneNode.parent = boneNodeParent;
-            boneNode.SetSiblingIndex(grabbedSiblingIndex);
+            //boneNode.SetSiblingIndex(grabbedSiblingIndex);
             grabOwner = null;
-            poseManager.OnPoseEditFinish(boneNode);
+            //poseManager.OnPoseEditFinish(boneNode);
+
+			needsToWrite = false;
+
         }
     }
 
