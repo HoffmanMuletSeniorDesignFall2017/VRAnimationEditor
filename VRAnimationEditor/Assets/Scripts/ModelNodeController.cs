@@ -5,6 +5,8 @@ using UnityEditor;
 
 public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever, IGrabReciever, ITouchReciever {
 	const int NUM_HUMAN_BONES = 55;
+    static PoseManager poseManager;
+
 	public GameObject[] rings, arrows;
 	public GameObject masterObject;
 
@@ -12,6 +14,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 	private bool hasPointerFocus = false;
     private Transform boneNode, boneNodeParent, dummyNode, dummyNode2;
     private GameObject grabOwner;
+    private int grabbedSiblingIndex;
     private List<int> touchingInteractors;
 
 	private AnimationCurveVisualizer associatedVisualizer = null;
@@ -28,6 +31,12 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
         dummyNode2 = new GameObject().transform;
 
 		associatedCurveVisualizers = new List<AnimationCurveVisualizer> ();
+
+		touchingInteractors = new List<int>();
+		if (poseManager == null)
+		{
+			poseManager = GameObject.Find("Pose Manager").GetComponent<PoseManager>();
+		}
 
 	}
 
@@ -341,6 +350,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 		//masterObject.GetComponent<Animator> ().enabled = true;
 	}
 
+
+
 	public void SetAxisVisibility(bool isVisible){
 		for (int i = 0; i < 3; i++) {
 			SetVisibility (rings [i], isVisible);
@@ -433,6 +444,14 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 			boneNode.parent = grabber.transform;
 			grabOwner = grabber;
 		}	
+
+		/*	ALEC STUFF
+        grabbedSiblingIndex = boneNode.GetSiblingIndex();
+        boneNode.parent = grabber.transform;
+        grabOwner = grabber;
+        poseManager.OnPoseEditStart(boneNode);
+        */
+
     }
 
     public void OnRelease(GameObject grabber){
@@ -440,7 +459,9 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
         {
 
             boneNode.parent = boneNodeParent;
+            boneNode.SetSiblingIndex(grabbedSiblingIndex);
             grabOwner = null;
+            poseManager.OnPoseEditFinish(boneNode);
         }
     }
 

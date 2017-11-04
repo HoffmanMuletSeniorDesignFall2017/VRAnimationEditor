@@ -3,77 +3,109 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PoseManager : MonoBehaviour {
+
     public AnimationClip animClip;
     public Transform rootTransform;
     public bool useRotation = true;
     public bool usePosition = false;
 
     private float time = 1;
-    private List<NodeData> initialNodeData;
+    private NodeData initialNodeData;
+    private NodeData tempEditData;
+    private List<NodeEdit> editHistory;
 
     void Start(){
-        initialNodeData = GetHierarchyNodeDatas(rootTransform);
-    }
-	
-    public void GenerateKeyframesForCurrentPose(){
-        RecursiveGenerateKeyframes(rootTransform);
+        editHistory = new List<NodeEdit>();
     }
 
-    private void RecursiveGenerateKeyframes(Transform t){
-        
-    }
-
-    private void GenerateRotationKeyframes(Transform t, AnimationCurve curveX){
-        if (useRotation)
+    void Update(){
+        if (rootTransform == null)
         {
-            
+            return;
+        }
+        if (initialNodeData == null)
+        {
+            initialNodeData = new NodeData(rootTransform, true);
+        }
 
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            Debug.Log("Reseting pose");
+            RestoreInitialPose();
+        }
+        if (OVRInput.GetDown(OVRInput.RawButton.X))
+        {
+            Undo();
         }
     }
-
+	
     public void RestoreInitialPose(){
         ApplyPose(initialNodeData, rootTransform);
     }
 
-    private static void ApplyPose(List<NodeData> nodeDatas, Transform root){
-        root.position = nodeDatas[0].position;
-        root.rotation = nodeDatas[0].rotation;
-        nodeDatas.RemoveAt(0);
+    private static void ApplyPose(NodeData nodeData, Transform root){
+        root.localPosition = nodeData.position;
+        root.localRotation = nodeData.rotation;
+        int nDIndex = 0;
         for (int i = 0; i < root.childCount; i++)
         {
-            ApplyPose(nodeDatas, root.GetChild(i));
+            if (root.GetChild(i).gameObject.layer != LayerMask.NameToLayer("UI"))
+            {
+                ApplyPose(nodeData.children[nDIndex], root.GetChild(i));
+                nDIndex++;
+            }
+        }
+
+    }
+
+    public void OnPoseEditStart(Transform t){
+        tempEditData = new NodeData(t);
+    }
+
+    public void OnPoseEditFinish(Transform t){
+        editHistory.Add(new NodeEdit(tempEditData, t));
+    }
+
+    private void Undo(){
+        if (editHistory.Count > 0)
+        {
+            NodeEdit undoEdit = editHistory[editHistory.Count - 1];
+            undoEdit.editTransform.localPosition -= undoEdit.deltaPos;
+            //undoEdit.editTransform.localRotation *= undoEdit.deltaRot;//Quaternion.Inverse(undoEdit.deltaRot);
+            editHistory.RemoveAt(editHistory.Count - 1);
         }
     }
 
-    private static List<NodeData> GetHierarchyNodeDatas(Transform root){
-        List<NodeData> data = new List<NodeData>();
-        data.Add(new NodeData(root));
-        for (int i = 0; i < root.childCount; i++)
-        {
-            data.AddRange(GetHierarchyNodeDatas(root.GetChild(i)));
-        }
-        return data;
-    }
 
     public class NodeData{
         public Vector3 position;
         public Quaternion rotation;
+        public List<NodeData> children;
 
-        public NodeData(Transform t){
-            position = t.position;
-            rotation = t.rotation;
+        public NodeData(Transform t, bool loadChildren = false){
+            position = t.localPosition;
+            rotation = t.localRotation;
+            if(loadChildren){
+                children = new List<NodeData>();
+                for(int i = 0; i < t.childCount; i++){
+                    if(t.GetChild(i).gameObject.layer  != LayerMask.NameToLayer("UI"))
+                    {
+                        children.Add(new NodeData(t.GetChild(i)));
+                    }
+                } 
+            }
         }
     }
 
-    void OnTriggerEnter(){
-        RestoreInitialPose();
-    }
+    public class NodeEdit{
+        public Transform editTransform;
+        public Vector3 deltaPos;
+        public Quaternion deltaRot;
 
-    public void SetModel(GameObject model){
-        rootTransform = model.transform;
-    }
-
-    public void SetAnimationClip(AnimationClip animClip){
-        this.animClip = animClip;
+        public NodeEdit(NodeData initialNodeData, Transform editedTransform){
+            editTransform = editedTransform;
+            deltaPos = editTransform.localPosition - initialNodeData.position;
+            deltaRot = Quaternion.Inverse(initialNodeData.rotation) * editTransform.localRotation;
+        }
     }
 }

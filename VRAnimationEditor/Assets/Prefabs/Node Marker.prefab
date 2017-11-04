@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4619147292224360}
   - component: {fileID: 33965287446044472}
   - component: {fileID: 23344481171866278}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: y ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4623670527675506}
   - component: {fileID: 33217511729691054}
   - component: {fileID: 23474069137985166}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: x ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4466794195416754}
   - component: {fileID: 114018272431641782}
   - component: {fileID: 135251182601575902}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Node Marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4892338172861476}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: x arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4099329621782718}
   - component: {fileID: 33822923155264922}
   - component: {fileID: 23941654110889368}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: x nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4204751797756494}
   - component: {fileID: 33838661295070540}
   - component: {fileID: 23039025006865124}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: y nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4850439731918044}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: z arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4856689083797510}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: y arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 4367311715735406}
   - component: {fileID: 33362954141390118}
   - component: {fileID: 23622420393691182}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: head.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 4381820075774022}
   - component: {fileID: 33727550649951350}
   - component: {fileID: 23670481470909196}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: shaft.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4292104901572878}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Y Axis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 4300968316622320}
   - component: {fileID: 33672752926449562}
   - component: {fileID: 23210690625633020}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 4656612717002882}
   - component: {fileID: 33158379940663174}
   - component: {fileID: 23015609829482518}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: shaft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 4849358773129676}
   - component: {fileID: 33990825186487258}
   - component: {fileID: 23867283904501616}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 4441026945185642}
   - component: {fileID: 33191000616879124}
   - component: {fileID: 23044003238953736}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: head.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 4314548313886598}
   - component: {fileID: 33991811313172734}
   - component: {fileID: 23448492238649548}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: z nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 4481771665817522}
   - component: {fileID: 33061005488444648}
   - component: {fileID: 23419950282987226}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: shaft.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 4398308697586718}
   - component: {fileID: 33355519350583200}
   - component: {fileID: 23645726828415170}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: z ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4512701236024834}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: X Axis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4204904012947398}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Z Axis
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,6 +10,7 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
 	public NodeVisualizationManager templateNodeVisualizationManager;
     public bool selectModelFirst = true;
     public bool poseDebug = false;
+    public PoseManager poseManager;
 
     private GameObject model;
     private AnimationClip animClip;
@@ -80,17 +81,26 @@ public class AssetSelectionManager : MonoBehaviour, IAssetRequester {
     private void PoseDebugSetup(){
         GameObject obj = Instantiate(model, modelSpawnAnchor.position, modelSpawnAnchor.rotation);
         SetupNodeVisualization(obj);
+        if (poseManager != null)
+        {
+            poseManager.rootTransform = obj.transform;
+        }
     }
-		
+
 
     private void SetupAnimation(){
+		AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation ("Test");
+
+		for (int i = 0; i < AnimationUtility.GetCurveBindings (animClip).Length; i++) {
+			newAnimation.SetCurve (AnimationUtility.GetCurveBindings (animClip) [i].path, AnimationUtility.GetCurveBindings (animClip) [i].type, AnimationUtility.GetCurveBindings (animClip) [i].propertyName, AnimationUtility.GetEditorCurve (animClip, AnimationUtility.GetCurveBindings (animClip) [i]));
+		}
+
         if (poseDebug)
         {
             PoseDebugSetup();
             return;
         }
 
-		AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation ("Test");
         if (animClip != null)
         {
             for (int i = 0; i < AnimationUtility.GetCurveBindings (animClip).Length; i++) {
