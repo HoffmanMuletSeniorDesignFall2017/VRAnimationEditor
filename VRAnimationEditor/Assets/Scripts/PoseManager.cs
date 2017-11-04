@@ -104,6 +104,8 @@ public class PoseManager : MonoBehaviour {
 
         public NodeEdit(NodeData initialNodeData, Transform editedTransform){
             editTransform = editedTransform;
+			if(editedTransform == null || initialNodeData == null)
+				return;
             deltaPos = editTransform.localPosition - initialNodeData.position;
             deltaRot = Quaternion.Inverse(initialNodeData.rotation) * editTransform.localRotation;
         }

@@ -20,7 +20,8 @@ public class VRControllerInteractor : MonoBehaviour {
         interactorID = vrControllerCount;
         vrControllerCount++;
 
-        buttonAxisFocuses = new List<GameObject>();
+		if(buttonAxisFocuses == null)
+        	buttonAxisFocuses = new List<GameObject>();
 		grabCandidates = new List<GameObject> ();
 	}
 	
@@ -136,13 +137,13 @@ public class VRControllerInteractor : MonoBehaviour {
                 SendButtonToRecievers(0, true);
             if (OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger))
                 SendButtonToRecievers(0, false);
-            if (OVRInput.GetDown(OVRInput.RawButton.A))
+            if (OVRInput.GetDown(OVRInput.RawButton.X))
                 SendButtonToRecievers(1, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.A))
+            if (OVRInput.GetUp(OVRInput.RawButton.X))
                 SendButtonToRecievers(1, false);
-            if (OVRInput.GetDown(OVRInput.RawButton.B))
+            if (OVRInput.GetDown(OVRInput.RawButton.Y))
                 SendButtonToRecievers(2, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.B))
+            if (OVRInput.GetUp(OVRInput.RawButton.Y))
                 SendButtonToRecievers(2, false);
 
             // Axes.
@@ -160,13 +161,13 @@ public class VRControllerInteractor : MonoBehaviour {
                 SendButtonToRecievers(0, true);
             if (OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger))
                 SendButtonToRecievers(0, false);
-            if (OVRInput.GetDown(OVRInput.RawButton.X))
+            if (OVRInput.GetDown(OVRInput.RawButton.A))
                 SendButtonToRecievers(1, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.X))
+            if (OVRInput.GetUp(OVRInput.RawButton.A))
                 SendButtonToRecievers(1, false);
-            if (OVRInput.GetDown(OVRInput.RawButton.Y))
+            if (OVRInput.GetDown(OVRInput.RawButton.B))
                 SendButtonToRecievers(2, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.Y))
+            if (OVRInput.GetUp(OVRInput.RawButton.B))
                 SendButtonToRecievers(2, false);
 
             // Axes.
@@ -260,4 +261,14 @@ public class VRControllerInteractor : MonoBehaviour {
             collider.GetComponent<ITouchReciever>().OnTouchExit(interactorID, 0);
         }
     }
+
+	public void AddButtonAxisFocus(GameObject newFocus){
+		if (buttonAxisFocuses != null)
+			buttonAxisFocuses.Add (newFocus);
+		else {
+			buttonAxisFocuses = new List<GameObject>();
+
+			buttonAxisFocuses.Add (newFocus);
+		}
+	}
 }

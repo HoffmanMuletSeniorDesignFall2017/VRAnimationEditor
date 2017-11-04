@@ -32,11 +32,13 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
 		associatedCurveVisualizers = new List<AnimationCurveVisualizer> ();
 
+
 		touchingInteractors = new List<int>();
 		if (poseManager == null)
 		{
 			poseManager = GameObject.Find("Pose Manager").GetComponent<PoseManager>();
 		}
+
 
 	}
 
@@ -121,7 +123,9 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 			} 
 
 			else {	//Non-Humanoid
-				
+
+
+				/*
 				Keyframe newKeyframe1 = new Keyframe ();
 				Keyframe newKeyframe2 = new Keyframe ();
 				Keyframe newKeyframe3 = new Keyframe ();
@@ -148,7 +152,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 				if (associatedCurveVisualizers.Count > 5)
 					associatedCurveVisualizers [5].AddExistingKeyframe (newKeyframe3);
 	
-
+				*/
 			}
 		}
 
@@ -445,12 +449,12 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 			grabOwner = grabber;
 		}	
 
-		/*	ALEC STUFF
+		/*
         grabbedSiblingIndex = boneNode.GetSiblingIndex();
         boneNode.parent = grabber.transform;
         grabOwner = grabber;
         poseManager.OnPoseEditStart(boneNode);
-        */
+	*/
 
     }
 
