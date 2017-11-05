@@ -474,8 +474,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 515027153}
   m_LocalRotation: {x: 0, y: 0.8980277, z: -0, w: -0.43993893}
-  m_LocalPosition: {x: 0, y: 1.18, z: 1.1}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -654,6 +654,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineMat: {fileID: 2100000, guid: 072d04dea252177489fae8897a365d86, type: 2}
+--- !u!1 &850978887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 850978888}
+  m_Layer: 0
+  m_Name: Model Spawn Anchor (Fish)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &850978888
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 850978887}
+  m_LocalRotation: {x: 0, y: 0.8980277, z: -0, w: -0.43993893}
+  m_LocalPosition: {x: 0, y: 1.18, z: 1.1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 232.2, z: 0}
 --- !u!1 &926958639
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assetSelector: {fileID: 926958640}
-  modelSpawnAnchor: {fileID: 515027154}
+  modelSpawnAnchor: {fileID: 850978888}
   animVis: {fileID: 1929767744}
   templateNodeVisualizationManager: {fileID: 926958641}
   selectModelFirst: 1
@@ -985,7 +1013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1157671876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1817,7 +1845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1855423358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1860,7 +1888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assetSelector: {fileID: 1855423358}
-  modelSpawnAnchor: {fileID: 515027154}
+  modelSpawnAnchor: {fileID: 850978888}
   animVis: {fileID: 1929767744}
   templateNodeVisualizationManager: {fileID: 1855423359}
   selectModelFirst: 1
@@ -1991,7 +2019,7 @@ MonoBehaviour:
   isLeftHand: 1
   lazerLine: {fileID: 500831802}
   pointerMaxDistance: 1000
-  axisDeadzone: 0.2
+  axisDeadzone: 0.05
 --- !u!135 &1929385342
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2090,7 +2118,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1301eaec5df391b4380eec3f83531ebf, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 1301eaec5df391b4380eec3f83531ebf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2124,8 +2152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteList:
-  - {fileID: 21300000, guid: 1301eaec5df391b4380eec3f83531ebf, type: 3}
   - {fileID: 21300002, guid: 1301eaec5df391b4380eec3f83531ebf, type: 3}
+  - {fileID: 21300000, guid: 1301eaec5df391b4380eec3f83531ebf, type: 3}
 --- !u!1 &2015041584
 GameObject:
   m_ObjectHideFlags: 0
@@ -2175,7 +2203,7 @@ MonoBehaviour:
   isLeftHand: 0
   lazerLine: {fileID: 2081572046}
   pointerMaxDistance: 1000
-  axisDeadzone: 0.2
+  axisDeadzone: 0.05
 --- !u!135 &2015041587
 SphereCollider:
   m_ObjectHideFlags: 0

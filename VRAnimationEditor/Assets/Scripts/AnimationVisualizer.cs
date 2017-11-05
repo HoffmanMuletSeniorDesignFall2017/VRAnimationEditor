@@ -144,9 +144,35 @@ public class AnimationVisualizer : Visualizer {
 						acv.associatedNodeVisualizer.GetComponent<ModelNodeController> ().SetMainVisualizer (this);				//Makes it so the node visualizer can talk to this guy too
 					}
 				} else {
-					//It is a muscle property, so we set the corresponding node.
 
-					HumanBodyBones theBone = GetBoneFromString("Hips");		//Default...
+                    currentClip.SetCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, null);
+
+                    continue;
+
+                    //It is a muscle property, so we specify what type it is... laboriously.
+                    if(objectAnimated == humanoidProperties[0])
+                    {
+                        //Spine Front-Back
+                        acv.curveType = AnimationCurveVisualizer.ACVType.RotX;
+                    } else if (objectAnimated == humanoidProperties[1])
+                    {
+                        //Spine Left-Right
+                        acv.curveType = AnimationCurveVisualizer.ACVType.Other;
+                    }
+                    else if (objectAnimated == humanoidProperties[2])
+                    {
+                        //Spine Twist Left-Right
+                        acv.curveType = AnimationCurveVisualizer.ACVType.Other;
+                    }
+                    else
+                    {
+                        acv.curveType = AnimationCurveVisualizer.ACVType.Other;
+                    }
+
+
+                    //It is a muscle property, so we set the corresponding node.
+
+                    HumanBodyBones theBone = GetBoneFromString("Hips");		//Default...
 
 					if (objectAnimated == humanoidProperties [0] || objectAnimated == humanoidProperties [1] || objectAnimated == humanoidProperties [2]) {
 

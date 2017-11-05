@@ -122,7 +122,9 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 				}
 
 				StartCoroutine (RotateNode ());
-			} 
+
+                boneNode.rotation = dummyNode2.rotation;
+            } 
 
 			else {	//Non-Humanoid
 
@@ -197,6 +199,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
 
 		yield return new WaitForEndOfFrame ();
+
+        needsToWrite = true;
 
 		for (int i = 0; i < NUM_HUMAN_BONES; i++) {
 			if(boneNode == masterObject.GetComponent<Animator>().GetBoneTransform((HumanBodyBones) i)){
@@ -371,7 +375,9 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 			}
 		}
 
-		//masterObject.GetComponent<Animator> ().enabled = true;
+        //masterObject.GetComponent<Animator> ().enabled = true;
+        //boneNode.rotation = dummyNode2.rotation;
+
 	}
 
 
@@ -439,10 +445,10 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
 		if (associatedCurveVisualizers [0].isHumanoid) {
 
-			dummyNode.position = grabber.transform.position;
-			dummyNode.rotation = grabber.transform.rotation;
-	
-			dummyNode.parent = grabber.transform;
+            dummyNode.position = boneNode.position;
+            dummyNode.rotation = boneNode.rotation;
+
+            dummyNode.parent = grabber.transform;
 
 			dummyNode2.parent = boneNodeParent;
 
@@ -452,7 +458,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 			if (boneNode == masterObject.GetComponent<Animator> ().GetBoneTransform (HumanBodyBones.LeftUpperArm) || boneNode == masterObject.GetComponent<Animator> ().GetBoneTransform (HumanBodyBones.RightUpperArm))
 				dummyNode2.Rotate (new Vector3 (0, -90 + boneNode.localEulerAngles.y, 0));
 
-			boneNode.parent = dummyNode2;
+			//boneNode.parent = dummyNode2;
 
 			//boneNode.localPosition = Vector3.zero;
 			//boneNode.localRotation = Quaternion.identity;
@@ -487,47 +493,78 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
             if (needsToWrite)
             {
-
-                Keyframe newKeyframe1 = new Keyframe();
-                Keyframe newKeyframe2 = new Keyframe();
-                Keyframe newKeyframe3 = new Keyframe();
-                Keyframe newKeyframe4 = new Keyframe();
-
-                newKeyframe1.value = boneNode.localRotation.w;
-                newKeyframe2.value = boneNode.localRotation.x;
-                newKeyframe3.value = boneNode.localRotation.y;
-                newKeyframe4.value = boneNode.localRotation.z;
-
-                Keyframe newKeyframe5 = new Keyframe();
-                Keyframe newKeyframe6 = new Keyframe();
-                Keyframe newKeyframe7 = new Keyframe();
-                newKeyframe5.value = boneNode.localPosition.x;
-                newKeyframe6.value = boneNode.localPosition.y;
-                newKeyframe7.value = boneNode.localPosition.z;
-
-
-
-                for (int i = 0; i < associatedCurveVisualizers.Count; i++)
+                if (associatedCurveVisualizers.Count <= 0)
                 {
-                    if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotW)
-                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe1);
-                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotX)
-                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe2);
-                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotY)
-                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe3);
-                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotZ)
-                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe4);
-                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.PosX)
-                    {
-                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe5);
-                    }
-                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.PosY)
-                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe6);
-                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.PosZ)
-                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe7);
+                    //Do nothing
                 }
+                else if (associatedCurveVisualizers[0].isHumanoid)  //Humanoid Animation
+                {
+                    Keyframe newKeyframe1 = new Keyframe();
+                    Keyframe newKeyframe2 = new Keyframe();
+                    Keyframe newKeyframe3 = new Keyframe();
+                    Keyframe newKeyframe4 = new Keyframe();
+
+                    newKeyframe1.value = boneNode.rotation.w;
+                    newKeyframe2.value = boneNode.eulerAngles.x / -45f;
+                    newKeyframe3.value = boneNode.eulerAngles.y / 90f;
+                    newKeyframe4.value = boneNode.eulerAngles.z / 90f;
+
+                    for (int i = 0; i < associatedCurveVisualizers.Count; i++)
+                    {
+                        if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotW)
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe1);
+                        else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotX)
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe2);
+                        else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotY)
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe3);
+                        else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotZ)
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe4);
+                    }
+
+                }
+                else
+                { //Non-Humanoid
+
+                    Keyframe newKeyframe1 = new Keyframe();
+                    Keyframe newKeyframe2 = new Keyframe();
+                    Keyframe newKeyframe3 = new Keyframe();
+                    Keyframe newKeyframe4 = new Keyframe();
+
+                    newKeyframe1.value = boneNode.localRotation.w;
+                    newKeyframe2.value = boneNode.localRotation.x;
+                    newKeyframe3.value = boneNode.localRotation.y;
+                    newKeyframe4.value = boneNode.localRotation.z;
+
+                    Keyframe newKeyframe5 = new Keyframe();
+                    Keyframe newKeyframe6 = new Keyframe();
+                    Keyframe newKeyframe7 = new Keyframe();
+                    newKeyframe5.value = boneNode.localPosition.x;
+                    newKeyframe6.value = boneNode.localPosition.y;
+                    newKeyframe7.value = boneNode.localPosition.z;
 
 
+
+                    for (int i = 0; i < associatedCurveVisualizers.Count; i++)
+                    {
+                        if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotW)
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe1);
+                        else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotX)
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe2);
+                        else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotY)
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe3);
+                        else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotZ)
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe4);
+                        else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.PosX)
+                        {
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe5);
+                        }
+                        else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.PosY)
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe6);
+                        else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.PosZ)
+                            associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe7);
+                    }
+
+                }
             }
             
 
