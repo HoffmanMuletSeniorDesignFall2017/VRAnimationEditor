@@ -28,6 +28,7 @@ public class NodeVisualizationManager : MonoBehaviour {
 			root = transform;
 		}
 		SpawnNodeMarkers (root);
+
 	}
 	
 	// Update is called once per frame

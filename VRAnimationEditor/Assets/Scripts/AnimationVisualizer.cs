@@ -263,9 +263,32 @@ public class AnimationVisualizer : Visualizer {
 				acv.associatedNodeVisualizer.GetComponent<ModelNodeController> ().AddAssociatedCurveVisualizer (acv);
 
 				acv.associatedNodeVisualizer.GetComponent<ModelNodeController> ().SetMainVisualizer (this);				//Makes it so the node visualizer can talk to this guy too
-			}
 
-			acv.Refresh ();
+                string propertyName = AnimationUtility.GetCurveBindings(currentClip)[i].propertyName;
+
+                if (propertyName == "m_LocalPosition.x")
+                    acv.curveType = AnimationCurveVisualizer.ACVType.PosX;
+                else if (propertyName == "m_LocalPosition.y")
+                    acv.curveType = AnimationCurveVisualizer.ACVType.PosY;
+                else if (propertyName == "m_LocalPosition.z")
+                    acv.curveType = AnimationCurveVisualizer.ACVType.PosZ;
+                else if (propertyName == "m_LocalRotation.w")
+                    acv.curveType = AnimationCurveVisualizer.ACVType.RotW;
+                else if (propertyName == "m_LocalRotation.x")
+                    acv.curveType = AnimationCurveVisualizer.ACVType.RotX;
+                else if (propertyName == "m_LocalRotation.y")
+                    acv.curveType = AnimationCurveVisualizer.ACVType.RotY;
+                else if (propertyName == "m_LocalRotation.z")
+                    acv.curveType = AnimationCurveVisualizer.ACVType.RotZ;
+                else
+               {
+                    acv.curveType = AnimationCurveVisualizer.ACVType.Other;
+                }
+
+
+            }
+
+            acv.Refresh ();
 
 
 			animCurves_Visualizers.Add (acv);
@@ -383,8 +406,8 @@ public class AnimationVisualizer : Visualizer {
 		AnimationClip newClip = new AnimationClip ();
 		newClip.name = currentClip.name;
 
-		//Perform a deep copy
-		for (int i = 0; i < AnimationUtility.GetCurveBindings (currentClip).Length; i++) {
+        //Perform a deep copy
+        for (int i = 0; i < AnimationUtility.GetCurveBindings (currentClip).Length; i++) {
 			newClip.SetCurve (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, AnimationUtility.GetEditorCurve (currentClip, AnimationUtility.GetCurveBindings (currentClip) [i]));
 		}
 
@@ -392,8 +415,6 @@ public class AnimationVisualizer : Visualizer {
 		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeClip (newClip);
 		//currentClip.SetCurve (path, type, propertyName, animCurve);
 		//yield return new WaitForEndOfFrame ();
-
-		//yield return null;
 
 		currentClip = newClip;
 
