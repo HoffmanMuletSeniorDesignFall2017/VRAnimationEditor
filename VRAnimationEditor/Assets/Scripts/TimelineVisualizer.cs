@@ -116,7 +116,9 @@ public class TimelineVisualizer : Visualizer {
 				anim.Play (layerInfo [i].fullPathHash, i, layerInfo [i].normalizedTime);
 			}
 
-			currentClipName = clip.name;
+            anim.Update(0.0f);
+
+            currentClipName = clip.name;
 			//doneInitialSwitch = true;
 		}/* else {
 			Animator anim = animator;

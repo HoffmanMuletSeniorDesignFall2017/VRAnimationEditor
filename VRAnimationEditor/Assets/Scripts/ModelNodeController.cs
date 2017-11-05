@@ -127,38 +127,53 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 			else {	//Non-Humanoid
 
 				needsToWrite = true;
-                /*
-				Keyframe newKeyframe1 = new Keyframe ();
-				Keyframe newKeyframe2 = new Keyframe ();
-				Keyframe newKeyframe3 = new Keyframe ();
-				newKeyframe1.value = boneNode.localEulerAngles.x;
-				newKeyframe2.value = boneNode.localEulerAngles.y;
-				newKeyframe3.value = boneNode.localEulerAngles.z;
-
-				if (associatedCurveVisualizers.Count > 0)
-					associatedCurveVisualizers [0].AddExistingKeyframe (newKeyframe1);
-				if (associatedCurveVisualizers.Count > 1)
-					associatedCurveVisualizers [1].AddExistingKeyframe (newKeyframe2);
-				if (associatedCurveVisualizers.Count > 2)
-					associatedCurveVisualizers [2].AddExistingKeyframe (newKeyframe3);
-
-
-				newKeyframe1.value = boneNode.localPosition.x;
-				newKeyframe2.value = boneNode.localPosition.y;
-				newKeyframe3.value = boneNode.localPosition.z;
-
-				if (associatedCurveVisualizers.Count > 3)
-					associatedCurveVisualizers [3].AddExistingKeyframe (newKeyframe1);
-				if (associatedCurveVisualizers.Count > 4)
-					associatedCurveVisualizers [4].AddExistingKeyframe (newKeyframe2);
-				if (associatedCurveVisualizers.Count > 5)
-					associatedCurveVisualizers [5].AddExistingKeyframe (newKeyframe3);
-	
-				*/
 
                 boneNode.position = dummyNode.position;
                 boneNode.rotation = dummyNode.rotation;
-			}
+
+                //Motion Capture Stuff below - perfectly good code
+
+                /*
+                Keyframe newKeyframe1 = new Keyframe();
+                Keyframe newKeyframe2 = new Keyframe();
+                Keyframe newKeyframe3 = new Keyframe();
+                Keyframe newKeyframe4 = new Keyframe();
+
+                newKeyframe1.value = boneNode.localRotation.w;
+                newKeyframe2.value = boneNode.localRotation.x;
+                newKeyframe3.value = boneNode.localRotation.y;
+                newKeyframe4.value = boneNode.localRotation.z;
+
+                Keyframe newKeyframe5 = new Keyframe();
+                Keyframe newKeyframe6 = new Keyframe();
+                Keyframe newKeyframe7 = new Keyframe();
+                newKeyframe5.value = boneNode.localPosition.x;
+                newKeyframe6.value = boneNode.localPosition.y;
+                newKeyframe7.value = boneNode.localPosition.z;
+
+
+
+                for (int i = 0; i < associatedCurveVisualizers.Count; i++)
+                {
+                    if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotW)
+                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe1);
+                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotX)
+                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe2);
+                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotY)
+                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe3);
+                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.RotZ)
+                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe4);
+                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.PosX)
+                    {
+                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe5);
+                    }
+                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.PosY)
+                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe6);
+                    else if (associatedCurveVisualizers[i].curveType == AnimationCurveVisualizer.ACVType.PosZ)
+                        associatedCurveVisualizers[i].AddExistingKeyframe(newKeyframe7);
+                }
+                */
+            }
 		}
 
 	}

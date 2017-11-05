@@ -6,7 +6,8 @@ using UnityEditor.Animations;
 
 public class AnimationVisualizer : Visualizer {
 
-	private AnimationClip currentClip;
+	private AnimationClip currentClip, newClip, bufferClip;
+    private AnimationClip[] bufferClips = new AnimationClip[16];
 	private GameObject currentGameObject;
 
 	private List<AnimationCurve> animCurves;
@@ -23,6 +24,7 @@ public class AnimationVisualizer : Visualizer {
 
 	public MocapController moCon;
 	private bool wantToCapture = false;
+    private int clipSwitch = 0;
 
 	private static readonly string[] humanoidProperties = {
 		"Spine Front-Back", "Spine Left-Right", "Spine Twist Left-Right", "Chest Front-Back", "Chest Left-Right", "Chest Twist Left-Right",
@@ -54,7 +56,30 @@ public class AnimationVisualizer : Visualizer {
 		title.text = animClip.name;
 		currentGameObject = go;
 
-		if (keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer != null) {
+        newClip = new AnimationClip();
+        newClip.name = currentClip.name;
+
+        //Perform a deep copy
+        for (int i = 0; i < AnimationUtility.GetCurveBindings(currentClip).Length; i++)
+        {
+            newClip.SetCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, AnimationUtility.GetEditorCurve(currentClip, AnimationUtility.GetCurveBindings(currentClip)[i]));
+        }
+
+        for(int j = 0; j < bufferClips.Length; j++)
+        {
+            bufferClips[j] = new AnimationClip();
+            bufferClips[j].name = currentClip.name;
+
+            //Perform a deep copy
+            for (int i = 0; i < AnimationUtility.GetCurveBindings(currentClip).Length; i++)
+            {
+                bufferClips[j].SetCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, AnimationUtility.GetEditorCurve(currentClip, AnimationUtility.GetCurveBindings(currentClip)[i]));
+            }
+        }
+
+        currentClip = bufferClips[bufferClips.Length - 1];
+
+        if (keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer != null) {
 			keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.animator = currentGameObject.GetComponent<Animator> ();
 		} else {
 			Debug.LogError ("Please set up the keyframeWorkArea to have a timeline Visualizer, please!");
@@ -391,29 +416,120 @@ public class AnimationVisualizer : Visualizer {
 		}
 	}
 
-	public void RefreshAnimationCurve(int i){
-		//We have to keep track of the current time because SetCurve resets it :(
-		float currentTime = keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.GetAnimatorTime();
+    public void RefreshAnimationCurve(int i) {
 
-		//Debug.Log (currentTime);
+        //We have to keep track of the current time because SetCurve resets it :(
+        float currentTime = keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.GetAnimatorTime();
 
-		StartCoroutine (UpdateAnimationCurveAndResume (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i], currentTime));
-		//currentClip.SetCurve (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i]);
+        /*
+        if (clipSwitch == false) {
+            newClip.SetCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves[i]);
 
-		//keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime (currentTime);
+            keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeClip(newClip);
 
-		//keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.animator.Play (keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, currentTime);
-		//RefreshCurves();
-		animCurves_Visualizers[i].needsToRefresh = false;
+            keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime(currentTime);
+
+            currentClip.SetCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves[i]);
+
+             clipSwitch = !clipSwitch;
+        } else{
+
+            currentClip.SetCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves[i]);
+
+            keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeClip(currentClip);
+
+            keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime(currentTime);
+
+            newClip.SetCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves[i]);
+
+
+            clipSwitch = !clipSwitch;
+        }*/
+
+        StartCoroutine(UpdateAnimationCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves[i], currentTime));
+
+        //-------
+        //StartCoroutine (UpdateAnimationCurveAndResume (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i], currentTime));
+        //-------
+
+        //currentClip.SetCurve (AnimationUtility.GetCurveBindings (currentClip) [i].path, AnimationUtility.GetCurveBindings (currentClip) [i].type, AnimationUtility.GetCurveBindings (currentClip) [i].propertyName, animCurves [i]);
+
+        //keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.ChangeTime (currentTime);
+
+        //keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.animator.Play (keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, currentTime);
+        //RefreshCurves();
+        animCurves_Visualizers[i].needsToRefresh = false;
 	}
 
-	IEnumerator UpdateAnimationCurveAndResume(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime){
+    IEnumerator UpdateAnimationCurve(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime)
+    {
+        /*
+        if (clipSwitch == 0)
+        {
+
+            newClip.SetCurve(path, type, propertyName, animCurve);
+
+            keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeClip(newClip);
+
+            keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime(resumeTime);
+
+            bufferClip.SetCurve(path, type, propertyName, animCurve);
+
+            clipSwitch = 1;
+        }
+        else if (clipSwitch == 1)
+        {
+
+            bufferClip.SetCurve(path, type, propertyName, animCurve);
+
+            keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeClip(bufferClip);
+
+            keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime(resumeTime);
+
+            currentClip.SetCurve(path, type, propertyName, animCurve);
+
+
+            clipSwitch = 2;
+        }
+        else
+        {
+            currentClip.SetCurve(path, type, propertyName, animCurve);
+
+            keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeClip(currentClip);
+
+            keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime(resumeTime);
+
+            newClip.SetCurve(path, type, propertyName, animCurve);
+
+            clipSwitch = 0;
+        }*/
+
+        bufferClips[clipSwitch].SetCurve(path, type, propertyName, animCurve);
+
+        keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeClip(bufferClips[clipSwitch]);
+
+        //keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime(resumeTime);
+        keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime((resumeTime + Time.deltaTime / animCurve[animCurve.length - 1].time) % 1.0f);
+
+
+        clipSwitch = (clipSwitch + 1) % bufferClips.Length;
+
+        for(int i = 0; i < bufferClips.Length - 1; i++)
+        {
+            bufferClips[(clipSwitch + i) % bufferClips.Length].SetCurve(path, type, propertyName, animCurve);
+        }
+
+        yield return null;
+    }
+
+
+    IEnumerator UpdateAnimationCurveAndResume(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime){
 
 		/*waitFrame = (++waitFrame) % NUM_WAIT_FRAMES;
 		if (waitFrame != 0)
 			yield return null;
 		*/
-		AnimationClip newClip = new AnimationClip ();
+		//AnimationClip newClip = new AnimationClip ();
 		newClip.name = currentClip.name;
 
         //Perform a deep copy
