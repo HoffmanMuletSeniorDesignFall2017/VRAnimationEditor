@@ -564,6 +564,7 @@ MonoBehaviour:
   animVisual: {fileID: 1929767744}
   controller: {fileID: 2015041586}
   playButton_IButtonAxisReciever: {fileID: 1952827219}
+  scrubbingSpeed: 3
 --- !u!4 &631092626 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400002, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
@@ -670,7 +671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &926958640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1816,7 +1817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1855423358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1990,7 +1991,7 @@ MonoBehaviour:
   isLeftHand: 1
   lazerLine: {fileID: 500831802}
   pointerMaxDistance: 1000
-  axisDeadzone: 0.1
+  axisDeadzone: 0.2
 --- !u!135 &1929385342
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2174,7 +2175,7 @@ MonoBehaviour:
   isLeftHand: 0
   lazerLine: {fileID: 2081572046}
   pointerMaxDistance: 1000
-  axisDeadzone: 0.1
+  axisDeadzone: 0.2
 --- !u!135 &2015041587
 SphereCollider:
   m_ObjectHideFlags: 0

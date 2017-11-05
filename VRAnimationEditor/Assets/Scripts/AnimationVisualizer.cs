@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Animations;
 
 public class AnimationVisualizer : Visualizer {
 
@@ -305,12 +306,14 @@ public class AnimationVisualizer : Visualizer {
 	}
 
 	public void TogglePlayAnimation(){
-		if (currentGameObject.GetComponent<Animator> ().speed > 0 || currentGameObject.GetComponent<Animator> ().speed < 0) {
-			currentGameObject.GetComponent<Animator> ().speed = 0;
-			currentGameObject.GetComponent<Animator> ().enabled = false;
+		if (currentGameObject.GetComponent<Animator> ().GetFloat("PlaySpeed") > 0 || currentGameObject.GetComponent<Animator>().GetFloat("PlaySpeed") < 0) {
+            //currentGameObject.GetComponent<Animator> ().speed = 0;
+            currentGameObject.GetComponent<Animator>().SetFloat("PlaySpeed", 0);
+            //currentGameObject.GetComponent<Animator> ().enabled = false;
 		} else {
-			currentGameObject.GetComponent<Animator> ().speed = 1;
-			currentGameObject.GetComponent<Animator> ().enabled = true;
+            //currentGameObject.GetComponent<Animator> ().speed = 1;
+            currentGameObject.GetComponent<Animator>().SetFloat("PlaySpeed", 1);
+            //currentGameObject.GetComponent<Animator> ().enabled = true;
 		}
 	}
 
@@ -318,9 +321,16 @@ public class AnimationVisualizer : Visualizer {
 		currentGameObject.GetComponent<Animator> ().speed = 0;
 	}
 
+    public void PlayAnimationAtSpeed(float newSpeed)
+    {
 
-	// Use this for initialization
-	void Awake () {
+        //currentGameObject.GetComponent<Animator>().speed = newSpeed;
+        currentGameObject.GetComponent<Animator>().SetFloat("PlaySpeed", newSpeed);
+        
+    }
+
+    // Use this for initialization
+    void Awake () {
 		animCurves = new List<AnimationCurve> ();
 		animCurves_Visualizers = new List<AnimationCurveVisualizer> ();
 

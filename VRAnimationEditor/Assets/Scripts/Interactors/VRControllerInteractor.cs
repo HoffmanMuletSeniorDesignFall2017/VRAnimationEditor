@@ -171,7 +171,7 @@ public class VRControllerInteractor : MonoBehaviour {
                 SendButtonToRecievers(2, false);
 
             // Axes.
-            if (OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).magnitude > axisDeadzone)
+            if (OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).magnitude > axisDeadzone)
             {
                 SendAxisToRecievers(0, OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).x);
                 SendAxisToRecievers(1, OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y);

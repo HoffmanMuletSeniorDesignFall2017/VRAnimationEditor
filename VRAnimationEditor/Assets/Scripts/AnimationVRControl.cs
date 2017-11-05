@@ -5,11 +5,14 @@ using UnityEngine;
 public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 
 	const int BUTTON_A = 1;
+    const int AXIS_X = 0;
 
 	public AnimationVisualizer animVisual;
 
 	public VRControllerInteractor controller;
 	public GameObject playButton_IButtonAxisReciever;
+
+    public float scrubbingSpeed = 3f;
 
 	// Use this for initialization
 	void Start () {
@@ -37,6 +40,9 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 	}
 
 	public void OnRecieveAxis(int sourceID, int axisID, float axisValue){
-
+        if(axisID == AXIS_X)
+        {
+            animVisual.PlayAnimationAtSpeed(axisValue*scrubbingSpeed);
+        }
 	}
 }
