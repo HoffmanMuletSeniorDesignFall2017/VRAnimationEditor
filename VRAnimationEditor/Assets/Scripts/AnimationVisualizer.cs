@@ -537,6 +537,7 @@ public class AnimationVisualizer : Visualizer {
         //keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime(resumeTime);
         keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime((resumeTime + Time.deltaTime / animCurve[animCurve.length - 1].time) % 1.0f);
 
+		currentClip = bufferClips [clipSwitch];
 
         clipSwitch = (clipSwitch + 1) % bufferClips.Length;
 
@@ -544,6 +545,7 @@ public class AnimationVisualizer : Visualizer {
         {
             bufferClips[(clipSwitch + i) % bufferClips.Length].SetCurve(path, type, propertyName, animCurve);
         }
+
 
         yield return null;
     }

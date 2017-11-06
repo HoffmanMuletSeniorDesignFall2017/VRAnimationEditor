@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 
 	const int BUTTON_A = 1;
+	const int BUTTON_B = 2;
     const int AXIS_X = 0;
 
 	public AnimationVisualizer animVisual;
@@ -34,7 +36,12 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 		if (buttonState == true) {
 			if (buttonID == BUTTON_A) {
 				animVisual.TogglePlayAnimation ();
-				playButton_IButtonAxisReciever.GetComponent<IButtonAxisReciever>().OnRecieveButton (sourceID, buttonID, buttonState);
+				playButton_IButtonAxisReciever.GetComponent<IButtonAxisReciever> ().OnRecieveButton (sourceID, buttonID, buttonState);
+			} else if (buttonID == BUTTON_B) {
+
+				AnimationClip newAnimClip = animVisual.GetCurrentClip ();
+
+				AssetDatabase.CreateAsset(newAnimClip, string.Concat("Assets/", "Output", ".anim"));
 			}
 		}
 	}
