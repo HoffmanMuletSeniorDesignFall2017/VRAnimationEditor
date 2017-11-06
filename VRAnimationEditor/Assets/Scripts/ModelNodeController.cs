@@ -105,4 +105,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
             SetAxisVisibility(false);
         }
     }
+
+    public GameObject GetGameObject(){
+        return gameObject;
+    }
 }

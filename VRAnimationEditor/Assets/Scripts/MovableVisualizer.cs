@@ -130,4 +130,8 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
 			grabOwner = null;
 		}
 	}
+
+    public GameObject GetGameObject(){
+        return gameObject;
+    }
 }

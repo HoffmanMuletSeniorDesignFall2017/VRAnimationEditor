@@ -134,4 +134,8 @@ public class ModelTileController : MonoBehaviour, IPointerReciever, IButtonAxisR
 		}
 
 	}
+
+    public GameObject GetGameObject(){
+        return gameObject;
+    }
 }

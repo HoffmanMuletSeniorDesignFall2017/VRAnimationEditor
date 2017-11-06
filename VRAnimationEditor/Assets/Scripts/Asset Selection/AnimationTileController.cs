@@ -116,4 +116,8 @@ public class AnimationTileController : MonoBehaviour, IPointerReciever, IButtonA
         }
 
     }
+
+    public GameObject GetGameObject(){
+        return gameObject;
+    }
 }

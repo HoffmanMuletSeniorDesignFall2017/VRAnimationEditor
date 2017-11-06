@@ -10,6 +10,7 @@ public class ModelSelectionPanel : MonoBehaviour, IModelSelector {
     public GameObject modelTilePrefab;
     public GameObject contentObj;
     public ScrollRect scrollRect;
+	public float scrollSpeed = 0.1f;
 
     private IModelRequester modelRequester;
 
@@ -18,7 +19,8 @@ public class ModelSelectionPanel : MonoBehaviour, IModelSelector {
     }
 
     void Update(){
-        scrollRect.
+		scrollRect.verticalNormalizedPosition += (OVRInput.Get (OVRInput.RawAxis2D.LThumbstick).y +
+			OVRInput.Get (OVRInput.RawAxis2D.RThumbstick).y) * scrollSpeed * Time.deltaTime;
     }
 
     public void RequestModel(IModelRequester requester){

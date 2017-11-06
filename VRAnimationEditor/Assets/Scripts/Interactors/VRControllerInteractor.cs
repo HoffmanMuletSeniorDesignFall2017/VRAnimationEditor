@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VRControllerInteractor : MonoBehaviour {
+public class VRControllerInteractor : MonoBehaviour, IButtonAxisEmitter {
     private static int vrControllerCount = 0;
 
     public bool isLeftHand = true;
@@ -22,6 +22,7 @@ public class VRControllerInteractor : MonoBehaviour {
 
         buttonAxisFocuses = new List<GameObject>();
 		grabCandidates = new List<GameObject> ();
+        ButtonAxisEmitterLookup.RegisterEmitter(this, interactorID);
 	}
 	
     void Update () {
@@ -260,4 +261,12 @@ public class VRControllerInteractor : MonoBehaviour {
             collider.GetComponent<ITouchReciever>().OnTouchExit(interactorID, 0);
         }
     }
+
+	public void RegisterButtonAxisReciever(IButtonAxisReciever reciever){
+		buttonAxisFocuses.Add(reciever.GetGameObject());
+	}
+
+	public void UnregisterButtonAxisReciever(IButtonAxisReciever reciever){
+		buttonAxisFocuses.Remove(reciever.GetGameObject());
+	}
 }
