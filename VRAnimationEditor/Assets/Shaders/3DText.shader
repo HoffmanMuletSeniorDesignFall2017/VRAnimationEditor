@@ -9,10 +9,19 @@
 		Lighting Off Cull Off ZWrite Off Fog { Mode Off }
 		Blend SrcAlpha OneMinusSrcAlpha
 		Pass {
+
+			Stencil {
+                Ref 2
+                Comp equal
+                Pass keep 
+                ZFail decrWrap
+            }
+
 			Color [_Color]
 			SetTexture [_MainTex] {
 				combine primary, texture * primary
 			}
+
 		}
 	}
 }
