@@ -95,11 +95,11 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			nextKeyframe.GetComponent<MovableVisualizer> ().associatedVisualizer = this;//visualizerDummy;
 			nextKeyframe.GetComponent<MovableVisualizer> ().constrainedToLocalX = true;
 
-			//-------End set up the MovableVisualizer component--------
+            //-------End set up the MovableVisualizer component--------
 
-			//-------Set up the Outline component--------
+            //-------Set up the Outline component--------
 
-			nextKeyframe.AddComponent<cakeslice.Outline> ();
+            nextKeyframe.AddComponent<cakeslice.Outline> ();
 			nextKeyframe.GetComponent<cakeslice.Outline> ().enabled = false;
 
 			//-------End set up the Outline component--------
@@ -107,8 +107,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			nextKeyframe.transform.localPosition = new Vector3(animCurve.keys[i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT,  -curveNumber * keyframeWorkArea.verticalZoom * Y_OFFSET_CONSTANT, 0);	//Set it at the appropriate position based on its time and the current KeyframeWorkArea configurations
 			currentKeyframes.Add(nextKeyframe);	//Add this to the list so we can keep track of it
 
-			//We also have to update our keyframeWorkArea.
-			if (animCurve.keys [i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT > keyframeWorkArea.bounds)
+            //We also have to update our keyframeWorkArea.
+            if (animCurve.keys [i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT > keyframeWorkArea.bounds)
 				keyframeWorkArea.RefreshBounds (animCurve.keys [i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT);
 		}
 			
