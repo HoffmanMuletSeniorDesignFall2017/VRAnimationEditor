@@ -376,7 +376,8 @@ public class AnimationVisualizer : Visualizer {
     {
 
         //currentGameObject.GetComponent<Animator>().speed = newSpeed;
-        currentGameObject.GetComponent<Animator>().SetFloat("PlaySpeed", newSpeed);
+        if(currentGameObject.GetComponent<Animator>() != null)
+            currentGameObject.GetComponent<Animator>().SetFloat("PlaySpeed", newSpeed);
         
     }
 

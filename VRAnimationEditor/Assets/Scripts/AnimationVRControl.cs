@@ -11,6 +11,8 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
     const int AXIS_X = 0;
     const int AXIS_Y = 1;
 
+    const int FRAME_TIMER_LIMIT = 5;   //How many frames of getting no joystick input should we consider that the user is definitely not using the joystick?
+
 	public AnimationVisualizer animVisual;
 
 	public VRControllerInteractor controller;
@@ -20,6 +22,9 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 
     public float scrubbingSpeed = 3f;
     public float scrollingSpeed = 3f;
+
+    private int joystickFrameTimer = 0;     //Used to see if we haven't gotten joystick input in a while; this means that the joystick is likely in nuetral position and so we should reset as necessary
+    private bool usedJoystick = false;
 
 	// Use this for initialization
 	void Start () {
@@ -37,7 +42,11 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(joystickFrameTimer++ > FRAME_TIMER_LIMIT && usedJoystick)
+        {
+            animVisual.PlayAnimationAtSpeed(0);     //Pause output
+            usedJoystick = false;
+        }
 	}
 
 	public void OnRecieveButton (int sourceID, int buttonID, bool buttonState){
@@ -68,6 +77,9 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
         if(axisID == AXIS_X)
         {
             animVisual.PlayAnimationAtSpeed(axisValue*scrubbingSpeed);
+
+            joystickFrameTimer = 0;
+            usedJoystick = true;
         }
         if(axisID == AXIS_Y)
         {
