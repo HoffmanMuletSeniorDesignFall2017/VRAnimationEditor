@@ -29,9 +29,10 @@ public class VRButton : MonoBehaviour, IPointerReciever, IButtonAxisReciever {
 
 	public void OnPointerExit(int id){
 		focusingPointerIds.Remove(id);
-        if (pressingPointerIds.Count == 0 && focusingPointerIds.Count == 0)
+        if (focusingPointerIds.Count == 0)
 		{
             image.color = button.colors.normalColor;
+            pressingPointerIds.Clear();
 		}
         ButtonAxisEmitterLookup.UnregisterReciever(this, id);
 	}

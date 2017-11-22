@@ -158,6 +158,10 @@ MonoBehaviour:
   nameTextBox: {fileID: 114757797817839464}
   icon: {fileID: 114378939600808420}
   highlight: {fileID: 114204472101341394}
+  highlightColor: {r: 1, g: 1, b: 0, a: 0.2509804}
+  selectColor: {r: 1, g: 1, b: 0, a: 0.3764706}
+  model: {fileID: 0}
+  panel: {fileID: 0}
 --- !u!114 &114757797817839464
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -22,18 +22,16 @@ public class ButtonAxisEmitterLookup : MonoBehaviour {
     }
 
     public static void RegisterReciever(IButtonAxisReciever reciever, int id){
-        IButtonAxisEmitter emitter = emitters[id];
-        if (emitter != null)
+        if (emitters.ContainsKey(id))
         {
-            emitter.RegisterButtonAxisReciever(reciever);
+            emitters[id].RegisterButtonAxisReciever(reciever);
         }
     }
 
     public static void UnregisterReciever(IButtonAxisReciever reciever, int id){
-        IButtonAxisEmitter emitter = emitters[id];
-        if (emitter != null)
+        if (emitters.ContainsKey(id))
         {
-            emitter.UnregisterButtonAxisReciever(reciever);
+            emitters[id].UnregisterButtonAxisReciever(reciever);
         }
     }
 }

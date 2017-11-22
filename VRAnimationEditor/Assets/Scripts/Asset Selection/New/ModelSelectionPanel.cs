@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 
-public class ModelSelectionPanel : MonoBehaviour, IModelSelector {
+public class ModelSelectionPanel : MonoBehaviour {
     private const int MinModelLevels = 4;
 
     public GameObject modelTilePrefab;
     public GameObject contentObj;
     public ScrollRect scrollRect;
 	public float scrollSpeed = 0.1f;
-
-    private IModelRequester modelRequester;
+    public float loadFrametimeFraction = 0.25f;
+    public ModelTile selectedTile;
 
     void Start(){
         StartCoroutine("LoadModelsRoutine");
@@ -21,10 +21,6 @@ public class ModelSelectionPanel : MonoBehaviour, IModelSelector {
     void Update(){
 		scrollRect.verticalNormalizedPosition += (OVRInput.Get (OVRInput.RawAxis2D.LThumbstick).y +
 			OVRInput.Get (OVRInput.RawAxis2D.RThumbstick).y) * scrollSpeed * Time.deltaTime;
-    }
-
-    public void RequestModel(IModelRequester requester){
-        modelRequester = requester;
     }
 
     private void ClearContent(){
@@ -37,11 +33,24 @@ public class ModelSelectionPanel : MonoBehaviour, IModelSelector {
     private void AddModel(GameObject model){
         
         GameObject tile = Instantiate(modelTilePrefab, contentObj.transform);
-        tile.GetComponent<ModelTile>().Init(model);
+        tile.GetComponent<ModelTile>().Init(model, this);
     }
 
     public IEnumerator LoadModelsRoutine(){
+        System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
+        float frameTime = 1/90f;
+        Debug.Log("Frametime: " + frameTime + " s");
+        float loadFrameTimeLimit = frameTime * loadFrametimeFraction * 1000;
+        Debug.Log("Limiting load time per frame to " + loadFrameTimeLimit + " ms");
+        timer.Start();
         string[] gameObjGuids = AssetDatabase.FindAssets("t:GameObject");
+        if(timer.ElapsedMilliseconds > loadFrameTimeLimit)
+        {
+            timer.Stop();
+            yield return null;
+            timer.Reset();
+            timer.Start();
+        }
         for (int i = 0; i < gameObjGuids.Length; i++)
         {
             // Get GameObject path from GUID.
@@ -57,7 +66,13 @@ public class ModelSelectionPanel : MonoBehaviour, IModelSelector {
                     AddModel(obj);
                 }
             }
-            yield return null; 
+            if (timer.ElapsedMilliseconds > loadFrameTimeLimit)
+            {
+                timer.Stop();
+                yield return null;
+                timer.Reset();
+                timer.Start();
+            }
         }
     }
 
@@ -94,5 +109,15 @@ public class ModelSelectionPanel : MonoBehaviour, IModelSelector {
             maxChildLevels = Mathf.Max (maxChildLevels, childLevels);
         }
         return maxChildLevels + 1;
+    }
+
+    public void SetSelectedTile(ModelTile tile)
+    {
+        if(selectedTile != null)
+        {
+            selectedTile.SetSelect(false);
+        }
+        selectedTile = tile;
+        tile.SetSelect(true);
     }
 }
