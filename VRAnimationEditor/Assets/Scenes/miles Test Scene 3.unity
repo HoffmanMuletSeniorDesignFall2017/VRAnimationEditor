@@ -173,7 +173,7 @@ Prefab:
         type: 2}
       propertyPath: modelAnchor
       value: 
-      objectReference: {fileID: 850978887}
+      objectReference: {fileID: 515027153}
     - target: {fileID: 4070190658785466, guid: d656eabf0a569a746bc9d8acd901c6c7, type: 2}
       propertyPath: m_LocalScale.x
       value: 0.05
@@ -1265,7 +1265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1157671876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 100002, guid: 2ab0893f5bba9b243b65e309e78089d0, type: 3}
-  animClip: {fileID: 7400000, guid: 8e46fbcd346d9674c97706943b1b6c83, type: 3}
+  animClip: {fileID: 7400000, guid: b1254ddd94514f74486986786b54ab1f, type: 3}
 --- !u!1001 &1183551852
 Prefab:
   m_ObjectHideFlags: 0
@@ -2130,7 +2130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1855423358
 MonoBehaviour:
   m_ObjectHideFlags: 0

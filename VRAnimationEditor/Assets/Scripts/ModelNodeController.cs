@@ -471,6 +471,9 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 		}
 
 		else {		//Non-Humanoid
+
+            Debug.Log("Hey hey heyherhwehr");
+
             dummyNode.position = boneNode.position;
             dummyNode.rotation = boneNode.rotation;
 
