@@ -145,6 +145,10 @@ public class VRControllerInteractor : MonoBehaviour {
                 SendButtonToRecievers(2, true);
             if (OVRInput.GetUp(OVRInput.RawButton.Y))
                 SendButtonToRecievers(2, false);
+            if (OVRInput.GetDown(OVRInput.RawButton.LThumbstick))
+                SendButtonToRecievers(3, true);
+            if (OVRInput.GetUp(OVRInput.RawButton.LThumbstick))
+                SendButtonToRecievers(3, false);
 
             // Axes.
             if (OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).magnitude > axisDeadzone)
@@ -169,6 +173,10 @@ public class VRControllerInteractor : MonoBehaviour {
                 SendButtonToRecievers(2, true);
             if (OVRInput.GetUp(OVRInput.RawButton.B))
                 SendButtonToRecievers(2, false);
+            if (OVRInput.GetDown(OVRInput.RawButton.RThumbstick))
+                SendButtonToRecievers(3, true);
+            if (OVRInput.GetUp(OVRInput.RawButton.RThumbstick))
+                SendButtonToRecievers(3, false);
 
             // Axes.
             if (OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).magnitude > axisDeadzone)

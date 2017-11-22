@@ -7,12 +7,15 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 
 	const int BUTTON_A = 1;
 	const int BUTTON_B = 2;
+    const int THUMBSTICK = 3;
     const int AXIS_X = 0;
 
 	public AnimationVisualizer animVisual;
 
 	public VRControllerInteractor controller;
 	public GameObject playButton_IButtonAxisReciever;
+
+    public GameObject modelAnchor;
 
     public float scrubbingSpeed = 3f;
 
@@ -23,6 +26,9 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 
 		if (controller == null)
 			Debug.LogError ("Error! Animation VR Control was not given a controller to listen to");
+
+        if (modelAnchor == null)
+            Debug.LogError("Error! Animation VR control was not given a model anchor to move");
 
 		controller.AddButtonAxisFocus (this.gameObject);
 	}
@@ -42,7 +48,17 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 				AnimationClip newAnimClip = animVisual.GetCurrentClip ();
 
 				AssetDatabase.CreateAsset(newAnimClip, string.Concat("Assets/", "Output", ".anim"));
-			}
+			} else if (buttonID == THUMBSTICK)
+            {
+                if(modelAnchor.transform.parent == null)
+                {
+                    modelAnchor.transform.parent = controller.gameObject.transform;
+                }
+                else
+                {
+                    modelAnchor.transform.parent = null;
+                }
+            }
 		}
 	}
 
