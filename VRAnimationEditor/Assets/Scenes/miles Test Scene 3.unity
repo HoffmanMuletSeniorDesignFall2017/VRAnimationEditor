@@ -207,6 +207,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &258758602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1382809226968168, guid: d656eabf0a569a746bc9d8acd901c6c7,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 258758603}
+  - component: {fileID: 258758604}
+  m_Layer: 0
+  m_Name: VR Control Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &258758603
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4366250176950808, guid: d656eabf0a569a746bc9d8acd901c6c7,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 258758602}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.079241, y: -1.0220501, z: -16.246294}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2001109473}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &258758604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 258758602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52cc5396ce3e2f448a2a325dc864e866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animVisual: {fileID: 1929767744}
+  controller: {fileID: 1929385341}
+  playButton_IButtonAxisReciever: {fileID: 0}
+  modelAnchor: {fileID: 850978887}
+  scrubbingSpeed: 3
 --- !u!1 &280932091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,6 +2370,11 @@ MonoBehaviour:
   spriteList:
   - {fileID: 21300002, guid: 1301eaec5df391b4380eec3f83531ebf, type: 3}
   - {fileID: 21300000, guid: 1301eaec5df391b4380eec3f83531ebf, type: 3}
+--- !u!4 &2001109473 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4070190658785466, guid: d656eabf0a569a746bc9d8acd901c6c7,
+    type: 2}
+  m_PrefabInternal: {fileID: 200761683}
 --- !u!1 &2015041584
 GameObject:
   m_ObjectHideFlags: 0
