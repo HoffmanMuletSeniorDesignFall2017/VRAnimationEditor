@@ -395,6 +395,8 @@ public class AnimationVisualizer : Visualizer {
 			moCon = gameObject.GetComponent<MocapController> ();
 		}
 
+        values.gameObject.transform.parent = keyframeWorkArea.GetComponent<KeyframeWorkArea>().keyframeSectionObject.transform;
+
 		this.enabled = false;		//We don't need update so we disable this
 	}
 	

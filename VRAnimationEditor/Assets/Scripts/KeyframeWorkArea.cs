@@ -16,6 +16,8 @@ public class KeyframeWorkArea : MonoBehaviour {
 	public Vector3 valueVisualizerCoordinates;
 	public Vector3 valueVisualizerScale = new Vector3(1,1,1);
 
+    public GameObject keyframeSectionObject;
+
 	// Use this for initialization
 	void Start () {
 		

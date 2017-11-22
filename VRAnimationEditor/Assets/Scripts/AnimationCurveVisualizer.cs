@@ -28,8 +28,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 	public int curveNumber;	//Assigned from the keyframeWorkArea; the number of this animation curve
 
-	public float X_OFFSET_CONSTANT = 2f;	//Used to make drawing nice
-	public float Y_OFFSET_CONSTANT = 1.9550f;
+	public float X_OFFSET_CONSTANT = 2f;    //Used to make drawing nice
+    public float Y_OFFSET_CONSTANT = 2.04075f;//1.9550f;
 
 	private GameObject selectedKeyframe;	//The keyframe that the user has selected right now
 	private int selectedKeyframeIndex = 0;
@@ -88,7 +88,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		currentKeyframes.Clear ();	
 
 		for (int i = 0; i < animCurve.keys.Length; i++) {	//For every keyframe....
-			GameObject nextKeyframe = Instantiate(keyframeObject, keyframeWorkArea.transform);	//Instantiate a new keyframewhose parent is the transform of the current keyframeWorkArea
+			GameObject nextKeyframe = Instantiate(keyframeObject, keyframeWorkArea.keyframeSectionObject.transform);	//Instantiate a new keyframewhose parent is the transform of the current keyframeWorkArea place where keyframes should go
 
 			//-------Set up the MovableVisualizer component--------
 			nextKeyframe.AddComponent<MovableVisualizer> ();

@@ -9,6 +9,7 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 	const int BUTTON_B = 2;
     const int THUMBSTICK = 3;
     const int AXIS_X = 0;
+    const int AXIS_Y = 1;
 
 	public AnimationVisualizer animVisual;
 
@@ -18,6 +19,7 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
     public GameObject modelAnchor;
 
     public float scrubbingSpeed = 3f;
+    public float scrollingSpeed = 3f;
 
 	// Use this for initialization
 	void Start () {
@@ -66,6 +68,18 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
         if(axisID == AXIS_X)
         {
             animVisual.PlayAnimationAtSpeed(axisValue*scrubbingSpeed);
+        }
+        if(axisID == AXIS_Y)
+        {
+            Vector3 old = animVisual.keyframeWorkArea.GetComponent<KeyframeWorkArea>().keyframeSectionObject.transform.localPosition;
+            if (old.y + axisValue * scrollingSpeed < 0)
+            {
+                animVisual.keyframeWorkArea.GetComponent<KeyframeWorkArea>().keyframeSectionObject.transform.localPosition = new Vector3(old.x, 0, old.z);
+            }
+            else
+            {
+                animVisual.keyframeWorkArea.GetComponent<KeyframeWorkArea>().keyframeSectionObject.transform.localPosition = new Vector3(old.x, old.y + axisValue * scrollingSpeed, old.z);
+            }
         }
 	}
 }
