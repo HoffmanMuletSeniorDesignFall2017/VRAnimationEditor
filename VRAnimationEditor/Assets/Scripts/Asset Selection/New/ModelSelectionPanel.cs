@@ -13,6 +13,7 @@ public class ModelSelectionPanel : MonoBehaviour {
 	public float scrollSpeed = 0.1f;
     public float loadFrametimeFraction = 0.25f;
     public ModelTile selectedTile;
+    public CustomContentSizeFitter customFitter;
 
     void Start(){
         StartCoroutine("LoadModelsRoutine");
@@ -74,6 +75,9 @@ public class ModelSelectionPanel : MonoBehaviour {
                 timer.Start();
             }
         }
+
+        yield return null;
+        customFitter.enabled = false;
     }
 
     private static bool IsValidModelExtension(string extension){

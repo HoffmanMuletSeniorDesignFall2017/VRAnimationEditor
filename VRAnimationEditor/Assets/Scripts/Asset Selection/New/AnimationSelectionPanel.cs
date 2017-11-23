@@ -12,6 +12,7 @@ public class AnimationSelectionPanel : MonoBehaviour
     public float scrollSpeed = 0.1f;
     public float loadFrametimeFraction = 0.25f;
     public AnimationTile selectedTile;
+    public CustomContentSizeFitter customFitter;
 
     void Start()
     {
@@ -69,6 +70,8 @@ public class AnimationSelectionPanel : MonoBehaviour
                 timer.Start();
             }
         }
+        yield return null;
+        customFitter.enabled = false;
     }
 
     public void SetSelectedTile(AnimationTile tile)
