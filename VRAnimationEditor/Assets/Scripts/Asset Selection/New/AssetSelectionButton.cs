@@ -3,42 +3,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
-public class AssetSelectionButton : IAssetSelector {
+public class AssetSelectionButton : MonoBehaviour {
 
-    public IAssetRequester requester;
     public AnimationSelectionPanel animSelPanel;
     public ModelSelectionPanel modelSelPanel;
     public Button button;
+    public Transform modelSpawnAnchor;
+    public AnimationVisualizer animVis;
+    public NodeVisualizationManager templateNodeVisualizationManager;
+    public GameObject rigRoot;
 
-    public override void RequestSelectedAnimationClip(IAssetRequester requester)
-    {
-        this.requester = requester;
-    }
-
-    public override void RequestSelectedAnimationClip(IAssetRequester requester, GameObject modelFilter)
-    {
-        this.requester = requester;
-    }
-
-    public override void RequestSelectedModel(IAssetRequester requester)
-    {
-        this.requester = requester;
-    }
-
-    public override void RequestSelectedModel(IAssetRequester requester, AnimationClip animClipFilter)
-    {
-        this.requester = requester;
-    }
-	
-	void Update () {
+    void Update () {
         button.interactable = animSelPanel.selectedTile != null && modelSelPanel.selectedTile != null;
 	}
 
     public void OnClick()
     {
-        requester.SetModel(modelSelPanel.selectedTile.model);
-        requester.SetAnimationClip(animSelPanel.selectedTile.anim);
+        AnimationClip animClip = animSelPanel.selectedTile.anim;
+        GameObject model = modelSelPanel.selectedTile.model;
+        AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation("Test");
 
+        for (int i = 0; i < AnimationUtility.GetCurveBindings(animClip).Length; i++)
+        {
+            newAnimation.SetCurve(AnimationUtility.GetCurveBindings(animClip)[i].path, AnimationUtility.GetCurveBindings(animClip)[i].type, AnimationUtility.GetCurveBindings(animClip)[i].propertyName, AnimationUtility.GetEditorCurve(animClip, AnimationUtility.GetCurveBindings(animClip)[i]));
+        }
+
+        if (animClip != null)
+        {
+            for (int i = 0; i < AnimationUtility.GetCurveBindings(animClip).Length; i++)
+            {
+                newAnimation.SetCurve(AnimationUtility.GetCurveBindings(animClip)[i].path, AnimationUtility.GetCurveBindings(animClip)[i].type, AnimationUtility.GetCurveBindings(animClip)[i].propertyName, AnimationUtility.GetEditorCurve(animClip, AnimationUtility.GetCurveBindings(animClip)[i]));
+            }
+        }
+
+        GameObject animModel = AnimationEditorFunctions.InstantiateWithAnimation(model, newAnimation, modelSpawnAnchor);
+        SetupNodeVisualization(animModel);
+
+        StartCoroutine(WaitAndDoTheThing(animModel, newAnimation));
+        rigRoot.SetActive(false);
     }
+
+    private void SetupNodeVisualization(GameObject modelObj)
+    {
+        NodeVisualizationManager nodeVis = modelObj.AddComponent<NodeVisualizationManager>();
+        nodeVis.nodeMarkerPrefab = templateNodeVisualizationManager.nodeMarkerPrefab;
+        nodeVis.makeTransparent = templateNodeVisualizationManager.makeTransparent;
+        nodeVis.transparentTemplate = templateNodeVisualizationManager.transparentTemplate;
+    }
+
+    IEnumerator WaitAndDoTheThing(GameObject objInstance, AnimationClip sessionAnim)
+    {
+        yield return new WaitForFixedUpdate();
+        yield return null;
+
+        animVis.SetCurrentClipAndGameObject(sessionAnim, objInstance);
+    }
+
 }

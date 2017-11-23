@@ -230,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224749654733120572}
   - component: {fileID: 114838285410288562}
-  - component: {fileID: 114185305209359540}
+  - component: {fileID: 114100030201746756}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -389,6 +389,7 @@ GameObject:
   - component: {fileID: 65370790331657938}
   - component: {fileID: 114984467229589478}
   - component: {fileID: 114541433009926474}
+  - component: {fileID: 114746673654710200}
   m_Layer: 5
   m_Name: Select Button Canvas
   m_TagString: Untagged
@@ -453,7 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224448032474193708}
   - component: {fileID: 114754298356735494}
-  - component: {fileID: 114010354459380376}
+  - component: {fileID: 114687105103024162}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -501,7 +502,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1897669632268220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24827608, y: 0.9517045, z: 0.706073}
+  m_LocalPosition: {x: -0.0671114, y: 0.89, z: 0.915}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224717776953520776}
@@ -522,19 +523,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 361.8, y: 250, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114010354459380376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1924485191120646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 2
 --- !u!114 &114016629516917556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -662,6 +650,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114100030201746756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1524203511698558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58d60d58a2ac10646947516e29e9b029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!114 &114123648473559236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -686,19 +687,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
---- !u!114 &114185305209359540
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1524203511698558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 2
 --- !u!114 &114215488287472524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -872,8 +860,9 @@ MonoBehaviour:
   contentObj: {fileID: 1924485191120646}
   scrollRect: {fileID: 114448665728785716}
   scrollSpeed: 1
-  loadFrametimeFraction: 0.25
+  loadFrametimeFraction: 0.1
   selectedTile: {fileID: 0}
+  customFitter: {fileID: 114687105103024162}
 --- !u!114 &114427499616020760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -977,6 +966,10 @@ MonoBehaviour:
   animSelPanel: {fileID: 114610971095745588}
   modelSelPanel: {fileID: 114418486776984230}
   button: {fileID: 114956932775494894}
+  modelSpawnAnchor: {fileID: 0}
+  animVis: {fileID: 0}
+  templateNodeVisualizationManager: {fileID: 114746673654710200}
+  rigRoot: {fileID: 1897669632268220}
 --- !u!114 &114543503266801908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1036,8 +1029,9 @@ MonoBehaviour:
   contentObj: {fileID: 1524203511698558}
   scrollRect: {fileID: 114472368259480158}
   scrollSpeed: 1
-  loadFrametimeFraction: 0.25
+  loadFrametimeFraction: 0.1
   selectedTile: {fileID: 0}
+  customFitter: {fileID: 114100030201746756}
 --- !u!114 &114672661758378022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1100,6 +1094,36 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114687105103024162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1924485191120646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58d60d58a2ac10646947516e29e9b029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
+--- !u!114 &114746673654710200
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1826048199038210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230da3c33c6c3e94b9588b3365148423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTemplate: 1
+  root: {fileID: 0}
+  nodeMarkerPrefab: {fileID: 1101595863207438, guid: 447fc3bfbde9ecc479a5b459e3514097,
+    type: 2}
+  makeTransparent: 1
+  transparentTemplate: {fileID: 2100000, guid: 79b63ec74a3719f4599fda3ced45e2ed, type: 2}
 --- !u!114 &114754298356735494
 MonoBehaviour:
   m_ObjectHideFlags: 1
