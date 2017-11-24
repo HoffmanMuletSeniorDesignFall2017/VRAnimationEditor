@@ -10,19 +10,34 @@ public class VRControllerInteractor : MonoBehaviour {
     public float pointerMaxDistance = 1000f;
     public float axisDeadzone = 0.1f;
 
+    public bool isVive = false;     //Either Vive or Oculus is supported right now
+
+    // 1
+    private SteamVR_TrackedObject trackedObj;
+    // 2
+    private SteamVR_Controller.Device Controller
+    {
+        get { return SteamVR_Controller.Input((int)trackedObj.index); }
+    }
+
     private int interactorID = 0;
     private GameObject pointFocus;
     private GameObject grabFocus;
     private List<GameObject> grabCandidates;
     private List<GameObject> buttonAxisFocuses;
 
-	void Start () {
+	void Awake () {
         interactorID = vrControllerCount;
         vrControllerCount++;
 
 		if(buttonAxisFocuses == null)
         	buttonAxisFocuses = new List<GameObject>();
 		grabCandidates = new List<GameObject> ();
+
+        if (isVive)
+        {
+            trackedObj = GetComponent<SteamVR_TrackedObject>();
+        }
 	}
 	
     void Update () {
@@ -40,7 +55,8 @@ public class VRControllerInteractor : MonoBehaviour {
         {
             // Set lazer length to stop at hit.
             float hitDistance = (hitInfo.point - transform.position).magnitude;
-            lazerLine.transform.localScale = new Vector3 (1, 1, hitDistance);
+            if(lazerLine != null)
+                lazerLine.transform.localScale = new Vector3 (1, 1, hitDistance);
 
             // If we are pointing at something different than last frame's focus...
             if (hitInfo.collider.gameObject != pointFocus)
@@ -53,7 +69,8 @@ public class VRControllerInteractor : MonoBehaviour {
         else
         {
             // Set lazer length go to max distance.
-            lazerLine.transform.localScale = new Vector3(1, 1, pointerMaxDistance);
+            if(lazerLine != null)
+                lazerLine.transform.localScale = new Vector3(1, 1, pointerMaxDistance);
 
             // Make sure the focus is null.
             if (pointFocus != null)
@@ -66,25 +83,54 @@ public class VRControllerInteractor : MonoBehaviour {
     private void GrabUpdate(){
         if (isLeftHand)
         {
-            if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
+            if (!isVive)
             {
-                Grab();
+                if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
+                {
+                    Grab();
+                }
+                if (OVRInput.GetUp(OVRInput.RawButton.LHandTrigger))
+                {
+                    Release();
+                }
             }
-            if (OVRInput.GetUp(OVRInput.RawButton.LHandTrigger))
+            else
             {
-                Release();
+                if (Controller.GetHairTriggerDown())
+                {
+                    Grab();
+                }
+                if (Controller.GetHairTriggerUp())
+                {
+                    Release();
+                }
             }
         }
         else
         {
-            if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
+            if (!isVive)
             {
-                Grab();
+                if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
+                {
+                    Grab();
+                }
+                if (OVRInput.GetUp(OVRInput.RawButton.RHandTrigger))
+                {
+                    Release();
+                }
             }
-            if (OVRInput.GetUp(OVRInput.RawButton.RHandTrigger))
+
+            else
             {
-                Release();
-            }        
+                if (Controller.GetHairTriggerDown())
+                {
+                    Grab();
+                }
+                if (Controller.GetHairTriggerUp())
+                {
+                    Release();
+                }
+            }
         }
     }
 
@@ -130,60 +176,81 @@ public class VRControllerInteractor : MonoBehaviour {
     }
 
     private void ButtonAxisUpdate(){
-        if (isLeftHand)
+        if (!isVive)
         {
-            // Buttons.
-            if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
-                SendButtonToRecievers(0, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger))
-                SendButtonToRecievers(0, false);
-            if (OVRInput.GetDown(OVRInput.RawButton.X))
-                SendButtonToRecievers(1, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.X))
-                SendButtonToRecievers(1, false);
-            if (OVRInput.GetDown(OVRInput.RawButton.Y))
-                SendButtonToRecievers(2, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.Y))
-                SendButtonToRecievers(2, false);
-            if (OVRInput.GetDown(OVRInput.RawButton.LThumbstick))
-                SendButtonToRecievers(3, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.LThumbstick))
-                SendButtonToRecievers(3, false);
 
-            // Axes.
-            if (OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).magnitude > axisDeadzone)
+            if (isLeftHand)
             {
-                SendAxisToRecievers(0, OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x);
-                SendAxisToRecievers(1, OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y);
+                // Buttons.
+                if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
+                    SendButtonToRecievers(0, true);
+                if (OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger))
+                    SendButtonToRecievers(0, false);
+                if (OVRInput.GetDown(OVRInput.RawButton.X))
+                    SendButtonToRecievers(1, true);
+                if (OVRInput.GetUp(OVRInput.RawButton.X))
+                    SendButtonToRecievers(1, false);
+                if (OVRInput.GetDown(OVRInput.RawButton.Y))
+                    SendButtonToRecievers(2, true);
+                if (OVRInput.GetUp(OVRInput.RawButton.Y))
+                    SendButtonToRecievers(2, false);
+                if (OVRInput.GetDown(OVRInput.RawButton.LThumbstick))
+                    SendButtonToRecievers(3, true);
+                if (OVRInput.GetUp(OVRInput.RawButton.LThumbstick))
+                    SendButtonToRecievers(3, false);
+
+                // Axes.
+                if (OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).magnitude > axisDeadzone)
+                {
+                    SendAxisToRecievers(0, OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).x);
+                    SendAxisToRecievers(1, OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y);
+                }
             }
+            // Right hand.
+            else
+            {
+                // Buttons.
+                if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
+                    SendButtonToRecievers(0, true);
+                if (OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger))
+                    SendButtonToRecievers(0, false);
+                if (OVRInput.GetDown(OVRInput.RawButton.A))
+                    SendButtonToRecievers(1, true);
+                if (OVRInput.GetUp(OVRInput.RawButton.A))
+                    SendButtonToRecievers(1, false);
+                if (OVRInput.GetDown(OVRInput.RawButton.B))
+                    SendButtonToRecievers(2, true);
+                if (OVRInput.GetUp(OVRInput.RawButton.B))
+                    SendButtonToRecievers(2, false);
+                if (OVRInput.GetDown(OVRInput.RawButton.RThumbstick))
+                    SendButtonToRecievers(3, true);
+                if (OVRInput.GetUp(OVRInput.RawButton.RThumbstick))
+                    SendButtonToRecievers(3, false);
+
+                // Axes.
+                if (OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).magnitude > axisDeadzone)
+                {
+                    SendAxisToRecievers(0, OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).x);
+                    SendAxisToRecievers(1, OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y);
+                }
+            }
+
         }
-        // Right hand.
         else
         {
             // Buttons.
-            if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
-                SendButtonToRecievers(0, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger))
-                SendButtonToRecievers(0, false);
-            if (OVRInput.GetDown(OVRInput.RawButton.A))
+            if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
                 SendButtonToRecievers(1, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.A))
+            if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
                 SendButtonToRecievers(1, false);
-            if (OVRInput.GetDown(OVRInput.RawButton.B))
+            /*if (OVRInput.GetDown(OVRInput.RawButton.Y))
                 SendButtonToRecievers(2, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.B))
-                SendButtonToRecievers(2, false);
-            if (OVRInput.GetDown(OVRInput.RawButton.RThumbstick))
+            if (OVRInput.GetUp(OVRInput.RawButton.Y))
+                SendButtonToRecievers(2, false);*/
+            if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
                 SendButtonToRecievers(3, true);
-            if (OVRInput.GetUp(OVRInput.RawButton.RThumbstick))
+            if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip))
                 SendButtonToRecievers(3, false);
-
-            // Axes.
-            if (OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).magnitude > axisDeadzone)
-            {
-                SendAxisToRecievers(0, OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).x);
-                SendAxisToRecievers(1, OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y);
-            }
         }
     }
 

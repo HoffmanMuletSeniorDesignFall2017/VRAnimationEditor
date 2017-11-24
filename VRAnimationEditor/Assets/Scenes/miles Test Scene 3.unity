@@ -173,7 +173,7 @@ Prefab:
         type: 2}
       propertyPath: modelAnchor
       value: 
-      objectReference: {fileID: 515027153}
+      objectReference: {fileID: 850978887}
     - target: {fileID: 4070190658785466, guid: d656eabf0a569a746bc9d8acd901c6c7, type: 2}
       propertyPath: m_LocalScale.x
       value: 0.05
@@ -1265,7 +1265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1157671876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2130,7 +2130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1855423358
 MonoBehaviour:
   m_ObjectHideFlags: 0
