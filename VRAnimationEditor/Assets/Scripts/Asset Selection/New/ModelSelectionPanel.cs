@@ -14,6 +14,12 @@ public class ModelSelectionPanel : MonoBehaviour {
     public float loadFrametimeFraction = 0.25f;
     public ModelTile selectedTile;
     public CustomContentSizeFitter customFitter;
+    public float taskGrowthRate = 1.5f;
+    public float taskShrinkRate = 2.0f;
+
+
+    private float tasksPerFrame = 1;
+    private float idealFrameTime = 1 / 90f;
 
     void Start(){
         StartCoroutine("LoadModelsRoutine");
@@ -38,46 +44,57 @@ public class ModelSelectionPanel : MonoBehaviour {
     }
 
     public IEnumerator LoadModelsRoutine(){
-        System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
-        float frameTime = 1/90f;
-        Debug.Log("Frametime: " + frameTime + " s");
-        float loadFrameTimeLimit = frameTime * loadFrametimeFraction * 1000;
-        Debug.Log("Limiting load time per frame to " + loadFrameTimeLimit + " ms");
-        timer.Start();
+        int frameTaskCount = 0;
+
         string[] gameObjGuids = AssetDatabase.FindAssets("t:GameObject");
-        if(timer.ElapsedMilliseconds > loadFrameTimeLimit)
+
+        frameTaskCount++;
+        if (frameTaskCount > Mathf.Floor(tasksPerFrame))
         {
-            timer.Stop();
             yield return null;
-            timer.Reset();
-            timer.Start();
+            UpdateTasksPerFrame();
+            frameTaskCount = 0;
         }
+
         for (int i = 0; i < gameObjGuids.Length; i++)
         {
             // Get GameObject path from GUID.
             string gameObjPath = AssetDatabase.GUIDToAssetPath(gameObjGuids[i]);
+            frameTaskCount++;
             // Check extension
             if (IsValidModelExtension(System.IO.Path.GetExtension(gameObjPath)))
             {
                 // Load GameObject.
                 GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(gameObjPath);
+
+                frameTaskCount++;
+                if (frameTaskCount > Mathf.Floor(tasksPerFrame))
+                {
+                    yield return null;
+                    UpdateTasksPerFrame();
+                    frameTaskCount = 0;
+                }
+
                 // If the GameObject is a model, add it to the list.
+                frameTaskCount++;
                 if (IsAnimationModel(obj))
                 {
                     AddModel(obj);
+                    frameTaskCount++;
                 }
             }
-            if (timer.ElapsedMilliseconds > loadFrameTimeLimit)
+
+            if (frameTaskCount > Mathf.Floor(tasksPerFrame))
             {
-                timer.Stop();
                 yield return null;
-                timer.Reset();
-                timer.Start();
+                UpdateTasksPerFrame();
+                frameTaskCount = 0;
             }
         }
-
+        customFitter.enabled = true;
         yield return null;
         customFitter.enabled = false;
+        
     }
 
     private static bool IsValidModelExtension(string extension){
@@ -123,5 +140,17 @@ public class ModelSelectionPanel : MonoBehaviour {
         }
         selectedTile = tile;
         tile.SetSelect(true);
+    }
+
+    private void UpdateTasksPerFrame()
+    {
+        if (Time.deltaTime > idealFrameTime * 1.5f)
+        {
+            tasksPerFrame = Mathf.Max(1, tasksPerFrame / taskShrinkRate);
+        }
+        else
+        {
+            tasksPerFrame *= taskGrowthRate;
+        }
     }
 }

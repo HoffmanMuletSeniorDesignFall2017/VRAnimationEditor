@@ -13,6 +13,7 @@ public class AnimationTile : MonoBehaviour, IPointerReciever, IButtonAxisRecieve
     private bool isSelected;
     public AnimationClip anim;
     public AnimationSelectionPanel panel;
+    public string animPath;
 
     private List<int> focusingInteractorIds;
 
@@ -53,6 +54,10 @@ public class AnimationTile : MonoBehaviour, IPointerReciever, IButtonAxisRecieve
     {
         if (focusingInteractorIds.Contains(sourceID) && (buttonID == 0) && (buttonState == true))
         {
+            if(anim == null)
+            {
+                anim = AssetDatabase.LoadAssetAtPath<AnimationClip>(animPath);
+            }
             panel.SetSelectedTile(this);
         }
     }

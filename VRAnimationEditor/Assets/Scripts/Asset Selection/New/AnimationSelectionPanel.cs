@@ -10,9 +10,10 @@ public class AnimationSelectionPanel : MonoBehaviour
     public GameObject contentObj;
     public ScrollRect scrollRect;
     public float scrollSpeed = 0.1f;
-    public float loadFrametimeFraction = 0.25f;
     public AnimationTile selectedTile;
     public CustomContentSizeFitter customFitter;
+
+    private int animCount = 0;
 
     void Start()
     {
@@ -42,34 +43,20 @@ public class AnimationSelectionPanel : MonoBehaviour
 
     public IEnumerator LoadAnimsRoutine()
     {
-        System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
-        float frameTime = 1 / 90f;
-        Debug.Log("Frametime: " + frameTime + " s");
-        float loadFrameTimeLimit = frameTime * loadFrametimeFraction * 1000;
-        Debug.Log("Limiting load time per frame to " + loadFrameTimeLimit + " ms");
-        timer.Start();
         string[] animGuids = AssetDatabase.FindAssets("t:AnimationClip");
-        if (timer.ElapsedMilliseconds > loadFrameTimeLimit)
-        {
-            timer.Stop();
-            yield return null;
-            timer.Reset();
-            timer.Start();
-        }
+        yield return null;
         for (int i = 0; i < animGuids.Length; i++)
         {
             // Get animation path from GUID.
             string animPath = AssetDatabase.GUIDToAssetPath(animGuids[i]);
+            yield return null;
             AnimationClip tempAnim = AssetDatabase.LoadAssetAtPath<AnimationClip>(animPath);
+            yield return null;
             AddAnimation(tempAnim);
-            if (timer.ElapsedMilliseconds > loadFrameTimeLimit)
-            {
-                timer.Stop();
-                yield return null;
-                timer.Reset();
-                timer.Start();
-            }
+            animCount++;
+            customFitter.enabled = animCount % 4 == 3;
         }
+        customFitter.enabled = true;
         yield return null;
         customFitter.enabled = false;
     }

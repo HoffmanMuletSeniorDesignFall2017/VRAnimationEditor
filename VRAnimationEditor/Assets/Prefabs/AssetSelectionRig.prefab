@@ -656,7 +656,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1524203511698558}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58d60d58a2ac10646947516e29e9b029, type: 3}
   m_Name: 
@@ -863,6 +863,8 @@ MonoBehaviour:
   loadFrametimeFraction: 0.1
   selectedTile: {fileID: 0}
   customFitter: {fileID: 114687105103024162}
+  taskGrowthRate: 1.5
+  taskShrinkRate: 2
 --- !u!114 &114427499616020760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1029,7 +1031,6 @@ MonoBehaviour:
   contentObj: {fileID: 1524203511698558}
   scrollRect: {fileID: 114472368259480158}
   scrollSpeed: 1
-  loadFrametimeFraction: 0.1
   selectedTile: {fileID: 0}
   customFitter: {fileID: 114100030201746756}
 --- !u!114 &114672661758378022
@@ -1100,7 +1101,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1924485191120646}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58d60d58a2ac10646947516e29e9b029, type: 3}
   m_Name: 
