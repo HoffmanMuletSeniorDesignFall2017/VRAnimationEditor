@@ -251,6 +251,14 @@ public class VRControllerInteractor : MonoBehaviour {
                 SendButtonToRecievers(3, true);
             if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip))
                 SendButtonToRecievers(3, false);
+
+            if (Mathf.Abs(Controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad).x) > axisDeadzone)
+            {
+                SendAxisToRecievers(0, Controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad).x);
+            }
+            if (Mathf.Abs(Controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad).y) > axisDeadzone) { 
+                SendAxisToRecievers(1, Controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad).y);
+            }
         }
     }
 

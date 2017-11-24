@@ -14,6 +14,7 @@ public class AnimationVRControl_Left : MonoBehaviour, IButtonAxisReciever
     public AnimationVisualizer animVisual;
 
     public VRControllerInteractor controller;
+    public VRControllerInteractor otherController;
     public GameObject playButton_IButtonAxisReciever;
 
     public GameObject modelAnchor;
@@ -23,6 +24,8 @@ public class AnimationVRControl_Left : MonoBehaviour, IButtonAxisReciever
     private GameObject dummyNode;
     private Vector3 origScale;
     private bool scaling = false;
+
+    private float offset = 0f;
 
     // Use this for initialization
     void Start()
@@ -48,7 +51,7 @@ public class AnimationVRControl_Left : MonoBehaviour, IButtonAxisReciever
     {
         if (scaling)
         {
-            modelAnchor.transform.localScale = origScale * (Vector3.Distance(dummyNode.transform.position, controller.gameObject.transform.position));
+            modelAnchor.transform.localScale = origScale * (Vector3.Distance(otherController.gameObject.transform.position, controller.gameObject.transform.position) + offset);
         }
     }
 
@@ -74,6 +77,7 @@ public class AnimationVRControl_Left : MonoBehaviour, IButtonAxisReciever
                 {
                     dummyNode.transform.position = controller.gameObject.transform.position + controller.transform.TransformDirection(1, 0, 0);
                     origScale = modelAnchor.transform.localScale;
+                    offset = 1f - Vector3.Distance(otherController.gameObject.transform.position, controller.gameObject.transform.position);
                     scaling = true;
                 }
                 else
