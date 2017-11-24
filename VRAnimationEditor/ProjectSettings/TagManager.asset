@@ -4,7 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - PrefabPools
   - Collide
+  - FxTemporaire
+  - projectile
   layers:
   - Default
   - TransparentFX

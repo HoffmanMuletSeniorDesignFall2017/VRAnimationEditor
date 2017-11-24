@@ -416,11 +416,9 @@ public class AnimationVisualizer : Visualizer {
             }
 
             else
-            {	//Not a humanoid animation
+            {   //Not a humanoid animation
 
-                
-
-				Transform nodeTransform;
+                Transform nodeTransform;
 				if(AnimationUtility.GetCurveBindings (currentClip) [i].path != ""){
 					nodeTransform = currentGameObject.transform.Find(AnimationUtility.GetCurveBindings (currentClip) [i].path);
 				}
@@ -433,6 +431,9 @@ public class AnimationVisualizer : Visualizer {
                                                                                                                             //acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetAssociatedVisualizer(acv);			//Link the acv and the node marker both ways (so they can both talk to each other)
                 
                     acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().AddAssociatedCurveVisualizer(acv);
+
+                    Debug.Log(AnimationUtility.GetCurveBindings(currentClip)[i].path);
+                    Debug.Log(currentGameObject.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Hips));
 
                     acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetMainVisualizer(this);               //Makes it so the node visualizer can talk to this guy too
                 }
@@ -454,7 +455,7 @@ public class AnimationVisualizer : Visualizer {
                 else if (propertyName == "m_LocalRotation.z")
                     acv.curveType = AnimationCurveVisualizer.ACVType.RotZ;
                 else
-               {
+                {
                     acv.curveType = AnimationCurveVisualizer.ACVType.Other;
                 }
 
@@ -499,6 +500,10 @@ public class AnimationVisualizer : Visualizer {
         //currentGameObject.GetComponent<Animator>().speed = newSpeed;
         if(currentGameObject.GetComponent<Animator>() != null)
             currentGameObject.GetComponent<Animator>().SetFloat("PlaySpeed", newSpeed);
+        if(currentGameObject.GetComponent<Animator>().playbackTime < 0)
+        {
+           
+        }
         
     }
 
@@ -674,6 +679,16 @@ public class AnimationVisualizer : Visualizer {
         yield return null;
     }
 
+    public void UpdateCurrentClip(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime)
+    {
+        for(int i = 0; i < bufferClips.Length; i++)
+        {
+            bufferClips[i].SetCurve(path, type, propertyName, animCurve);
+        }
+
+        keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime((resumeTime + Time.deltaTime / animCurve[animCurve.length - 1].time) % 1.0f);
+    }
+
 
     IEnumerator UpdateAnimationCurveAndResume(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime){
 
@@ -738,6 +753,11 @@ public class AnimationVisualizer : Visualizer {
 	public AnimationCurveVisualizer GetAnimCurveVisualizer(int index){
 		return animCurves_Visualizers [index];
 	}
+
+    public GameObject GetCurrentGameObject()
+    {
+        return currentGameObject;
+    }
 
 	public AnimationCurveVisualizer GetLastAnimCurveVisualizer(){
 		return animCurves_Visualizers [lastSelectedAnimCurve_Visualizer];

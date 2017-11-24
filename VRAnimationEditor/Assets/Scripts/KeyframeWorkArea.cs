@@ -31,5 +31,6 @@ public class KeyframeWorkArea : MonoBehaviour {
 	public void RefreshBounds(float newX){
 		bounds = newX;
 		timelineVisualizer.bound = bounds;
+        timelineVisualizer.biggestTime = newX / timeScale / AnimationCurveVisualizer.X_OFFSET_CONSTANT;
 	}
 }

@@ -62,7 +62,8 @@ public class AnimationVRControl_Left : MonoBehaviour, IButtonAxisReciever
             if (buttonID == BUTTON_X)
             {
                 animVisual.TogglePlayAnimation();
-                playButton_IButtonAxisReciever.GetComponent<IButtonAxisReciever>().OnRecieveButton(sourceID, buttonID, buttonState);
+                if(playButton_IButtonAxisReciever != null)
+                    playButton_IButtonAxisReciever.GetComponent<IButtonAxisReciever>().OnRecieveButton(sourceID, buttonID, buttonState);
             }
             else if (buttonID == BUTTON_Y)
             {
