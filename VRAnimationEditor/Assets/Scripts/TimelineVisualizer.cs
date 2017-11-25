@@ -12,6 +12,8 @@ public class TimelineVisualizer : Visualizer {
 
 	public float bound = 0f;		//The value for the local position x bound of the timeline cursor (i.e., once it reaches the end, the animation is finished)
 
+
+    public float biggestTime = 0f;
 	//private bool reset = false;
 
 	private float animatorTime = 0f;
@@ -60,7 +62,10 @@ public class TimelineVisualizer : Visualizer {
 
 				if (animator.GetCurrentAnimatorStateInfo (0).normalizedTime > 1f) {
 					animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, 0f);
-				}
+				} else if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0f)
+                {
+                    animator.Play(animator.GetCurrentAnimatorStateInfo(0).shortNameHash, 0, 1f);
+                }
 
 				timeLine.GetComponent<Outline> ().enabled = false;
 
@@ -116,7 +121,9 @@ public class TimelineVisualizer : Visualizer {
 				anim.Play (layerInfo [i].fullPathHash, i, layerInfo [i].normalizedTime);
 			}
 
-			currentClipName = clip.name;
+            anim.Update(0.0f);
+
+            currentClipName = clip.name;
 			//doneInitialSwitch = true;
 		}/* else {
 			Animator anim = animator;
@@ -143,6 +150,7 @@ public class TimelineVisualizer : Visualizer {
 
 			currentClipName = clip.name;
 		}*/
+
 	}
 
 	public void ChangeTime(float newTime){
@@ -151,9 +159,10 @@ public class TimelineVisualizer : Visualizer {
 
 			if (animator.GetCurrentAnimatorStateInfo (0).normalizedTime > 1f) {
 				animator.Play (animator.GetCurrentAnimatorStateInfo (0).shortNameHash, 0, 0f);
-			}
+			} 
 
 			animatorTime = animator.GetCurrentAnimatorStateInfo (0).normalizedTime;
 		}
 	}
+		
 }

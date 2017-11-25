@@ -6,6 +6,11 @@ using cakeslice;
 
 public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoBehaviour {
 
+	public enum ACVType {PosX, PosY, PosZ, RotX, RotY, RotZ, RotW, Other};  	//Used for what kind of type of animation curve this is (so we know what to grab from an associated node visualizer, if any)
+	public ACVType curveType;
+
+	public bool isHumanoid = false;
+
 	string parameterTitle;	//The name of the parameter that this curve is for
 
 	public AnimationCurve animCurve;	//IMPORTANT! The actual curve associated with this animation curve
@@ -23,8 +28,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 	public int curveNumber;	//Assigned from the keyframeWorkArea; the number of this animation curve
 
-	public float X_OFFSET_CONSTANT = 2f;	//Used to make drawing nice
-	public float Y_OFFSET_CONSTANT = 1.9550f;
+	public static float X_OFFSET_CONSTANT = 2f;    //Used to make drawing nice
+    public static float Y_OFFSET_CONSTANT = 2.04075f;//1.9550f;
 
 	private GameObject selectedKeyframe;	//The keyframe that the user has selected right now
 	private int selectedKeyframeIndex = 0;
@@ -83,18 +88,18 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		currentKeyframes.Clear ();	
 
 		for (int i = 0; i < animCurve.keys.Length; i++) {	//For every keyframe....
-			GameObject nextKeyframe = Instantiate(keyframeObject, keyframeWorkArea.transform);	//Instantiate a new keyframewhose parent is the transform of the current keyframeWorkArea
+			GameObject nextKeyframe = Instantiate(keyframeObject, keyframeWorkArea.keyframeSectionObject.transform);	//Instantiate a new keyframewhose parent is the transform of the current keyframeWorkArea place where keyframes should go
 
 			//-------Set up the MovableVisualizer component--------
 			nextKeyframe.AddComponent<MovableVisualizer> ();
 			nextKeyframe.GetComponent<MovableVisualizer> ().associatedVisualizer = this;//visualizerDummy;
 			nextKeyframe.GetComponent<MovableVisualizer> ().constrainedToLocalX = true;
 
-			//-------End set up the MovableVisualizer component--------
+            //-------End set up the MovableVisualizer component--------
 
-			//-------Set up the Outline component--------
+            //-------Set up the Outline component--------
 
-			nextKeyframe.AddComponent<cakeslice.Outline> ();
+            nextKeyframe.AddComponent<cakeslice.Outline> ();
 			nextKeyframe.GetComponent<cakeslice.Outline> ().enabled = false;
 
 			//-------End set up the Outline component--------
@@ -102,8 +107,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 			nextKeyframe.transform.localPosition = new Vector3(animCurve.keys[i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT,  -curveNumber * keyframeWorkArea.verticalZoom * Y_OFFSET_CONSTANT, 0);	//Set it at the appropriate position based on its time and the current KeyframeWorkArea configurations
 			currentKeyframes.Add(nextKeyframe);	//Add this to the list so we can keep track of it
 
-			//We also have to update our keyframeWorkArea.
-			if (animCurve.keys [i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT > keyframeWorkArea.bounds)
+            //We also have to update our keyframeWorkArea.
+            if (animCurve.keys [i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT > keyframeWorkArea.bounds)
 				keyframeWorkArea.RefreshBounds (animCurve.keys [i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT);
 		}
 			
@@ -287,6 +292,20 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		Refresh ();
 	}
 
+	public void DeleteAllInsideKeyframes(){
+		int count = animCurve.length - 1;
+
+
+		for (int i = 1; i < count; i++) {
+			animCurve.RemoveKey (1);
+		}
+
+		needsToRefresh = true;
+		parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
+
+		Refresh ();
+	}
+
 	public void EditSelectedKeyframeValue(float newValue){
 		Keyframe newKeyframe = animCurve [selectedKeyframeIndex];
 
@@ -295,5 +314,44 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 		needsToRefresh = true;
 		parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
+	}
+
+	public void RecordValuesOfAssociatedNode(){
+		if (associatedNodeVisualizer == null)
+			return;
+
+		//If this was called, then we want to take a snapshot of the parameter of the node for this curve and save it as a keyframe in the current time
+		Keyframe newKf = new Keyframe();
+
+		switch (curveType) {
+			case ACVType.PosX:
+
+				newKf.value = associatedNodeVisualizer.transform.localPosition.x;
+				break;
+			case ACVType.PosY:
+				newKf.value = associatedNodeVisualizer.transform.localPosition.y;
+				break;
+			case ACVType.PosZ:
+				newKf.value = associatedNodeVisualizer.transform.localPosition.z;
+				break;
+			case ACVType.RotX:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.x;
+				break;
+			case ACVType.RotY:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.y;
+				break;
+			case ACVType.RotZ:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.z;
+				break;
+			case ACVType.RotW:
+				newKf.value = associatedNodeVisualizer.transform.localRotation.w;
+				break;
+			default:
+				return;	//TODO: Maybe don't do this
+				break;
+		}
+
+		AddExistingKeyframe (newKf);
+
 	}
 }

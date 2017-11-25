@@ -87,7 +87,14 @@ public static class AnimationEditorFunctions {	//This static class is basically 
 			UnityEditor.Animations.AnimatorController ac = new UnityEditor.Animations.AnimatorController ();
 			ac.AddLayer ("default");
 			ac.AddMotion (animClip);
-			newGo.GetComponent<Animator> ().runtimeAnimatorController = ac;
+
+            ac.AddParameter("PlaySpeed", AnimatorControllerParameterType.Float);
+
+            ac.layers[0].stateMachine.states[0].state.speedParameterActive = true;
+            ac.layers[0].stateMachine.states[0].state.speedParameter = ac.parameters[0].name;
+
+
+            newGo.GetComponent<Animator> ().runtimeAnimatorController = ac;
 		}
 
 		return newGo;
