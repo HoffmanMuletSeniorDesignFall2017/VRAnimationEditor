@@ -499,6 +499,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
         if (grabber == grabOwner)
         {
 
+            bool newCurve = false;
+
             if (needsToWrite)
             {
 
@@ -602,6 +604,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
                     if (i < 7)
                     {
                         //Then we are adding a new property to the curve, if necessary
+                        newCurve = true;
+
 
                         Keyframe[] keys = { newKeyframe1, newKeyframe2, newKeyframe3, newKeyframe4, newKeyframe5, newKeyframe6, newKeyframe7 };
                         string[] properties = { "m_LocalRotation.w", "m_LocalRotation.x", "m_LocalRotation.y", "m_LocalRotation.z", "m_LocalPosition.x", "m_LocalPosition.y", "m_LocalPosition.z" };
@@ -625,24 +629,21 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
                         {
                             if ((propertiesMask & (1 << j)) == 0)
                             {
-                                AnimationCurve newCurve = new AnimationCurve();
+                                AnimationCurve newCurveyCurve = new AnimationCurve();
                                 
-                                newCurve.AddKey(keys[j]);
+                                newCurveyCurve.AddKey(keys[j]);
 
                                 Keyframe temp = new Keyframe();
                                 temp.value = keys[j].value;
 
                                 temp.time = mainVisualizer.keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.biggestTime;
 
-                                newCurve.AddKey(temp);
+                                newCurveyCurve.AddKey(temp);
 
-                                mainVisualizer.UpdateCurrentClip(GetGameObjectPath(boneNode.transform), typeof(Transform), properties[j], newCurve, mainVisualizer.keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.GetAnimatorTime());
+                                mainVisualizer.UpdateCurrentClip(GetGameObjectPath(boneNode.transform), typeof(Transform), properties[j], newCurveyCurve, mainVisualizer.keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.GetAnimatorTime());
                             }
 
                         }
-
-
-                        mainVisualizer.RefreshCurves();
                     }
 
 
@@ -654,6 +655,9 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
             //boneNode.SetSiblingIndex(grabbedSiblingIndex);
             grabOwner = null;
             //poseManager.OnPoseEditFinish(boneNode);
+
+            if(needsToWrite && newCurve)
+                mainVisualizer.RefreshCurves();
 
             needsToWrite = false;
 

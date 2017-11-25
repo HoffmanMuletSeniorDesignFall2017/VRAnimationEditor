@@ -122,12 +122,17 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
 
 	public void OnGrab (GameObject grabber){
 		grabOwner = grabber;
+        Select();
+        Grab();
 	}
 
 	public void OnRelease(GameObject grabber){
 		if (grabOwner == grabber)
 		{
 			grabOwner = null;
+            Deselect();
+            DeGrab();
+
 		}
 	}
 }

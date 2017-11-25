@@ -141,6 +141,10 @@ public class VRControllerInteractor : MonoBehaviour {
 		float minDistance = float.MaxValue;
 		for (int i = 0; i < grabCandidates.Count; i++)
 		{
+            if (grabCandidates[i] == null)
+                continue;
+
+
 			float distance = (grabCandidates[i].transform.position - transform.position).magnitude;
 			if (distance < minDistance)
 			{
@@ -148,17 +152,24 @@ public class VRControllerInteractor : MonoBehaviour {
 				minDistance = distance;
 			}
 		}
-		return grabCandidates[minIndex];
+        if (minIndex != -1)
+            return grabCandidates[minIndex];
+        else
+            return null;
 	}
 
     private void Grab(){
-		if (grabCandidates.Count > 0)
+        if (grabCandidates.Count > 0)
         {
-			grabFocus = GetClosestGrabCandidate();
-            grabFocus.GetComponent<IGrabReciever>().OnGrab(gameObject);
-            if (grabFocus.GetComponent<IButtonAxisReciever>() != null && !buttonAxisFocuses.Contains(grabFocus))
+            grabFocus = GetClosestGrabCandidate();
+
+            if (grabFocus != null)
             {
-                buttonAxisFocuses.Add(grabFocus);
+                grabFocus.GetComponent<IGrabReciever>().OnGrab(gameObject);
+                if (grabFocus.GetComponent<IButtonAxisReciever>() != null && !buttonAxisFocuses.Contains(grabFocus))
+                {
+                    buttonAxisFocuses.Add(grabFocus);
+                }
             }
         }       
     }
