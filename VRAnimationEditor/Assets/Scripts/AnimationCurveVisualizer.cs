@@ -42,6 +42,9 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 	public GameObject associatedNodeVisualizer;
 
+    public List<float> keyframeTimes;
+    public List<float> keyframeValues;
+
 	// Use this for initialization
 	void Start () {
 		if(currentKeyframes == null)
@@ -62,6 +65,9 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		valueVisualizer.GetComponent<ValueVisualizer> ().associatedVisualizer = this;
 
 		valueVisualizer.SetActive (false);
+
+        keyframeTimes = new List<float>();
+        keyframeValues = new List<float>();
 	}
 	
 	// Update is called once per frame

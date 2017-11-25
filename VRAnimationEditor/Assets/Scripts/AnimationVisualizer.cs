@@ -77,7 +77,7 @@ public class AnimationVisualizer : Visualizer {
             }
         }
 
-        //currentClip = bufferClips[bufferClips.Length - 1];
+        currentClip = bufferClips[bufferClips.Length - 1];
 
         if (keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer != null) {
 			keyframeWorkArea.GetComponent<KeyframeWorkArea> ().timelineVisualizer.animator = currentGameObject.GetComponent<Animator> ();
@@ -89,7 +89,7 @@ public class AnimationVisualizer : Visualizer {
 	}
 
 	public AnimationClip GetCurrentClip(){
-        return bufferClips[clipSwitch];//currentClip;
+        return currentClip;
 	}
 
 	public void RefreshCurves(){
@@ -105,7 +105,7 @@ public class AnimationVisualizer : Visualizer {
 		keyframeWorkArea.GetComponent<KeyframeWorkArea> ().RefreshBounds (0f);
 		values.text = "";
 
-		for (int i = 0; i < AnimationUtility.GetCurveBindings (bufferClips[clipSwitch]).Length; i++) {      //currentClip
+		for (int i = 0; i < AnimationUtility.GetCurveBindings (currentClip).Length; i++) {      //currentClip
 
 			//animCurves.Add (AnimationUtility.GetEditorCurve (currentClip, AnimationUtility.GetCurveBindings (currentClip) [i]));
 
@@ -114,18 +114,27 @@ public class AnimationVisualizer : Visualizer {
 			dummyGameObject.AddComponent<AnimationCurveVisualizer> ();
 
 			AnimationCurveVisualizer acv = dummyGameObject.GetComponent<AnimationCurveVisualizer> ();
-			//AnimationCurveVisualizer acv = ScriptableObject.CreateInstance<AnimationCurveVisualizer>();//new AnimationCurveVisualizer();
+            //AnimationCurveVisualizer acv = ScriptableObject.CreateInstance<AnimationCurveVisualizer>();//new AnimationCurveVisualizer();
+
+            //List<Keyframe> tempKeyframes = new List<Keyframe>();
+            //ObjectReferenceKeyframe[] tempORK = AnimationUtility.GetObjectReferenceCurve(currentClip, AnimationUtility.GetCurveBindings(currentClip)[i]);
+            //for (int j = 0; j < tempORK.Length; j++) { 
+            //    Keyframe newK = new Keyframe();
+            //    newK.time = tempORK[j].time;
+            //    //newK.value = tempORK[j];
+            //    tempKeyframes.Add(newK);
+            //}
 
 			acv.curveNumber = i;
-            acv.animCurve = AnimationUtility.GetEditorCurve(bufferClips[clipSwitch], AnimationUtility.GetCurveBindings(bufferClips[clipSwitch])[i]); //animCurves [i];
+            acv.animCurve = AnimationUtility.GetEditorCurve(currentClip, AnimationUtility.GetCurveBindings(currentClip)[i]); //animCurves [i];
 
             acv.keyframeObject = keyframeObject;
 			acv.keyframeWorkArea= keyframeWorkArea.GetComponent<KeyframeWorkArea>();
 			acv.parentAnimVisualizer = this;
 
-            if (bufferClips[clipSwitch].isHumanMotion)
+            if (currentClip.isHumanMotion)
             {
-                string objectAnimated = AnimationUtility.GetCurveBindings(bufferClips[clipSwitch])[i].propertyName;
+                string objectAnimated = AnimationUtility.GetCurveBindings(currentClip)[i].propertyName;
 
                 acv.isHumanoid = true;
 
@@ -420,24 +429,25 @@ public class AnimationVisualizer : Visualizer {
             {   //Not a humanoid animation
 
                 Transform nodeTransform;
-				if(AnimationUtility.GetCurveBindings (bufferClips[clipSwitch]) [i].path != ""){
-					nodeTransform = currentGameObject.transform.Find(AnimationUtility.GetCurveBindings (bufferClips[clipSwitch]) [i].path);
+				if(AnimationUtility.GetCurveBindings (currentClip) [i].path != ""){
+					nodeTransform = currentGameObject.transform.Find(AnimationUtility.GetCurveBindings (currentClip) [i].path);
 				}
 				else {
 					nodeTransform = currentGameObject.transform;
 				}
 
                 if(nodeTransform != null) { 
-				    acv.associatedNodeVisualizer = nodeTransform.GetChild (nodeTransform.childCount - 1).gameObject;        //Assumes Node marker will always be the last child
+				    acv.associatedNodeVisualizer = nodeTransform.Find("Node Marker(Clone)").gameObject;   
                                                                                                                             //acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetAssociatedVisualizer(acv);			//Link the acv and the node marker both ways (so they can both talk to each other)
-                
+                    
+
                     acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().AddAssociatedCurveVisualizer(acv);
 
 
                     acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetMainVisualizer(this);               //Makes it so the node visualizer can talk to this guy too
                 }
 
-                string propertyName = AnimationUtility.GetCurveBindings(bufferClips[clipSwitch])[i].propertyName;
+                string propertyName = AnimationUtility.GetCurveBindings(currentClip)[i].propertyName;
 
                 if (propertyName == "m_LocalPosition.x")
                     acv.curveType = AnimationCurveVisualizer.ACVType.PosX;
@@ -469,9 +479,9 @@ public class AnimationVisualizer : Visualizer {
 
 		for (int i = 0; i < animCurves_Visualizers.Count; i++) {
 			if(i == 0)
-				values.text = AnimationUtility.GetCurveBindings (bufferClips[clipSwitch]) [i].propertyName + "\n";
+				values.text = AnimationUtility.GetCurveBindings (currentClip) [i].propertyName + "\n";
 			else
-				values.text += AnimationUtility.GetCurveBindings (bufferClips[clipSwitch]) [i].propertyName + "\n";
+				values.text += AnimationUtility.GetCurveBindings (currentClip) [i].propertyName + "\n";
 			//Then would do stuff to actually draw keyframes, etc.
 		}
 
@@ -484,9 +494,9 @@ public class AnimationVisualizer : Visualizer {
 
         EditorCurveBinding[] thingers =  AnimationUtility.GetCurveBindings(currentClip);
 
-        for (int i = oldCount; i < AnimationUtility.GetCurveBindings(currentClip).Length; i++)
+        for (int i = 0; i < AnimationUtility.GetCurveBindings(currentClip).Length; i++)
         {
-
+            
             //animCurves.Add(AnimationUtility.GetEditorCurve(currentClip, AnimationUtility.GetCurveBindings(currentClip)[i]));
 
             //Add a visualizer for each curve
@@ -550,7 +560,7 @@ public class AnimationVisualizer : Visualizer {
             animCurves_Visualizers.Add(acv);
         }
 
-        for (int i = oldCount; i < animCurves_Visualizers.Count; i++)
+        for (int i = 0; i < animCurves_Visualizers.Count; i++)
         {
             if (i == 0)
                 values.text = AnimationUtility.GetCurveBindings(currentClip)[i].propertyName + "\n";
@@ -701,7 +711,7 @@ public class AnimationVisualizer : Visualizer {
 
         //StartCoroutine(UpdateAnimationCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves_Visualizers[i].animCurve, currentTime));
 
-        UpdateAnimationCurve(AnimationUtility.GetCurveBindings(bufferClips[clipSwitch])[i].path, AnimationUtility.GetCurveBindings(bufferClips[clipSwitch])[i].type, AnimationUtility.GetCurveBindings(bufferClips[clipSwitch])[i].propertyName, animCurves_Visualizers[i].animCurve, currentTime);
+        UpdateAnimationCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves_Visualizers[i].animCurve, currentTime);
 
 
         //-------
@@ -777,7 +787,7 @@ public class AnimationVisualizer : Visualizer {
         for (int j = 0; j < thingers.Length; j++)
         {
             AnimationCurve curveThing = AnimationUtility.GetEditorCurve(bufferClips[clipSwitch], thingers[j]);
-            if (curveThing.keys.Length > 3)
+            if (curveThing.keys.Length > 4)
             {
                 int jkjkk = 7857;
             }
@@ -798,64 +808,66 @@ public class AnimationVisualizer : Visualizer {
 
         AnimationCurve newCurve = new AnimationCurve(animCurve.keys);
 
-        if (propertyName == "m_LocalPosition.y")
+        //if (propertyName == "m_LocalPosition.y")
+        //{
+
+        /* List<AnimationCurve> listOfCurves = new List<AnimationCurve>();
+
+         for(int j = 0; j < thingers.Length; j++)
+         {
+             if (j != index)
+             {
+                 listOfCurves.Add(AnimationUtility.GetEditorCurve(bufferClips[clipSwitch], thingers[j]));
+             }
+             else
+             {
+                 listOfCurves.Add(newCurve);
+             }
+         }
+         */
+        //bufferClips[clipSwitch].ClearCurves();
+        /*
+        for (int j = 0; j < thingers.Length; j++)
         {
+            bufferClips[clipSwitch].SetCurve(thingers[j].path, thingers[j].type, thingers[j].propertyName, listOfCurves[j]);
+        }*/
 
-            List<AnimationCurve> listOfCurves = new List<AnimationCurve>();
+        //AnimationCurve oldX = AnimationUtility.GetEditorCurve(currentClip, thingers[index - 1]);
+        //AnimationCurve oldZ = AnimationUtility.GetEditorCurve(currentClip, thingers[index + 1]);
 
-            for(int j = 0; j < thingers.Length; j++)
-            {
-                if (j != index)
-                {
-                    listOfCurves.Add(AnimationUtility.GetEditorCurve(bufferClips[clipSwitch], thingers[j]));
-                }
-                else
-                {
-                    listOfCurves.Add(newCurve);
-                }
-            }
+        //bufferClips[clipSwitch].SetCurve(path, type, "m_LocalPosition", null);
 
-            bufferClips[clipSwitch].ClearCurves();
+        //bufferClips[clipSwitch].ClearCurves();
 
-            for (int j = 0; j < thingers.Length; j++)
-            {
-                bufferClips[clipSwitch].SetCurve(thingers[j].path, thingers[j].type, thingers[j].propertyName, listOfCurves[j]);
-            }
+        //AnimationUtility.GetEditorCurve(currentClip, thingers[index]).keys = animCurve.keys;
 
-            //AnimationCurve oldX = AnimationUtility.GetEditorCurve(currentClip, thingers[index - 1]);
-            //AnimationCurve oldZ = AnimationUtility.GetEditorCurve(currentClip, thingers[index + 1]);
+        //yield return null;
 
-            //bufferClips[clipSwitch].SetCurve(path, type, "m_LocalPosition", null);
+        //thingers = AnimationUtility.GetCurveBindings(bufferClips[clipSwitch]);
 
-            //bufferClips[clipSwitch].ClearCurves();
+        //for (int j = 0; j < thingers.Length; j++)
+        //{
+        //    AnimationCurve curveThing = AnimationUtility.GetEditorCurve(bufferClips[clipSwitch], thingers[j]);
+        //}
 
-            //AnimationUtility.GetEditorCurve(currentClip, thingers[index]).keys = animCurve.keys;
-
-            //yield return null;
-
-            //thingers = AnimationUtility.GetCurveBindings(bufferClips[clipSwitch]);
-
-            //for (int j = 0; j < thingers.Length; j++)
-            //{
-            //    AnimationCurve curveThing = AnimationUtility.GetEditorCurve(bufferClips[clipSwitch], thingers[j]);
-            //}
-
-            //for (int j = 0; j < 1000; j++)
-            //{
-            //    //bufferClips[clipSwitch].SetCurve(path, type, propertyName, newCurve);
-            //    //bufferClips[clipSwitch].SetCurve("", typeof(Transform), "localPosition.y", newCurve);
-            //    //currentClip.SetCurve(path, type, propertyName, newCurve);
-            //}
+        //for (int j = 0; j < 1000; j++)
+        //{
+        //    //bufferClips[clipSwitch].SetCurve(path, type, propertyName, newCurve);
+        //    //bufferClips[clipSwitch].SetCurve("", typeof(Transform), "localPosition.y", newCurve);
+        //    //currentClip.SetCurve(path, type, propertyName, newCurve);
+        //}
 
 
-            //bufferClips[clipSwitch].SetCurve(path, type, "localPosition.y", newCurve);
-            //currentClip.SetCurve(path, type, propertyName, newCurve);
-            //bufferClips[clipSwitch].SetCurve(path, type, "localPosition.x", oldX);
-            //bufferClips[clipSwitch].SetCurve(path, type, "localPosition.z", oldZ);*/
+        //bufferClips[clipSwitch].SetCurve(path, type, "localPosition.y", newCurve);
+        //currentClip.SetCurve(path, type, propertyName, newCurve);
+        //bufferClips[clipSwitch].SetCurve(path, type, "localPosition.x", oldX);
+        //bufferClips[clipSwitch].SetCurve(path, type, "localPosition.z", oldZ);*/
 
-            //bufferClips[clipSwitch].SetCurve(path, type, "m_LocalPosition", animCurve);
+        //bufferClips[clipSwitch].SetCurve(path, type, "m_LocalPosition", animCurve);
 
-        }
+        //}
+
+        AnimationUtility.SetEditorCurve(bufferClips[clipSwitch], thingers[index], newCurve); //bufferClips[clipSwitch].SetCurve(path, type, propertyName, newCurve);
 
         //yield return null;
 
@@ -873,9 +885,9 @@ public class AnimationVisualizer : Visualizer {
             }
         }
 
-        //keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeClip(bufferClips[clipSwitch]);
+        keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeClip(bufferClips[clipSwitch]);
 
-        //keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime(resumeTime);
+        keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime(resumeTime);
         //keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime((resumeTime + Time.deltaTime / animCurve[animCurve.length - 1].time) % 1.0f);
 
         for (int j = 0; j < thingers.Length; j++)
@@ -883,19 +895,19 @@ public class AnimationVisualizer : Visualizer {
             AnimationCurve curveThing = AnimationUtility.GetEditorCurve(bufferClips[clipSwitch], thingers[j]);
         }
 
-        //currentClip = bufferClips [clipSwitch];
+        currentClip = bufferClips [clipSwitch];
 
         for (int j = 0; j < thingers.Length; j++)
         {
             AnimationCurve curveThing = AnimationUtility.GetEditorCurve(bufferClips[clipSwitch], thingers[j]);
         }
 
-        //clipSwitch = (clipSwitch + 1) % bufferClips.Length;
+        clipSwitch = (clipSwitch + 1) % bufferClips.Length;
 
         for(int i = 0; i < bufferClips.Length - 1; i++)     //bufferClips.Length - 1
         {
-            if (propertyName == "m_LocalPosition.y")
-            {
+            //if (propertyName == "m_LocalPosition.y")
+            //{
                 //AnimationCurve oldX = AnimationUtility.GetEditorCurve(currentClip, thingers[index - 1]);
                 //AnimationCurve oldZ = AnimationUtility.GetEditorCurve(currentClip, thingers[index + 1]);
 
@@ -909,19 +921,21 @@ public class AnimationVisualizer : Visualizer {
                     //bufferClips[(clipSwitch + i) % bufferClips.Length].SetCurve("", typeof(Transform), "localPosition.y", newCurve);
                 }
 
-                //yield return null;
+            AnimationUtility.SetEditorCurve(bufferClips[(clipSwitch + i) % bufferClips.Length], thingers[index], newCurve);//bufferClips[(clipSwitch + i) % bufferClips.Length].SetCurve(path, type, propertyName, newCurve);
+
+            //yield return null;
 
 
-                //bufferClips[(clipSwitch + i) % bufferClips.Length].SetCurve(path, type, "localPosition.y", newCurve);
+            //bufferClips[(clipSwitch + i) % bufferClips.Length].SetCurve(path, type, "localPosition.y", newCurve);
 
-                /*
-                bufferClips[clipSwitch].SetCurve(path, type, "localPosition.y", animCurve);
-                bufferClips[clipSwitch].SetCurve(path, type, "localPosition.x", oldX);
-                bufferClips[clipSwitch].SetCurve(path, type, "localPosition.z", oldZ);*/
+            /*
+            bufferClips[clipSwitch].SetCurve(path, type, "localPosition.y", animCurve);
+            bufferClips[clipSwitch].SetCurve(path, type, "localPosition.x", oldX);
+            bufferClips[clipSwitch].SetCurve(path, type, "localPosition.z", oldZ);*/
 
-                //bufferClips[clipSwitch].SetCurve(path, type, "m_LocalPosition", animCurve);
+            //bufferClips[clipSwitch].SetCurve(path, type, "m_LocalPosition", animCurve);
 
-            }
+            //}
         }
 
 
