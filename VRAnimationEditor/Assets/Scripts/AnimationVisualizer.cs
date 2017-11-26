@@ -1076,6 +1076,11 @@ public class AnimationVisualizer : Visualizer {
 		return animCurves_Visualizers [lastSelectedAnimCurve_Visualizer];
 	}
 
+    public int GetNumAnimCurveVisualizers()
+    {
+        return animCurves_Visualizers.Count;
+    }
+
     public void ToggleToggle()
     {
         for(int i = 0; i < animCurves_Visualizers.Count; i++)

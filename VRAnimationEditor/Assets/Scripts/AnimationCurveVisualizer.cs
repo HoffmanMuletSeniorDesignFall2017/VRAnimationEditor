@@ -491,4 +491,9 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		AddExistingKeyframe (newKf);
 
 	}
+
+    public List<GameObject> GetCurrentKeyframes()
+    {
+        return currentKeyframes;
+    }
 }

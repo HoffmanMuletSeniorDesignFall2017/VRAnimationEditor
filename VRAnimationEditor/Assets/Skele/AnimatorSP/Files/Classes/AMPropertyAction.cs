@@ -105,7 +105,7 @@ public class AMPropertyAction : AMAction {
 			if(valueType == (int)AMPropertyTrack.ValueType.Vector3) return "AMTween.PropertyTo(obj.gameObject, AMTween.Hash(\"delay\", "+getWaitTime(frameRate,0f)+"f, \"time\", "+getTime(frameRate)+"f, \""+memberInfoType+"\", obj.memberinfo, \"from\", new Vector3("+start_vect3.x+"f, "+start_vect3.y+"f, "+start_vect3.z+"f), \"to\", new Vector3("+end_vect3.x+"f, "+end_vect3.y+"f, "+end_vect3.z+"f), "+getEaseString(codeLanguage)+"));";
 			if(valueType == (int)AMPropertyTrack.ValueType.Color) return "AMTween.PropertyTo(obj.gameObject, AMTween.Hash(\"delay\", "+getWaitTime(frameRate,0f)+"f, \"time\", "+getTime(frameRate)+"f, \""+memberInfoType+"\", obj.memberinfo, \"from\", new Color("+start_color.r+"f, "+start_color.g+"f, "+start_color.b+"f, "+start_color.a+"f), \"to\", new Color("+end_color.r+"f, "+end_color.g+"f, "+end_color.b+"f, "+end_color.a+"f), "+getEaseString(codeLanguage)+"));";
 			if(valueType == (int)AMPropertyTrack.ValueType.Rect) return "AMTween.PropertyTo(obj.gameObject, AMTween.Hash(\"delay\", "+getWaitTime(frameRate,0f)+"f, \"time\", "+getTime(frameRate)+"f, \""+memberInfoType+"\", obj.memberinfo, \"from\", new Rect("+start_rect.x+"f, "+start_rect.y+"f, "+start_rect.width+"f, "+start_rect.height+"f), \"to\", new Rect("+end_rect.x+"f, "+end_rect.y+"f, "+end_rect.width+"f, "+end_rect.height+"f), "+getEaseString(codeLanguage)+"));";
-            if (valueType == (int)AMPropertyTrack.ValueType.String) return "//No code view for AMProperty with string property (<©f¦Ø¡¤)¡î";
+            if (valueType == (int)AMPropertyTrack.ValueType.String) return "//No code view for AMProperty with string property (<©f¦Ø¡¤)¡E;";
 			return "( Error: ValueType "+valueType+" not found )";
 		} else {
 			// js
@@ -115,7 +115,7 @@ public class AMPropertyAction : AMAction {
 			if(valueType == (int)AMPropertyTrack.ValueType.Vector3) return "AMTween.PropertyTo(obj.gameObject, {\"delay\": "+getWaitTime(frameRate,0f)+", \"time\": "+getTime(frameRate)+", \""+memberInfoType+"\": obj.memberinfo, \"from\": Vector3("+start_vect3.x+", "+start_vect3.y+", "+start_vect3.z+"), \"to\": Vector3("+end_vect3.x+", "+end_vect3.y+", "+end_vect3.z+"), "+getEaseString(codeLanguage)+"});";
 			if(valueType == (int)AMPropertyTrack.ValueType.Color) return "AMTween.PropertyTo(obj.gameObject, {\"delay\": "+getWaitTime(frameRate,0f)+", \"time\": "+getTime(frameRate)+", \""+memberInfoType+"\": obj.memberinfo, \"from\": Color("+start_color.r+", "+start_color.g+", "+start_color.b+", "+start_color.a+"), \"to\": Color("+end_color.r+", "+end_color.g+", "+end_color.b+", "+end_color.a+"), "+getEaseString(codeLanguage)+"});";
 			if(valueType == (int)AMPropertyTrack.ValueType.Rect) return "AMTween.PropertyTo(obj.gameObject, {\"delay\": "+getWaitTime(frameRate,0f)+", \"time\": "+getTime(frameRate)+", \""+memberInfoType+"\": obj.memberinfo, \"from\": Rect("+start_rect.x+", "+start_rect.y+", "+start_rect.width+", "+start_rect.height+"), \"to\": Rect("+end_rect.x+", "+end_rect.y+", "+end_rect.width+", "+end_rect.height+"), "+getEaseString(codeLanguage)+"});";
-            if (valueType == (int)AMPropertyTrack.ValueType.String) return "//No code view for AMProperty with string property (<©f¦Ø¡¤)¡î";
+            if (valueType == (int)AMPropertyTrack.ValueType.String) return "//No code view for AMProperty with string property (<©f¦Ø¡¤)¡E;";
             return "( Error: ValueType " + valueType + " not found )";
 		}
 	}

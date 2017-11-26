@@ -117,3 +117,7 @@ D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEdito
 D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_obj\Debug\VRAnimationEditor.Plugins.csprojResolveAssemblyReference.cache
 D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_obj\Debug\Assembly-CSharp-firstpass.dll
 D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_obj\Debug\Assembly-CSharp-firstpass.pdb
+D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Analytics.xml
+D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Purchasing.xml
+D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
+D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Common.xml
