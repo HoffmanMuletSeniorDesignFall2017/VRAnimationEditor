@@ -83,7 +83,7 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 	private void InstantiateKeyframes(){
 
-        Debug.Log(animCurve.keys.Length);
+        //Debug.Log(animCurve.keys.Length);
 
 		if (currentKeyframes == null) {
 			currentKeyframes = new List<GameObject> ();
@@ -95,8 +95,27 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		}
 		currentKeyframes.Clear ();	
 
-		for (int i = 0; i < animCurve.keys.Length; i++) {	//For every keyframe....
-			GameObject nextKeyframe = Instantiate(keyframeObject, keyframeWorkArea.keyframeSectionObject.transform);	//Instantiate a new keyframewhose parent is the transform of the current keyframeWorkArea place where keyframes should go
+		for (int i = 0; i < animCurve.keys.Length; i++) {   //For every keyframe....
+
+
+            GameObject nextKeyframe = Instantiate(keyframeObject, keyframeWorkArea.keyframeSectionObject.transform);	//Instantiate a new keyframewhose parent is the transform of the current keyframeWorkArea place where keyframes should go
+            //GameObject nextKeyframe;
+            //if(i == 0)
+            //{
+            //    nextKeyframe = TEST;
+            //    nextKeyframe.transform.parent = keyframeWorkArea.keyframeSectionObject.transform;
+            //}
+            //else
+            //{
+            //    nextKeyframe = Instantiate(keyframeObject, keyframeWorkArea.keyframeSectionObject.transform);
+            //}
+
+
+            if(nextKeyframe.GetComponent<Collider>() != null)
+            {
+                StartCoroutine(ToggleCollider(nextKeyframe));
+                nextKeyframe.GetComponent<Collider>().isTrigger = true;
+            }
 
 			//-------Set up the MovableVisualizer component--------
 			nextKeyframe.AddComponent<MovableVisualizer> ();
@@ -121,6 +140,28 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		}
 			
 	}
+
+    public void ToggleToggle()
+    {
+        for(int i = 0; i < currentKeyframes.Count; i++)
+        {
+            ToggleCollider(currentKeyframes[i]);
+        }
+    }
+
+    private IEnumerator ToggleCollider(GameObject go)
+    {
+        go.GetComponent<Collider>().enabled = false;
+
+        //for (int i = 0; i < 50; i++) {
+
+            yield return null;
+        //}
+
+        go.GetComponent<Collider>().enabled = true;
+
+        yield return null;
+    }
 
 	public void Clear(){	//Delete any instantiated objects
 

@@ -7,7 +7,7 @@ using UnityEditor.Animations;
 public class AnimationVisualizer : Visualizer {
 
 	private AnimationClip currentClip, newClip, bufferClip;
-    private AnimationClip[] bufferClips = new AnimationClip[64];
+    private AnimationClip[] bufferClips = new AnimationClip[16];
 	private GameObject currentGameObject;
 
 	//private List<AnimationCurve> animCurves;
@@ -23,6 +23,9 @@ public class AnimationVisualizer : Visualizer {
 
 
 	public MocapController moCon;
+
+    public VRControllerInteractor[] controllers;
+
 	private bool wantToCapture = false;
     private int clipSwitch = 0;
 
@@ -95,6 +98,11 @@ public class AnimationVisualizer : Visualizer {
 	public void RefreshCurves(){
 		//Animation Curve Setup
 		//animCurves.Clear ();
+
+        /*for(int i = 0; i < controllers.Length; i++)
+        {
+            controllers[i].ClearGrab();
+        }*/
 
 		for (int i = 0; i < animCurves_Visualizers.Count; i++) {
 			animCurves_Visualizers [i].Clear ();
@@ -487,14 +495,14 @@ public class AnimationVisualizer : Visualizer {
 
 	}
 
-    public void RefreshNewCurves()
+    public void RefreshNewCurves(EditorCurveBinding[] newCurveBindings, int numNewCurves)
     {
         //Animation Curve Setup
         int oldCount = animCurves_Visualizers.Count;
 
         EditorCurveBinding[] thingers =  AnimationUtility.GetCurveBindings(currentClip);
 
-        for (int i = 0; i < AnimationUtility.GetCurveBindings(currentClip).Length; i++)
+        for (int i = 0; i < numNewCurves; i++)
         {
             
             //animCurves.Add(AnimationUtility.GetEditorCurve(currentClip, AnimationUtility.GetCurveBindings(currentClip)[i]));
@@ -506,16 +514,20 @@ public class AnimationVisualizer : Visualizer {
             AnimationCurveVisualizer acv = dummyGameObject.GetComponent<AnimationCurveVisualizer>();
             //AnimationCurveVisualizer acv = ScriptableObject.CreateInstance<AnimationCurveVisualizer>();//new AnimationCurveVisualizer();
 
-            acv.curveNumber = i;
-            acv.animCurve = AnimationUtility.GetEditorCurve(currentClip, AnimationUtility.GetCurveBindings(currentClip)[i]); //animCurves[i];
+            acv.curveNumber = i + animCurves_Visualizers.Count;
+            acv.animCurve = AnimationUtility.GetEditorCurve(currentClip, newCurveBindings[i]); //animCurves[i];
+            if (acv.animCurve == null)
+            {
+                int jdjdjdjd = 8;
+            }
             acv.keyframeObject = keyframeObject;
             acv.keyframeWorkArea = keyframeWorkArea.GetComponent<KeyframeWorkArea>();
             acv.parentAnimVisualizer = this;
 
                 Transform nodeTransform;
-                if (AnimationUtility.GetCurveBindings(currentClip)[i].path != "")
+                if (newCurveBindings[i].path != "")
                 {
-                    nodeTransform = currentGameObject.transform.Find(AnimationUtility.GetCurveBindings(currentClip)[i].path);
+                    nodeTransform = currentGameObject.transform.Find(newCurveBindings[i].path);
                 }
                 else
                 {
@@ -533,7 +545,7 @@ public class AnimationVisualizer : Visualizer {
                     acv.associatedNodeVisualizer.GetComponent<ModelNodeController>().SetMainVisualizer(this);               //Makes it so the node visualizer can talk to this guy too
                 }
 
-                string propertyName = AnimationUtility.GetCurveBindings(currentClip)[i].propertyName;
+                string propertyName = newCurveBindings[i].propertyName;
 
                 if (propertyName == "m_LocalPosition.x")
                     acv.curveType = AnimationCurveVisualizer.ACVType.PosX;
@@ -560,12 +572,12 @@ public class AnimationVisualizer : Visualizer {
             animCurves_Visualizers.Add(acv);
         }
 
-        for (int i = 0; i < animCurves_Visualizers.Count; i++)
+        for (int i = 0; i < numNewCurves; i++)
         {
             if (i == 0)
-                values.text = AnimationUtility.GetCurveBindings(currentClip)[i].propertyName + "\n";
+                values.text = newCurveBindings[i].propertyName + "\n";
             else
-                values.text += AnimationUtility.GetCurveBindings(currentClip)[i].propertyName + "\n";
+                values.text += newCurveBindings[i].propertyName + "\n";
             //Then would do stuff to actually draw keyframes, etc.
         }
 
@@ -944,24 +956,17 @@ public class AnimationVisualizer : Visualizer {
 
     public void UpdateCurrentClip(string path, System.Type type, string propertyName, AnimationCurve animCurve, float resumeTime)
     {
+        /*UpdateAnimationCurve(path, type, propertyName, animCurve, resumeTime);
+        return; */
+
+
         for(int i = 0; i < bufferClips.Length; i++)
-        {
-            EditorCurveBinding[] thingers = AnimationUtility.GetCurveBindings(bufferClips[i]);
-
-            for (int j = 0; j < thingers.Length; j++)
-            {
-                AnimationCurve curveThing = AnimationUtility.GetEditorCurve(bufferClips[i], thingers[j]);
-            }
-
+        {      
             bufferClips[i].SetCurve(path, type, propertyName, animCurve);
-
-            thingers = AnimationUtility.GetCurveBindings(bufferClips[i]);
-            for (int j = 0; j < thingers.Length; j++) {
-                AnimationCurve curveThing = AnimationUtility.GetEditorCurve(bufferClips[i], thingers[j]);
-            }
         }
 
-        keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime((resumeTime + Time.deltaTime / animCurve[animCurve.length - 1].time) % 1.0f);
+        //keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime((resumeTime + Time.deltaTime / animCurve[animCurve.length - 1].time) % 1.0f);
+        keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.ChangeTime(resumeTime);
     }
 
 
@@ -1038,6 +1043,13 @@ public class AnimationVisualizer : Visualizer {
 		return animCurves_Visualizers [lastSelectedAnimCurve_Visualizer];
 	}
 
+    public void ToggleToggle()
+    {
+        for(int i = 0; i < animCurves_Visualizers.Count; i++)
+        {
+            animCurves_Visualizers[i].ToggleToggle();
+        }
+    }
 
 	public HumanBodyBones GetBoneFromString(string s){
 		switch (s) {

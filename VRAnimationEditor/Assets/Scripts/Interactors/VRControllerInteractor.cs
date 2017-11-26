@@ -137,6 +137,7 @@ public class VRControllerInteractor : MonoBehaviour {
 	private GameObject GetClosestGrabCandidate(){
 		if (grabCandidates.Count == 0)
 			return null;
+
 		int minIndex = -1;
 		float minDistance = float.MaxValue;
 		for (int i = 0; i < grabCandidates.Count; i++)
@@ -178,10 +179,12 @@ public class VRControllerInteractor : MonoBehaviour {
         if (grabFocus != null)
         {
             grabFocus.GetComponent<IGrabReciever>().OnRelease(gameObject);
-            if (grabFocus.GetComponent<IButtonAxisReciever>() != null && grabFocus != pointFocus)
-            {
-                buttonAxisFocuses.Remove(grabFocus);
-            }
+            if(grabFocus != null)
+                if (grabFocus.GetComponent<IButtonAxisReciever>() != null && grabFocus != pointFocus)
+                {
+                    buttonAxisFocuses.Remove(grabFocus);
+                }
+            grabCandidates.Remove(grabFocus);
             grabFocus = null;
         }
     }
@@ -350,7 +353,10 @@ public class VRControllerInteractor : MonoBehaviour {
     }
 
     void OnTriggerExit(Collider collider){
-		grabCandidates.Remove(collider.gameObject);
+        if (collider.GetComponent<IGrabReciever>() != null)
+        {
+            grabCandidates.Remove(collider.gameObject);
+        }
         if(collider.GetComponent<ITouchReciever>() != null){
             collider.GetComponent<ITouchReciever>().OnTouchExit(interactorID, 0);
         }
@@ -365,4 +371,18 @@ public class VRControllerInteractor : MonoBehaviour {
 			buttonAxisFocuses.Add (newFocus);
 		}
 	}
+
+    public void ClearGrab()
+    {
+        grabCandidates.Clear();
+        grabFocus = null;
+    }
+
+    public void Clear()
+    {
+        pointFocus = null;
+        grabFocus = null;
+        grabCandidates.Clear();
+        buttonAxisFocuses.Clear();
+    }
 }

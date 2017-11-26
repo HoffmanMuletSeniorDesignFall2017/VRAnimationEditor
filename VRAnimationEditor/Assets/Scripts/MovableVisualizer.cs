@@ -9,10 +9,14 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
 
 	public bool constrainedToLocalX = false;
 
+    public float yankThreshold = .7f;
+
 	bool shouldDelete = false;
 
 	private List<int> currentInteractors;
 	private GameObject grabOwner;
+
+
 
 	//public Visualizer associatedVisualizer;
 
@@ -39,6 +43,15 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
 		if (grabOwner != null)
 		{
 			Move(grabOwner.transform.position);
+
+            //Debug.Log(Vector3.Distance(grabOwner.transform.position, transform.position));
+
+            if(Vector3.Distance(grabOwner.transform.position, transform.position) >= yankThreshold)
+            {
+                
+                Delete();
+                grabOwner.SendMessage("Release");
+            }
 		}
 	}
 
@@ -130,8 +143,12 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
 		if (grabOwner == grabber)
 		{
 			grabOwner = null;
-            Deselect();
-            DeGrab();
+
+            if (!shouldDelete)
+            {
+                Deselect();
+                DeGrab();
+            }
 
 		}
 	}
