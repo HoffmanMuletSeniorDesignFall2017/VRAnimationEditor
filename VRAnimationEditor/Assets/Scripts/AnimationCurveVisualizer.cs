@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 using cakeslice;
 
@@ -45,8 +46,10 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
     public List<float> keyframeTimes;
     public List<float> keyframeValues;
 
-	// Use this for initialization
-	void Start () {
+    private float maxAdjustedPosition = 0;
+
+    // Use this for initialization
+    void Start () {
 		if(currentKeyframes == null)
 			currentKeyframes = new List<GameObject> ();
 		
@@ -137,6 +140,11 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
             //We also have to update our keyframeWorkArea.
             if (animCurve.keys [i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT > keyframeWorkArea.bounds)
 				keyframeWorkArea.RefreshBounds (animCurve.keys [i].time * keyframeWorkArea.timeScale * X_OFFSET_CONSTANT);
+
+            if(nextKeyframe.transform.localPosition.x / keyframeWorkArea.bounds > maxAdjustedPosition)
+            {
+                maxAdjustedPosition = nextKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
+            }
 		}
 			
 	}
@@ -174,7 +182,11 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		}
 	}
 
-	private void HandleKeyframeMovement(){
+    bool newEndOfAnimationSet = false;
+    float adjustedPosition2;
+
+
+    private void HandleKeyframeMovement(){
 
 		if (selected) {
 			valueVisualizer.SetActive (true);
@@ -205,12 +217,32 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 				float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
 
-				if (adjustedPosition > .99f)
-					adjustedPosition = .99f;
-				else if (adjustedPosition < 0.01f)
-					adjustedPosition = 0.01f;
 
-				selectedKeyframe.transform.localPosition = new Vector3 (adjustedPosition * keyframeWorkArea.bounds, selectedKeyframe.transform.localPosition.y, selectedKeyframe.transform.localPosition.z);
+                if (selectedKeyframeIndex == currentKeyframes.Count - 1)
+                {       //We need to treat the last keyframe differently; if the user is dragging this to the left, that's not allowed; if they move to the right, then we have to update the bounds of the animation
+                    if (adjustedPosition <= maxAdjustedPosition)
+                    {
+                        adjustedPosition = maxAdjustedPosition;
+                    }
+                    else
+                    {
+
+                    }
+                } else if(selectedKeyframeIndex == 0)
+                {
+                    return;     //Can't mess with this keyframe!
+                }
+                else
+                {       //This is is just for all other keyframes
+                    if (adjustedPosition > maxAdjustedPosition - .01f)
+                        adjustedPosition = maxAdjustedPosition - .01f;
+                    else if (adjustedPosition < 0.01f)
+                        adjustedPosition = 0.01f;
+                }
+
+                float previousBiggestAdjustedPosition = currentKeyframes[currentKeyframes.Count - 1].transform.localPosition.x / keyframeWorkArea.bounds;
+
+                selectedKeyframe.transform.localPosition = new Vector3 (adjustedPosition * keyframeWorkArea.bounds, selectedKeyframe.transform.localPosition.y, selectedKeyframe.transform.localPosition.z);
 
 				valueVisualizer.GetComponent<ValueVisualizer> ().UpdateText (animCurve [selectedKeyframeIndex].value);
 
@@ -265,27 +297,50 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
                     //TODO: Add support for moving keyframes beyond their original bounds maybe??
 
-                    float adjustedPosition2 = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
+                    adjustedPosition2 = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
+
+                    //if(selectedKeyframeIndex == currentKeyframes.Count - 1)
+                    //{       //We need to treat the last keyframe differently; if the user is dragging this to the left, that's not allowed; if they move to the right, then we have to update the bounds of the animation
+                    //        if (adjustedPosition2 <= (currentKeyframes[selectedKeyframeIndex - 1].transform.localPosition.x / keyframeWorkArea.bounds) + .01f)
+                    //        {
+                    //            return;     //Don't waste a refresh and just return
+                    //        }
+                    //        else
+                    //        {
+
+                    //        }
+                    //    }
+                    //else
+                    //{       //This is is just for all other keyframes
+                    if (selectedKeyframeIndex != currentKeyframes.Count - 1)
+                    {
+                        if (adjustedPosition2 > maxAdjustedPosition - .01f)
+                            adjustedPosition2 = maxAdjustedPosition - .01f;
+                        else if (adjustedPosition2 < 0.01f)
+                            adjustedPosition2 = 0.01f;
+                    }
+                    //}
 
                     newKeyframe.time = adjustedPosition2 * biggestTime;
                     newKeyframe.value = animCurve[selectedKeyframeIndex].value;
 
                     //newKeyframe.time = biggestTime / parentAnimVisualizer.GetCurrentClip().frameRate;
-
-                    animCurve.MoveKey(selectedKeyframeIndex, newKeyframe);
-                    //animCurve.RemoveKey(selectedKeyframeIndex);
-                    //animCurve.AddKey(newKeyframe);
-
-                    Debug.Log(animCurve.keys.Length);
-
-                    if (animCurve.keys.Length > 3)
+                    if (adjustedPosition2 <= maxAdjustedPosition)
                     {
-                        int jijsdifjasidfjisa = 0;
+                        animCurve.MoveKey(selectedKeyframeIndex, newKeyframe);
+                        //animCurve.RemoveKey(selectedKeyframeIndex);
+                        //animCurve.AddKey(newKeyframe);
+                        //hasChanged = true;
+                        needsToRefresh = true;
+                        newEndOfAnimationSet = false;
+                        parentAnimVisualizer.RefreshAnimationCurve(curveNumber);
                     }
 
-                    //hasChanged = true;
-                    needsToRefresh = true;
-                    parentAnimVisualizer.RefreshAnimationCurve(curveNumber);
+                    else
+                    {   //This means we have a new end of the animation and we need to adjust accordingly
+                        newEndOfAnimationSet = true;
+                        
+                    }
 
                 }
                 else
@@ -308,7 +363,19 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		} else {
 			//needsToRefresh = false;
 			valueVisualizer.SetActive (false);
-		}
+            if (newEndOfAnimationSet)
+            {
+                Keyframe newKeyframe = new Keyframe();
+                newKeyframe.value = animCurve.keys[animCurve.keys.Length - 1].value;
+                newKeyframe.time = adjustedPosition2 * animCurve.keys[animCurve.keys.Length - 1].time;
+
+                animCurve.MoveKey(animCurve.keys.Length - 1, newKeyframe);
+                //parentAnimVisualizer.RefreshAnimationCurve(curveNumber);
+                parentAnimVisualizer.RefreshAllAnimationCurve();
+                
+                parentAnimVisualizer.RefreshCurves();   //This should kill this object (and all other curves) in preparation of the new end of animation
+            }
+        }
 			
 	}
 

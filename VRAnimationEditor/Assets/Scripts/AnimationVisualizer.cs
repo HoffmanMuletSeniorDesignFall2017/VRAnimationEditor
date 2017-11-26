@@ -607,10 +607,7 @@ public class AnimationVisualizer : Visualizer {
             //currentGameObject.GetComponent<Animator>().speed = newSpeed;
             if (currentGameObject.GetComponent<Animator>() != null)
                 currentGameObject.GetComponent<Animator>().SetFloat("PlaySpeed", newSpeed);
-            if (currentGameObject.GetComponent<Animator>().playbackTime < 0)
-            {
-
-            }
+            
         }
         
         
@@ -745,6 +742,35 @@ public class AnimationVisualizer : Visualizer {
         //RefreshCurves();
         animCurves_Visualizers[i].needsToRefresh = false;
 	}
+
+    public void RefreshAllAnimationCurve()
+    {
+        float currentTime = keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.GetAnimatorTime();
+
+        //for (int i = 0; i < AnimationUtility.GetCurveBindings(currentClip).Length; i++)
+        //{
+        //    UpdateAnimationCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves_Visualizers[i].animCurve, currentTime);
+        //    animCurves_Visualizers[i].needsToRefresh = false;
+        //}
+
+        //for (int i = 0; i < AnimationUtility.GetCurveBindings(currentClip).Length; i++)
+        //{
+        //    UpdateAnimationCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves_Visualizers[i].animCurve, currentTime);
+        //    animCurves_Visualizers[i].needsToRefresh = false;
+        //}
+
+        //for (int i = 0; i < AnimationUtility.GetCurveBindings(currentClip).Length; i++)
+        //{
+        //    UpdateAnimationCurve(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves_Visualizers[i].animCurve, currentTime);
+        //    animCurves_Visualizers[i].needsToRefresh = false;
+        //}
+
+        for (int i = 0; i < AnimationUtility.GetCurveBindings(currentClip).Length; i++)
+        {
+            UpdateCurrentClip(AnimationUtility.GetCurveBindings(currentClip)[i].path, AnimationUtility.GetCurveBindings(currentClip)[i].type, AnimationUtility.GetCurveBindings(currentClip)[i].propertyName, animCurves_Visualizers[i].animCurve, currentTime);
+        }
+    }
+
 
     int limbo = 0;
 

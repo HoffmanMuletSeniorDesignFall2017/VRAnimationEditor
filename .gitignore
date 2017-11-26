@@ -32,3 +32,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+#Stuff I found
+/VRAnimationEditor/Temp/UnityLockfile
