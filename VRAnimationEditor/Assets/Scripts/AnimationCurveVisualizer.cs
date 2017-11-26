@@ -42,6 +42,9 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 	public GameObject associatedNodeVisualizer;
 
+    public List<float> keyframeTimes;
+    public List<float> keyframeValues;
+
 	// Use this for initialization
 	void Start () {
 		if(currentKeyframes == null)
@@ -62,6 +65,9 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 		valueVisualizer.GetComponent<ValueVisualizer> ().associatedVisualizer = this;
 
 		valueVisualizer.SetActive (false);
+
+        keyframeTimes = new List<float>();
+        keyframeValues = new List<float>();
 	}
 	
 	// Update is called once per frame
@@ -76,6 +82,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 	}
 
 	private void InstantiateKeyframes(){
+
+        Debug.Log(animCurve.keys.Length);
 
 		if (currentKeyframes == null) {
 			currentKeyframes = new List<GameObject> ();
@@ -156,8 +164,8 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 
 				float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
 
-				if (adjustedPosition > 1f)
-					adjustedPosition = 1f;
+				if (adjustedPosition > .99f)
+					adjustedPosition = .99f;
 				else if (adjustedPosition < 0.01f)
 					adjustedPosition = 0.01f;
 
@@ -192,52 +200,73 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
 					return;
 				}
 
-			}
+
+                //If a keyframe is being grabbed, then it should be writing its value to the animation curve
+                if (grabbing)
+                {
+
+                    //The below handles MOVEMENT
+
+                    //TODO: change so we can update multiple keyframes, not just one!
+                    //Debug.Log("Detected a selection!");
+
+                    //Keyframe newKeyframe = animCurve[selectedKeyframeIndex];
+                    Keyframe newKeyframe = new Keyframe();
+                    //Debug.Log(newKeyframe.time);
+
+                    //Here we want to find the last keyframe time.
+                    float biggestTime = 0f;
+                    for (int i = 0; i < animCurve.length; i++)
+                    {
+                        if (animCurve[i].time > biggestTime)
+                            biggestTime = animCurve[i].time;
+                    }
+
+                    //TODO: Add support for moving keyframes beyond their original bounds maybe??
+
+                    float adjustedPosition2 = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
+
+                    newKeyframe.time = adjustedPosition2 * biggestTime;
+                    newKeyframe.value = animCurve[selectedKeyframeIndex].value;
+
+                    //newKeyframe.time = biggestTime / parentAnimVisualizer.GetCurrentClip().frameRate;
+
+                    animCurve.MoveKey(selectedKeyframeIndex, newKeyframe);
+                    //animCurve.RemoveKey(selectedKeyframeIndex);
+                    //animCurve.AddKey(newKeyframe);
+
+                    Debug.Log(animCurve.keys.Length);
+
+                    if (animCurve.keys.Length > 3)
+                    {
+                        int jijsdifjasidfjisa = 0;
+                    }
+
+                    //hasChanged = true;
+                    needsToRefresh = true;
+                    parentAnimVisualizer.RefreshAnimationCurve(curveNumber);
+
+                }
+                else
+                {
+                    /*if (hasChanged) {
+                        needsToRefresh = true;
+                        hasChanged = false;
+                    } else {
+                        needsToRefresh = false;
+                    }*/
+                    if (selectedKeyframe != null)
+                    {
+                        selectedKeyframe = null;
+                    }
+                    //needsToRefresh = false;
+                }
+            }
+
+
 		} else {
 			//needsToRefresh = false;
 			valueVisualizer.SetActive (false);
-		}
-
-		//If a keyframe is being grabbed, then it should be writing its value to the animation curve
-		if (grabbing) {
-
-			//The below handles MOVEMENT
-
-			//TODO: change so we can update multiple keyframes, not just one!
-			//Debug.Log("Detected a selection!");
-
-			Keyframe newKeyframe = animCurve[selectedKeyframeIndex];
-			//Debug.Log(newKeyframe.time);
-
-			//Here we want to find the last keyframe time.
-			float biggestTime = 0f;
-			for (int i = 0; i < animCurve.length; i++) {
-				if (animCurve [i].time > biggestTime)
-					biggestTime = animCurve [i].time;
-			}
-
-			//TODO: Add support for moving keyframes beyond their original bounds maybe??
-
-			float adjustedPosition = selectedKeyframe.transform.localPosition.x / keyframeWorkArea.bounds;
-
-			newKeyframe.time = adjustedPosition * biggestTime;
-			animCurve.MoveKey (selectedKeyframeIndex, newKeyframe);
-
-			//hasChanged = true;
-			needsToRefresh = true;
-			parentAnimVisualizer.RefreshAnimationCurve (curveNumber);
-
-		} else {
-			/*if (hasChanged) {
-				needsToRefresh = true;
-				hasChanged = false;
-			} else {
-				needsToRefresh = false;
-			}*/
-			if (selectedKeyframe != null) {
-				selectedKeyframe = null;
-			}
-			//needsToRefresh = false;
 		}
 			
 	}
