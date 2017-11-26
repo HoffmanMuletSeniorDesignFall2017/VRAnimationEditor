@@ -17,7 +17,7 @@ public class AssetSelectionButton : MonoBehaviour {
 
     void Update () {
         button.interactable = animSelPanel.selectedTile != null && modelSelPanel.selectedTile != null;
-	}
+    }
 
     public void OnClick()
     {
@@ -45,7 +45,7 @@ public class AssetSelectionButton : MonoBehaviour {
         //rigRoot.SetActive(false);
     }
 
-    private void SetupNodeVisualization(GameObject modelObj)
+    protected void SetupNodeVisualization(GameObject modelObj)
     {
         NodeVisualizationManager nodeVis = modelObj.AddComponent<NodeVisualizationManager>();
         nodeVis.nodeMarkerPrefab = templateNodeVisualizationManager.nodeMarkerPrefab;
@@ -53,7 +53,7 @@ public class AssetSelectionButton : MonoBehaviour {
         nodeVis.transparentTemplate = templateNodeVisualizationManager.transparentTemplate;
     }
 
-    IEnumerator WaitAndDoTheThing(GameObject objInstance, AnimationClip sessionAnim)
+    protected IEnumerator WaitAndDoTheThing(GameObject objInstance, AnimationClip sessionAnim)
     {
         yield return new WaitForFixedUpdate();
         yield return null;
