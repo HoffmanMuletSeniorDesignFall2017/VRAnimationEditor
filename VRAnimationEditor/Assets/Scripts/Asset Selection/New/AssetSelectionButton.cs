@@ -42,7 +42,7 @@ public class AssetSelectionButton : MonoBehaviour {
         SetupNodeVisualization(animModel);
 
         StartCoroutine(WaitAndDoTheThing(animModel, newAnimation));
-        rigRoot.SetActive(false);
+        
     }
 
     private void SetupNodeVisualization(GameObject modelObj)
@@ -55,10 +55,15 @@ public class AssetSelectionButton : MonoBehaviour {
 
     IEnumerator WaitAndDoTheThing(GameObject objInstance, AnimationClip sessionAnim)
     {
-        yield return new WaitForFixedUpdate();
+        Debug.Log("Waiting and setting model to " + objInstance.name);
+        //yield return new WaitForFixedUpdate();
         yield return null;
+        Debug.Log("Continuing after 1st wait");
+        yield return null;
+        Debug.Log("Continuing after 2nd wait");
 
         animVis.SetCurrentClipAndGameObject(sessionAnim, objInstance);
+        rigRoot.SetActive(false);
     }
 
 }

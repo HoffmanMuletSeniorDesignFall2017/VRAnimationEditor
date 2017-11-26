@@ -43,7 +43,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 997
-  m_MinSize: {x: 950, y: 392}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -106,8 +106,8 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 683, y: 342}
-  m_MaxSize: {x: 12008, y: 8042}
+  m_MinSize: {x: 681, y: 342}
+  m_MaxSize: {x: 12006, y: 8042}
   vertical: 0
   controlID: 10
 --- !u!114 &6
@@ -210,7 +210,7 @@ MonoBehaviour:
   - {fileID: 16}
   - {fileID: 17}
   m_Selected: 0
-  m_LastSelected: 0
+  m_LastSelected: 1
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -255,8 +255,8 @@ MonoBehaviour:
     y: 0
     width: 643
     height: 947
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -393,24 +393,24 @@ MonoBehaviour:
     width: 315
     height: 501
   m_TreeViewState:
-    scrollPos: {x: 0, y: 2396}
-    m_SelectedIDs: 40befaff
-    m_LastClickedID: -344512
-    m_ExpandedIDs: 5620ffff9020ffffd820ffff1a21ffff28e9ffffa6fbffff00000000
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: c05affff
+    m_LastClickedID: -42304
+    m_ExpandedIDs: aa59ffffac59ffffc65affff085bffff28edffff3aeeffff9cfbffff00000000b25a0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Test
-      m_OriginalName: Test
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 19484
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
@@ -441,8 +441,8 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: 319
-    y: 92
+    x: -31681
+    y: -31951
     width: 956
     height: 501
   m_SceneLighting: 1
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.0672414, y: 0.12300051, z: -0.008353513, w: -0.9900963}
     speed: 2
-    m_Value: {x: -0.067241035, y: 0.12299983, z: -0.008353467, w: -0.99009085}
+    m_Value: {x: -0.0672414, y: 0.12300051, z: -0.008353513, w: -0.9900963}
   m_Size:
     m_Target: 3.6604133
     speed: 2
@@ -600,19 +600,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/Scenes
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets
+  - Assets/Scenes
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Alec\Documents\GitHub\VRAnimationEditor\VRAnimationEditor
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 78300000
-    m_LastClickedID: 12408
-    m_ExpandedIDs: 0000000078300000bc310000e4330000fa390000d64000009e410000d44500007046000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 120}
+    m_SelectedIDs: 7e470000
+    m_LastClickedID: 18302
+    m_ExpandedIDs: 00000000f030000034320000703a00004a4100001242000048460000e446000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -640,7 +640,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000783000000a470000
+    m_ExpandedIDs: 00000000f0300000343200005c340000703a00004a4100001242000048460000e4460000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -665,21 +665,21 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: d620ffff
-    m_LastClickedInstanceID: -57130
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: b8370000
+    m_LastClickedInstanceID: 14264
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: d60b010046430000d618f9ff9c0afaffaa9bffff942700000e7ef1ff021e0000262c00009a190000081f0000102800009cbc00001e4100000018000074a400008caf000088560000cc41000030400000e20a0200aabefefffa500000522b00005a1b00000c870000c23f00006e1c0000ae270000561c0000bc1d0000e0200000541c0000581c00000a210000142100002a2500004077ffff00000000844b0000da8cffffca2f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: VRButton
-      m_OriginalName: VRButton
+      m_Name: alec vr test scene 3
+      m_OriginalName: alec vr test scene 3
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 3272
+      m_UserData: 15928
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0

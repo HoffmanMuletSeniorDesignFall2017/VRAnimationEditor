@@ -55,6 +55,7 @@ public class AnimationVisualizer : Visualizer {
 		currentClip = animClip;
 		title.text = animClip.name;
 		currentGameObject = go;
+        Debug.Log("Current GameObject set to " + go.name);
 
         newClip = new AnimationClip();
         newClip.name = currentClip.name;
