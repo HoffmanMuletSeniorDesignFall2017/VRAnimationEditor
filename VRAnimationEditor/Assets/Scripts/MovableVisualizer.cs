@@ -152,4 +152,8 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
 
 		}
 	}
+
+    public GameObject GetGameObject(){
+        return gameObject;
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,4 +29,9 @@ public class ChangeSpriteOnButton : MonoBehaviour, IButtonAxisReciever {
 	public void OnRecieveAxis(int sourceID, int axisID, float axisValue){
 
 	}
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
 }

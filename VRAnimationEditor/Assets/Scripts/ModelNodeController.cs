@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEditor;
 
 public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisReciever, IGrabReciever, ITouchReciever {
+    //static PoseManager poseManager;
 	const int NUM_HUMAN_BONES = 55;
-    static PoseManager poseManager;
 
 	public GameObject[] rings, arrows;
 	public GameObject masterObject;
@@ -27,6 +27,11 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 		SetAxisVisibility (false);
         boneNode = transform.parent;
         boneNodeParent = boneNode.parent;
+        touchingInteractors = new List<int>();
+        /*if (poseManager == null)
+        {
+            poseManager = GameObject.Find("Pose Manager").GetComponent<PoseManager>();
+        }*/
 		touchingInteractors = new List<int>();
 
         dummyNode = new GameObject().transform;
@@ -36,10 +41,10 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
 
 		touchingInteractors = new List<int>();
-		if (poseManager == null)
+		/*if (poseManager == null)
 		{
 			poseManager = GameObject.Find("Pose Manager").GetComponent<PoseManager>();
-		}
+		}*/
 
 	}
 
@@ -490,9 +495,7 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
         grabbedSiblingIndex = boneNode.GetSiblingIndex();
         boneNode.parent = grabber.transform;
         grabOwner = grabber;
-        poseManager.OnPoseEditStart(boneNode);
-	*/
-
+        //poseManager.OnPoseEditStart(boneNode);*/
     }
 
     public void OnRelease(GameObject grabber){
@@ -668,7 +671,6 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
                 mainVisualizer.RefreshCurves();//mainVisualizer.RefreshNewCurves(newCurveBindings, numNewCurves);
 
             needsToWrite = false;
-
         }
     }
 
@@ -837,5 +839,9 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
         {
             SetAxisVisibility(false);
         }
+    }
+
+    public GameObject GetGameObject(){
+        return gameObject;
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VRControllerInteractor : MonoBehaviour {
+public class VRControllerInteractor : MonoBehaviour, IButtonAxisEmitter {
     private static int vrControllerCount = 0;
 
     public bool isLeftHand = true;
@@ -33,6 +33,7 @@ public class VRControllerInteractor : MonoBehaviour {
 		if(buttonAxisFocuses == null)
         	buttonAxisFocuses = new List<GameObject>();
 		grabCandidates = new List<GameObject> ();
+        ButtonAxisEmitterLookup.RegisterEmitter(this, interactorID);
 
         if (isVive)
         {
@@ -253,6 +254,12 @@ public class VRControllerInteractor : MonoBehaviour {
         else
         {
             // Buttons.
+
+            if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu))
+                SendButtonToRecievers(0, true);
+            if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.ApplicationMenu))
+                SendButtonToRecievers(0, false);
+
             if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
                 SendButtonToRecievers(1, true);
             if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
@@ -362,6 +369,14 @@ public class VRControllerInteractor : MonoBehaviour {
         }
     }
 
+	public void RegisterButtonAxisReciever(IButtonAxisReciever reciever){
+		buttonAxisFocuses.Add(reciever.GetGameObject());
+	}
+
+    public void UnregisterButtonAxisReciever(IButtonAxisReciever reciever)
+    {
+        buttonAxisFocuses.Remove(reciever.GetGameObject());
+    }
 	public void AddButtonAxisFocus(GameObject newFocus){
 		if (buttonAxisFocuses != null)
 			buttonAxisFocuses.Add (newFocus);

@@ -602,10 +602,17 @@ public class AnimationVisualizer : Visualizer {
     public void PlayAnimationAtSpeed(float newSpeed)
     {
 
-        //currentGameObject.GetComponent<Animator>().speed = newSpeed;
-        if(currentGameObject.GetComponent<Animator>() != null)
-            currentGameObject.GetComponent<Animator>().SetFloat("PlaySpeed", newSpeed);
-       
+        if(currentGameObject != null)
+        {
+            //currentGameObject.GetComponent<Animator>().speed = newSpeed;
+            if (currentGameObject.GetComponent<Animator>() != null)
+                currentGameObject.GetComponent<Animator>().SetFloat("PlaySpeed", newSpeed);
+            if (currentGameObject.GetComponent<Animator>().playbackTime < 0)
+            {
+
+            }
+        }
+        
         
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 
@@ -53,7 +54,8 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 		if (buttonState == true) {
 			if (buttonID == BUTTON_A) {
 				animVisual.TogglePlayAnimation ();
-				playButton_IButtonAxisReciever.GetComponent<IButtonAxisReciever> ().OnRecieveButton (sourceID, buttonID, buttonState);
+                if(playButton_IButtonAxisReciever != null)
+				    playButton_IButtonAxisReciever.GetComponent<IButtonAxisReciever> ().OnRecieveButton (sourceID, buttonID, buttonState);
 			} else if (buttonID == BUTTON_B) {
 
 				AnimationClip newAnimClip = animVisual.GetCurrentClip ();
@@ -125,4 +127,9 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
             //}
         }
 	}
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
 }

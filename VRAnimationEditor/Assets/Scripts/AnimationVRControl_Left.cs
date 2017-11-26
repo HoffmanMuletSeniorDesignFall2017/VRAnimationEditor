@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 public class AnimationVRControl_Left : MonoBehaviour, IButtonAxisReciever
 {
@@ -95,5 +96,10 @@ public class AnimationVRControl_Left : MonoBehaviour, IButtonAxisReciever
         {
             animVisual.PlayAnimationAtSpeed(axisValue * scrubbingSpeed);
         }*/
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
     }
 }
