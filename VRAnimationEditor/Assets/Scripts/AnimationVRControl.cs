@@ -60,7 +60,20 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 
 				AnimationClip newAnimClip = animVisual.GetCurrentClip ();
 
-				AssetDatabase.CreateAsset(newAnimClip, string.Concat("Assets/", "Output", ".anim"));
+                string path = EditorUtility.SaveFilePanel("Save Animation as .anim", "", newAnimClip.name, "anim");
+
+                while (path != "")
+                {
+                    if (path.StartsWith("Assets/"))
+                        break;
+                    path = path.Substring(1);
+                }
+
+                if (path != "")
+                    AssetDatabase.CreateAsset(newAnimClip, path);//string.Concat("Assets/", "Output", ".anim"));
+                else
+                    Debug.LogError("Couldn't save animation; path was not correct (it has to be in the 'Assets/' folder)");
+
 			} else if (buttonID == THUMBSTICK)
             {
                 if(modelAnchor.transform.parent == null)

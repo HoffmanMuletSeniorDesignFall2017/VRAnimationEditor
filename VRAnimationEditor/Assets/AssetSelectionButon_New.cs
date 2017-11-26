@@ -15,7 +15,7 @@ public class AssetSelectionButton_New : AssetSelectionButton
     new public void OnClick()
     {
         GameObject model = modelSelPanel.selectedTile.model;
-        AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation("Test");
+        AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation("NewAnimation");
 
         GameObject animModel = AnimationEditorFunctions.InstantiateWithAnimation(model, newAnimation, modelSpawnAnchor);
         SetupNodeVisualization(animModel);

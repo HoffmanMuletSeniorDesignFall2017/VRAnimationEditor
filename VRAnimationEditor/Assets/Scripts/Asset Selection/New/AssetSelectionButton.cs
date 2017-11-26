@@ -23,7 +23,7 @@ public class AssetSelectionButton : MonoBehaviour {
     {
         AnimationClip animClip = animSelPanel.selectedTile.anim;
         GameObject model = modelSelPanel.selectedTile.model;
-        AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation("Test");
+        AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation(animClip.name);
 
         for (int i = 0; i < AnimationUtility.GetCurveBindings(animClip).Length; i++)
         {
