@@ -12,6 +12,7 @@ public class AnimationSelectionPanel : MonoBehaviour
     public float scrollSpeed = 0.1f;
     public AnimationTile selectedTile;
     public CustomContentSizeFitter customFitter;
+    public int maxAnimationCount = 100;
 
     private int animCount = 0;
 
@@ -45,7 +46,7 @@ public class AnimationSelectionPanel : MonoBehaviour
     {
         string[] animGuids = AssetDatabase.FindAssets("t:AnimationClip");
         yield return null;
-        for (int i = 0; i < animGuids.Length; i++)
+        for (int i = 0; i < animGuids.Length && animCount < maxAnimationCount; i++)
         {
             // Get animation path from GUID.
             string animPath = AssetDatabase.GUIDToAssetPath(animGuids[i]);
@@ -54,7 +55,7 @@ public class AnimationSelectionPanel : MonoBehaviour
             yield return null;
             AddAnimation(tempAnim);
             animCount++;
-            customFitter.enabled = animCount % 4 == 3;
+            customFitter.enabled = animCount % 8 == 3;
         }
         customFitter.enabled = true;
         yield return null;
