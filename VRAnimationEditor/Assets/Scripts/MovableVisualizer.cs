@@ -16,6 +16,7 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
 	private List<int> currentInteractors;
 	private GameObject grabOwner;
 
+    private bool parentSet = false;
 
 
 	//public Visualizer associatedVisualizer;
@@ -44,9 +45,14 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
 		{
 			Move(grabOwner.transform.position);
 
+            if (!constrainedToLocalX && !parentSet)
+            {
+                gameObject.transform.parent = grabOwner.transform;
+                parentSet = true;
+            }
             //Debug.Log(Vector3.Distance(grabOwner.transform.position, transform.position));
 
-            if(Vector3.Distance(grabOwner.transform.position, transform.position) >= yankThreshold)
+            if (Vector3.Distance(grabOwner.transform.position, transform.position) >= yankThreshold)
             {
                 
                 Delete();
@@ -95,7 +101,7 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
 		if (constrainedToLocalX) {
 			transform.position = new Vector3 (newPosition.x, transform.position.y, transform.position.z);
 		}
-
+       
 	}
 
 
@@ -137,7 +143,9 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
 		grabOwner = grabber;
         Select();
         Grab();
-	}
+
+        
+    }
 
 	public void OnRelease(GameObject grabber){
 		if (grabOwner == grabber)
@@ -150,7 +158,12 @@ public class MovableVisualizer : Visualizer, IPointerReciever, IButtonAxisReciev
                 DeGrab();
             }
 
-		}
+            if (!constrainedToLocalX && parentSet)
+            {
+                parentSet = false;
+                transform.parent = null;
+            }
+        }
 	}
 
     public GameObject GetGameObject(){

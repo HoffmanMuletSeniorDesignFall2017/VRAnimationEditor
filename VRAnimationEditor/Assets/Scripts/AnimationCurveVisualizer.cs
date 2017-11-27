@@ -113,12 +113,12 @@ public class AnimationCurveVisualizer : Visualizer {//ScriptableObject { //MonoB
             //    nextKeyframe = Instantiate(keyframeObject, keyframeWorkArea.keyframeSectionObject.transform);
             //}
 
-
+            /*
             if(nextKeyframe.GetComponent<Collider>() != null)
             {
                 StartCoroutine(ToggleCollider(nextKeyframe));
                 nextKeyframe.GetComponent<Collider>().isTrigger = true;
-            }
+            }*/
 
 			//-------Set up the MovableVisualizer component--------
 			nextKeyframe.AddComponent<MovableVisualizer> ();

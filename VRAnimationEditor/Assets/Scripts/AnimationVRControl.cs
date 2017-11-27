@@ -62,6 +62,9 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 
                 string path = EditorUtility.SaveFilePanel("Save Animation as .anim", "", newAnimClip.name, "anim");
 
+                if (path == "")
+                    return;
+
                 while (path != "")
                 {
                     if (path.StartsWith("Assets/"))

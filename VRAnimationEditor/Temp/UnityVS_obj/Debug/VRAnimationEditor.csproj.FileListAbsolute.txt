@@ -1,124 +1,128 @@
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_obj\Debug\VRAnimationEditor.csprojResolveAssemblyReference.cache
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\FullSerializer - Unity.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\JsonFx.Json.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\nunit.framework.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEditor.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Common.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AccessibilityModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AIModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Analytics.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AnimationModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ARModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AudioModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClothModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClusterInputModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClusterRendererModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.CoreModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.CrashReportingModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.DirectorModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GameCenterModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GoogleAudioSpatializer.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GridModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.HoloLens.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ImageConversionModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.IMGUIModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.InputModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.JSONSerializeModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Networking.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ParticlesLegacyModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ParticleSystemModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.PerformanceReportingModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Physics2DModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.PhysicsModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Purchasing.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ScreenCaptureModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.SpatialTracking.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.SpriteMaskModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.StyleSheetsModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TerrainModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TerrainPhysicsModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TestRunner.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TextRenderingModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TilemapModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Timeline.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIAutomation.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIElementsModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UNETModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityAnalyticsModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityConnectModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestAudioModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestTextureModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestWWWModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VehiclesModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VideoModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VRModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.WebModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.WindModule.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.pdb
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEditor.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.CoreModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AccessibilityModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ParticleSystemModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.PhysicsModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VehiclesModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClothModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AIModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AnimationModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TextRenderingModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TerrainPhysicsModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.IMGUIModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestAudioModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestTextureModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestWWWModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClusterInputModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClusterRendererModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UNETModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.DirectorModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityAnalyticsModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.CrashReportingModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.PerformanceReportingModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityConnectModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.WebModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ARModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VRModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIElementsModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.StyleSheetsModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AudioModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GameCenterModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GridModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ImageConversionModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.InputModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.JSONSerializeModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ParticlesLegacyModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Physics2DModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ScreenCaptureModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.SpriteMaskModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TerrainModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TilemapModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VideoModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.WindModule.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Networking.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TestRunner.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\nunit.framework.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Timeline.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIAutomation.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GoogleAudioSpatializer.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.HoloLens.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.SpatialTracking.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Analytics.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Purchasing.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Common.xml
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_obj\Debug\Assembly-CSharp.dll
-D:\Dino Stuff\School Stuff\!!!SeniorDesign!!!\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_obj\Debug\Assembly-CSharp.pdb
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll.pdb
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\FullSerializer - Unity.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\JsonFx.Json.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\nunit.framework.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEditor.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AccessibilityModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AIModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Analytics.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AnimationModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ARModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AudioModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClothModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClusterInputModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClusterRendererModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.CoreModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.CrashReportingModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.DirectorModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GameCenterModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GoogleAudioSpatializer.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GridModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.HoloLens.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ImageConversionModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.IMGUIModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.InputModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.JSONSerializeModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Networking.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ParticlesLegacyModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ParticleSystemModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.PerformanceReportingModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Physics2DModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.PhysicsModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Purchasing.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ScreenCaptureModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.SpatialTracking.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.SpriteMaskModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.StyleSheetsModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TerrainModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TerrainPhysicsModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TestRunner.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TextRenderingModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TilemapModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Timeline.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIAutomation.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIElementsModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UNETModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityAnalyticsModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityConnectModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestAudioModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestTextureModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestWWWModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VehiclesModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VideoModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VRModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.WebModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.WindModule.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Unity.Cecil.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Unity.SerializationLogic.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\ExCSS.Unity.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Unity.DataContract.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Unity.Legacy.NRefactory.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Unity.UNetWeaver.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Unity.CecilTools.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Unity.Cecil.Pdb.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Unity.Cecil.Mdb.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.dll.pdb
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEditor.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.CoreModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AccessibilityModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ParticleSystemModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.PhysicsModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VehiclesModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClothModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AIModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AnimationModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TextRenderingModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TerrainPhysicsModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.IMGUIModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestAudioModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestTextureModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityWebRequestWWWModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClusterInputModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ClusterRendererModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UNETModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.DirectorModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityAnalyticsModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.CrashReportingModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.PerformanceReportingModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UnityConnectModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.WebModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ARModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VRModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIElementsModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.StyleSheetsModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.AudioModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GameCenterModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GridModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ImageConversionModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.InputModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.JSONSerializeModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ParticlesLegacyModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Physics2DModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.ScreenCaptureModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.SpriteMaskModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TerrainModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TilemapModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.VideoModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.WindModule.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Networking.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.TestRunner.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\nunit.framework.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.Timeline.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.UIAutomation.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.GoogleAudioSpatializer.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.HoloLens.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_bin\Debug\UnityEngine.SpatialTracking.xml
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_obj\Debug\VRAnimationEditor.csprojResolveAssemblyReference.cache
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_obj\Debug\VRAnimationEditor.csproj.CoreCompileInputs.cache
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_obj\Debug\Assembly-CSharp.dll.dll
+C:\Users\muletmiles\Documents\VRAnimationEditor\VRAnimationEditor\Temp\UnityVS_obj\Debug\Assembly-CSharp.dll.pdb

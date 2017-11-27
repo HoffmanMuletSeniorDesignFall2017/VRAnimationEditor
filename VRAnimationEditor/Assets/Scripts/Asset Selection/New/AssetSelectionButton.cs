@@ -58,6 +58,8 @@ public class AssetSelectionButton : MonoBehaviour {
         yield return new WaitForFixedUpdate();
         yield return null;
 
+        animVis.gameObject.SetActive(true);
+
         animVis.SetCurrentClipAndGameObject(sessionAnim, objInstance);
 
         yield return null;
