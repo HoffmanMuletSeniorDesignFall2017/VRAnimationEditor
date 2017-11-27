@@ -12,6 +12,7 @@ public class NodeVisualizationManager : MonoBehaviour {
 
 	private List<Material> initialMaterials;
 	private List<Renderer> meshRends;
+    private List<GameObject> nodeMarkers;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +28,9 @@ public class NodeVisualizationManager : MonoBehaviour {
 			//root = GuessRoot ();
 			root = transform;
 		}
+
+        nodeMarkers = new List<GameObject>();
+
 		SpawnNodeMarkers (root);
 
 	}
@@ -45,7 +49,25 @@ public class NodeVisualizationManager : MonoBehaviour {
 		marker.transform.localPosition = Vector3.zero;
 		marker.transform.localRotation = Quaternion.identity;
 		marker.GetComponent<ModelNodeController> ().masterObject = this.gameObject;
+
+        nodeMarkers.Add(marker);
 	}
+
+    public void HideNodeMarkers()
+    {
+        for(int i = 0; i < nodeMarkers.Count; i++)
+        {
+            nodeMarkers[i].SetActive(false);
+        }
+    }
+
+    public void ShowNodeMarkers()
+    {
+        for (int i = 0; i < nodeMarkers.Count; i++)
+        {
+            nodeMarkers[i].SetActive(true);
+        }
+    }
 
 	private List<Renderer> GetMeshRenderers(GameObject obj){
 		List<Renderer> renderers = new List<Renderer> ();
@@ -79,6 +101,28 @@ public class NodeVisualizationManager : MonoBehaviour {
 			renderers[i].materials = newMatSet;
 		}
 	}
+
+    public void ReplaceMaterialsExternal()
+    {
+        ReplaceMaterials(meshRends, transparentTemplate);
+    }
+
+    public void RestoreMaterials()
+    {
+        int matNum = 0;
+        for (int i = 0; i < meshRends.Count; i++)
+        {
+            Material[] newMatSet = meshRends[i].materials;
+            for (int j = 0; j < newMatSet.Length; j++)
+            {
+                //newMatSet[j] = replaceMat;
+                newMatSet[j] = new Material(initialMaterials[matNum]);
+                //newMatSet[j].mainTexture = initialMaterials[matNum].mainTexture;
+                matNum++;
+            }
+            meshRends[i].materials = newMatSet;
+        }
+    }
 
 	private Transform GuessRoot(){
 		Transform deepest = transform;

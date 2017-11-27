@@ -17,13 +17,13 @@ public class AssetSelectionButton : MonoBehaviour {
 
     void Update () {
         button.interactable = animSelPanel.selectedTile != null && modelSelPanel.selectedTile != null;
-	}
+    }
 
     public void OnClick()
     {
         AnimationClip animClip = animSelPanel.selectedTile.anim;
         GameObject model = modelSelPanel.selectedTile.model;
-        AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation("Test");
+        AnimationClip newAnimation = AnimationEditorFunctions.CreateNewAnimation(animClip.name);
 
         for (int i = 0; i < AnimationUtility.GetCurveBindings(animClip).Length; i++)
         {
@@ -42,10 +42,10 @@ public class AssetSelectionButton : MonoBehaviour {
         SetupNodeVisualization(animModel);
 
         StartCoroutine(WaitAndDoTheThing(animModel, newAnimation));
-        
+        //rigRoot.SetActive(false);
     }
 
-    private void SetupNodeVisualization(GameObject modelObj)
+    protected void SetupNodeVisualization(GameObject modelObj)
     {
         NodeVisualizationManager nodeVis = modelObj.AddComponent<NodeVisualizationManager>();
         nodeVis.nodeMarkerPrefab = templateNodeVisualizationManager.nodeMarkerPrefab;
@@ -53,16 +53,15 @@ public class AssetSelectionButton : MonoBehaviour {
         nodeVis.transparentTemplate = templateNodeVisualizationManager.transparentTemplate;
     }
 
-    IEnumerator WaitAndDoTheThing(GameObject objInstance, AnimationClip sessionAnim)
+    protected IEnumerator WaitAndDoTheThing(GameObject objInstance, AnimationClip sessionAnim)
     {
-        Debug.Log("Waiting and setting model to " + objInstance.name);
-        //yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
         yield return null;
-        Debug.Log("Continuing after 1st wait");
-        yield return null;
-        Debug.Log("Continuing after 2nd wait");
 
         animVis.SetCurrentClipAndGameObject(sessionAnim, objInstance);
+
+        yield return null;
+
         rigRoot.SetActive(false);
     }
 

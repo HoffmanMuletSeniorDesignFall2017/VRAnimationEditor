@@ -54,12 +54,26 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 		if (buttonState == true) {
 			if (buttonID == BUTTON_A) {
 				animVisual.TogglePlayAnimation ();
-				playButton_IButtonAxisReciever.GetComponent<IButtonAxisReciever> ().OnRecieveButton (sourceID, buttonID, buttonState);
+                if(playButton_IButtonAxisReciever != null)
+				    playButton_IButtonAxisReciever.GetComponent<IButtonAxisReciever> ().OnRecieveButton (sourceID, buttonID, buttonState);
 			} else if (buttonID == BUTTON_B) {
 
 				AnimationClip newAnimClip = animVisual.GetCurrentClip ();
 
-				AssetDatabase.CreateAsset(newAnimClip, string.Concat("Assets/", "Output", ".anim"));
+                string path = EditorUtility.SaveFilePanel("Save Animation as .anim", "", newAnimClip.name, "anim");
+
+                while (path != "")
+                {
+                    if (path.StartsWith("Assets/"))
+                        break;
+                    path = path.Substring(1);
+                }
+
+                if (path != "")
+                    AssetDatabase.CreateAsset(newAnimClip, path);//string.Concat("Assets/", "Output", ".anim"));
+                else
+                    Debug.LogError("Couldn't save animation; path was not correct (it has to be in the 'Assets/' folder)");
+
 			} else if (buttonID == THUMBSTICK)
             {
                 if(modelAnchor.transform.parent == null)
@@ -74,6 +88,8 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
 		}
 	}
 
+    private float movement = 0;
+
 	public void OnRecieveAxis(int sourceID, int axisID, float axisValue){
         if(axisID == AXIS_X)
         {
@@ -84,6 +100,9 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
         }
         if(axisID == AXIS_Y)
         {
+            
+            //animVisual.ToggleToggle();
+            
             Vector3 old = animVisual.keyframeWorkArea.GetComponent<KeyframeWorkArea>().keyframeSectionObject.transform.localPosition;
             if (old.y + axisValue * scrollingSpeed < 0)
             {
@@ -93,6 +112,32 @@ public class AnimationVRControl : MonoBehaviour, IButtonAxisReciever {
             {
                 animVisual.keyframeWorkArea.GetComponent<KeyframeWorkArea>().keyframeSectionObject.transform.localPosition = new Vector3(old.x, old.y + axisValue * scrollingSpeed, old.z);
             }
+            
+            //Transform t = animVisual.keyframeWorkArea.GetComponent<KeyframeWorkArea>().keyframeSectionObject.transform;
+
+            //float ss;
+
+            //if(movement + axisValue * scrollingSpeed < 0)
+            //{
+            //    if (movement == 0)
+            //        ss = 0;
+            //    else
+            //        ss = movement;
+
+            //    movement = 0;
+                
+            //}
+            //else
+            //{
+            //    ss = axisValue * scrollingSpeed;
+            //    movement += axisValue * scrollingSpeed;
+            //}
+
+            //for(int i = 0; i < t.childCount; i++)
+            //{
+            //    Vector3 old = t.GetChild(i).localPosition;
+            //    t.GetChild(i).localPosition = new Vector3(old.x, old.y + ss, old.z);
+            //}
         }
 	}
 

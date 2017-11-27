@@ -504,6 +504,10 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
 
             bool newCurve = false;
 
+            EditorCurveBinding[] newCurveBindings = new EditorCurveBinding[7];
+
+            int numNewCurves = 0;
+
             if (needsToWrite)
             {
 
@@ -632,6 +636,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
                         {
                             if ((propertiesMask & (1 << j)) == 0)
                             {
+                                numNewCurves++;
+
                                 AnimationCurve newCurveyCurve = new AnimationCurve();
                                 
                                 newCurveyCurve.AddKey(keys[j]);
@@ -644,6 +650,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
                                 newCurveyCurve.AddKey(temp);
 
                                 mainVisualizer.UpdateCurrentClip(GetGameObjectPath(boneNode.transform), typeof(Transform), properties[j], newCurveyCurve, mainVisualizer.keyframeWorkArea.GetComponent<KeyframeWorkArea>().timelineVisualizer.GetAnimatorTime());
+
+                                newCurveBindings[j] = EditorCurveBinding.FloatCurve(GetGameObjectPath(boneNode.transform), typeof(Transform), properties[j]);
                             }
 
                         }
@@ -659,8 +667,8 @@ public class ModelNodeController : MonoBehaviour, IPointerReciever, IButtonAxisR
             grabOwner = null;
             //poseManager.OnPoseEditFinish(boneNode);
 
-            if(needsToWrite && newCurve)
-                mainVisualizer.RefreshCurves();
+            if (needsToWrite && newCurve)
+                mainVisualizer.RefreshCurves();//mainVisualizer.RefreshNewCurves(newCurveBindings, numNewCurves);
 
             needsToWrite = false;
         }

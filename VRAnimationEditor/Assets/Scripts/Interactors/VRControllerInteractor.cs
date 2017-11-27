@@ -138,6 +138,7 @@ public class VRControllerInteractor : MonoBehaviour, IButtonAxisEmitter {
 	private GameObject GetClosestGrabCandidate(){
 		if (grabCandidates.Count == 0)
 			return null;
+
 		int minIndex = -1;
 		float minDistance = float.MaxValue;
 		for (int i = 0; i < grabCandidates.Count; i++)
@@ -179,10 +180,12 @@ public class VRControllerInteractor : MonoBehaviour, IButtonAxisEmitter {
         if (grabFocus != null)
         {
             grabFocus.GetComponent<IGrabReciever>().OnRelease(gameObject);
-            if (grabFocus.GetComponent<IButtonAxisReciever>() != null && grabFocus != pointFocus)
-            {
-                buttonAxisFocuses.Remove(grabFocus);
-            }
+            if(grabFocus != null)
+                if (grabFocus.GetComponent<IButtonAxisReciever>() != null && grabFocus != pointFocus)
+                {
+                    buttonAxisFocuses.Remove(grabFocus);
+                }
+            grabCandidates.Remove(grabFocus);
             grabFocus = null;
         }
     }
@@ -251,6 +254,12 @@ public class VRControllerInteractor : MonoBehaviour, IButtonAxisEmitter {
         else
         {
             // Buttons.
+
+            if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu))
+                SendButtonToRecievers(0, true);
+            if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.ApplicationMenu))
+                SendButtonToRecievers(0, false);
+
             if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
                 SendButtonToRecievers(1, true);
             if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
@@ -351,7 +360,10 @@ public class VRControllerInteractor : MonoBehaviour, IButtonAxisEmitter {
     }
 
     void OnTriggerExit(Collider collider){
-		grabCandidates.Remove(collider.gameObject);
+        if (collider.GetComponent<IGrabReciever>() != null)
+        {
+            grabCandidates.Remove(collider.gameObject);
+        }
         if(collider.GetComponent<ITouchReciever>() != null){
             collider.GetComponent<ITouchReciever>().OnTouchExit(interactorID, 0);
         }
@@ -374,4 +386,18 @@ public class VRControllerInteractor : MonoBehaviour, IButtonAxisEmitter {
 			buttonAxisFocuses.Add (newFocus);
 		}
 	}
+
+    public void ClearGrab()
+    {
+        grabCandidates.Clear();
+        grabFocus = null;
+    }
+
+    public void Clear()
+    {
+        pointFocus = null;
+        grabFocus = null;
+        grabCandidates.Clear();
+        buttonAxisFocuses.Clear();
+    }
 }
