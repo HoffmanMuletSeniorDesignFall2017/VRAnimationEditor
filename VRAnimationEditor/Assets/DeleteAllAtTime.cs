@@ -6,6 +6,8 @@ using UnityEditor;
 public class DeleteAllAtTime : MonoBehaviour
 {
 
+    float THRESHOLD = .05f;
+
     public AnimationVisualizer animVis;
     // Use this for initialization
     void Start()
@@ -33,9 +35,9 @@ public class DeleteAllAtTime : MonoBehaviour
         for(int i = 0; i < animCurves.Count; i++)
         {
             for (int j = 0; j < animCurves[i].keys.Length; j++) {
-                Debug.Log(animCurves[i].keys[j].time);
+                Debug.Log(animCurves[i].keys[j].time * AnimationCurveVisualizer.X_OFFSET_CONSTANT);
                 Debug.Log(currentTime * animVis.keyframeWorkArea.GetComponent<KeyframeWorkArea>().bounds);
-                if(animCurves[i].keys[j].time * AnimationCurveVisualizer.X_OFFSET_CONSTANT == currentTime * animVis.keyframeWorkArea.GetComponent<KeyframeWorkArea>().bounds)
+                if(Mathf.Abs(animCurves[i].keys[j].time * AnimationCurveVisualizer.X_OFFSET_CONSTANT - currentTime * animVis.keyframeWorkArea.GetComponent<KeyframeWorkArea>().bounds) < THRESHOLD)
                 {
                     animCurves[i].RemoveKey(j);
                     animVis.RefreshAnimationCurve(i);

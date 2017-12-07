@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/VIVE/alec vr test scene 5.unity
+- path: Assets/Scenes/miles Test Scene 4.unity
   isLoaded: 1
   isActive: 1
